@@ -1,7 +1,7 @@
 // page.tsx
 export default function Page() {
   return (
-    <div className="container mx-8">
+    <div className="container px-8">
       <h2 className="text-3xl font-bold my-4">
         Welcome to Howie {`Jayz's`} Personal Website
       </h2>

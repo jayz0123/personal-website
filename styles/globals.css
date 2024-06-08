@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 71 85 105; /* text-slate-600 */
+  --background-start-rgb: 248 250 252; /* text-slate-50 */
+  --background-end-rgb: 248 250 252;  /* text-slate-50 */
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom right,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  /* transition: background-color 0.4s ease, color 0.4s ease;  */
+}
+
+.dark body {
+  --foreground-rgb: 226 232 240; /* text-slate-200 */
+  --background-start-rgb: 2 6 23; /* text-slate-950 */ 
+  --background-end-rgb: 2 6 23; /* text-slate-950 */ 
+
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom right,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+.icon {
+  filter: brightness(0) saturate(100%);
+}
+
+.dark .icon {
+  filter: brightness(0) saturate(100%) invert(1);
+}

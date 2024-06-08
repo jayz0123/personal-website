@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className='scroll-smooth'>
-      <body className={`${inter.className} transition duration-1000 ease-in-out antialiased flex flex-col min-h-screen`}>
+      <body className={`${inter.className} text-pretty transition duration-500 ease-in-out antialiased flex flex-col justify-between items-center min-h-screen`}>
         <Header />
         <main className="pt-16 flex-grow">
           {children}

@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${garamond.className} text-pretty transition duration-500 ease-in-out antialiased flex flex-col justify-between items-center min-h-screen`}
+        className={`${garamond.className} text-pretty antialiased flex flex-col justify-between items-center min-h-screen`}
       >
         <Header />
         <div className="flex flex-col items-center w-10/12 mt-6">

@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 71 85 105; /* text-slate-600 */
-  --background-start-rgb: 248 250 252; /* text-slate-50 */
-  --background-end-rgb: 248 250 252;  /* text-slate-50 */
+  --foreground-rgb: 38 38 38; /* text-neutral-800 */
+  --background-start-rgb: 229 229 229; /* text-neutral-200 */
+  --background-end-rgb: 229 229 229; /* text-neutral-200 */
 }
 
 body {
@@ -20,9 +20,9 @@ body {
 }
 
 .dark body {
-  --foreground-rgb: 226 232 240; /* text-slate-200 */
-  --background-start-rgb: 2 6 23; /* text-slate-950 */ 
-  --background-end-rgb: 2 6 23; /* text-slate-950 */ 
+  --foreground-rgb: 229 229 229; /* text-neutral-200 */
+  --background-start-rgb: 38 38 38; /* text-neutral-800 */
+  --background-end-rgb: 38 38 38; /* text-neutral-800 */
 
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -33,10 +33,10 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-.icon {
+/* .icon {
   filter: brightness(0) saturate(100%);
 }
 
 .dark .icon {
   filter: brightness(0) saturate(100%) invert(1);
-}
+} */

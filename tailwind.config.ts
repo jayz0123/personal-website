@@ -9,7 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      
+      translate: {
+        'double': '200%',
+      }
     },
   },
   plugins: [],

@@ -9,7 +9,10 @@ import {
 
 export default function ThemeToggleButton() {
   const [theme, setTheme] = useState<"light" | "dark" | "system">(() => {
-    if (localStorage.getItem("theme") !== null) {
+    if (
+      typeof window !== "undefined" &&
+      localStorage.getItem("theme") !== null
+    ) {
       return localStorage.getItem("theme") as "light" | "dark" | "system";
     }
     return "system";

@@ -27,7 +27,7 @@ export default function RootLayout({
       >
         <Theme>
           <Header />
-          <div className="flex flex-col items-center w-10/12 mt-6">
+          <div className="flex flex-row items-center w-10/12 my-6">
             <main>{children}</main>
           </div>
           <Footer />

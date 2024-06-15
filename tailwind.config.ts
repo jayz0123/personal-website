@@ -11,12 +11,14 @@ const config: Config = {
     extend: {
       translate: {
         'double': '200%',
-      }
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
   future: {
-    hoverOnlyWhenSupported: true,
+    // hoverOnlyWhenSupported: true,
   },
 }
 

@@ -3,6 +3,7 @@ import Menu from "@/components/Menu";
 import DropdownMenu from "@/components/DropdownMenu";
 import Networking from "@/components/Networking";
 import ThemeSwitch from "@/components/ThemeSwitch";
+import { HomeIcon } from "@heroicons/react/24/solid";
 
 // components/Header.tsx
 export default function NavBar() {
@@ -10,7 +11,8 @@ export default function NavBar() {
     <nav className="navbar w-full">
       <div className="navbar-start">
         <DropdownMenu />
-        <Link href="/" className="btn text-2xl">
+        <Link href="/" className="btn text-xl">
+          <HomeIcon width="24" height="24" />
           Howie Jayz
         </Link>
       </div>

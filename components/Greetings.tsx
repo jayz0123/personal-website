@@ -15,7 +15,7 @@ export default function Greetings() {
     Number(currentTime.split(":")[0]) <= 4;
 
   return (
-    <h2 className="text-3xl my-4">
+    <h2 className="text-3xl mb-10">
       <span className="font-bold">
         {`${
           isMidnight

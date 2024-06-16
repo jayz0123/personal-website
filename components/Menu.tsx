@@ -1,4 +1,10 @@
 import Link from "next/link";
+import {
+  PencilSquareIcon,
+  FolderOpenIcon,
+  CameraIcon,
+  ChatBubbleLeftEllipsisIcon,
+} from "@heroicons/react/24/solid";
 
 export default function Menu({ isDropdown }: { isDropdown: boolean }) {
   // const Details = ({ children }: { children: React.ReactNode }) => {
@@ -8,6 +14,7 @@ export default function Menu({ isDropdown }: { isDropdown: boolean }) {
   //     <details open={false}>{children}</details>
   //   );
   // };
+  const size = "24";
 
   return (
     <ul
@@ -21,23 +28,28 @@ export default function Menu({ isDropdown }: { isDropdown: boolean }) {
       `}
     >
       <li>
-        <a>Item 1</a>
+        <Link href="/thoughts">
+          <PencilSquareIcon width={size} height={size} />
+          Thoughts
+        </Link>
       </li>
       <li>
-        <details open={isDropdown ? true : false}>
-          <summary>Projects</summary>
-          <ul className="p-2">
-            <li>
-              <a>Submenu 1</a>
-            </li>
-            <li>
-              <a>Submenu 2</a>
-            </li>
-          </ul>
-        </details>
+        <Link href="/projects">
+          <FolderOpenIcon width={size} height={size} />
+          Projects
+        </Link>
       </li>
       <li>
-        <Link href="/contact">Contact</Link>
+        <Link href="/gallery">
+          <CameraIcon width={size} height={size} />
+          Gallery
+        </Link>
+      </li>
+      <li>
+        <Link href="/contact">
+          <ChatBubbleLeftEllipsisIcon width={size} height={size} />
+          Contact
+        </Link>
       </li>
     </ul>
   );

@@ -2,17 +2,31 @@ import Greetings from "@/components/Greetings";
 import Timeline from "@/components/Timeline";
 
 export default function Page() {
+  const textStyles = "text-lg mb-4";
   return (
     <div>
-      <h2 className="text-3xl font-bold my-4">
-        <Greetings />
-      </h2>
-      <p className="text-lg mb-4">
-        I&apos;m a passionate Software Development Engineer with a knack for
-        machine learning and GPU programming. I love making advanced computing
-        systems run faster and better, drawing on my background in electronic
-        engineering and applied machine learning. I&apos;m great at working with
-        tech-savvy teams to create innovative solutions.
+      <Greetings />
+      <p className={textStyles}>
+        I&apos;m Junhao Zhang(张俊豪), but you can call me Howie Jayz because it
+        sounds cooler and it&apos;s easier to remember. I&apos;m a Machine
+        Learning Software Engineer who geeks out over GPU programming and
+        advanced computing systems. My superpower? Making computers think faster
+        and smarter, all while keeping my sanity (mostly) intact.{" "}
+      </p>
+      <p className={textStyles}>
+        I&apos;ve spent my professional life optimizing performance for some of
+        the biggest names in tech, like Huggingface, Alibaba, and Microsoft.
+        Imagine tweaking Llama2-70B models and working on cutting-edge AI
+        projects while balancing on a unicycle&mdash;that&apos;s my daily grind,
+        except the unicycle is my standing desk chair and I don&apos;t actually
+        ride it… yet.{" "}
+      </p>
+      <p className={textStyles}>
+        When I&apos;m not busy making GPUs do my bidding, you can find me diving
+        into new tech like Next.js and TypeScript. If that sounds a bit too
+        nerdy, I also dabble in hobbies that involve less coding: hiking up tall
+        mountains, scuba diving into the deep blue, and capturing the world
+        through my camera lens.
       </p>
       <div>
         <Timeline />

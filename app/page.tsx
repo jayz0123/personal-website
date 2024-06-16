@@ -1,16 +1,24 @@
-// page.tsx
+import Greetings from "@/components/Greetings";
+import Timeline from "@/components/Timeline";
+
 export default function Page() {
   return (
-    <div className="">
+    <div>
       <h2 className="text-3xl font-bold my-4">
-        Welcome to Howie {`Jayz's`} Personal Website
+        <Greetings />
       </h2>
-      <p className="text-lg">
-        This is the homepage of Howie Jayz. Here you can find information about
-        me, my blog, and how to contact me.
+      <p className="text-lg mb-4">
+        I&apos;m a passionate Software Development Engineer with a knack for
+        machine learning and GPU programming. I love making advanced computing
+        systems run faster and better, drawing on my background in electronic
+        engineering and applied machine learning. I&apos;m great at working with
+        tech-savvy teams to create innovative solutions.
       </p>
+      <div>
+        <Timeline />
+      </div>
       {/* Testing */}
-      <div className="space-y-4">
+      {/* <div className="space-y-4">
         {[...Array(15)].map((_, i) => (
           <p key={i} className="text-lg">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
@@ -22,7 +30,7 @@ export default function Page() {
             Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.
           </p>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

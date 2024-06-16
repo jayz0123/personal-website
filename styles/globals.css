@@ -2,41 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 38 38 38; /* text-neutral-800 */
-  --background-start-rgb: 229 229 229; /* text-neutral-200 */
-  --background-end-rgb: 229 229 229; /* text-neutral-200 */
+.btn {
+  @apply btn-ghost;
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom right,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  /* transition: background-color 0.4s ease, color 0.4s ease; */
-}
-
-.dark body {
-  --foreground-rgb: 229 229 229; /* text-neutral-200 */
-  --background-start-rgb: 38 38 38; /* text-neutral-800 */
-  --background-end-rgb: 38 38 38; /* text-neutral-800 */
-
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom right,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-/* .icon {
-  filter: brightness(0) saturate(100%);
-}
-
-.dark .icon {
-  filter: brightness(0) saturate(100%) invert(1);
-} */

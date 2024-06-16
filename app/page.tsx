@@ -7,11 +7,11 @@ export default function Page() {
     <div>
       <Greetings />
       <p className={textStyles}>
-        I&apos;m Junhao Zhang(张俊豪), but you can call me Howie Jayz because it
+        I&apos;m Junhao Zhang (张俊豪), but you can call me Jayz because it
         sounds cooler and it&apos;s easier to remember. I&apos;m a Machine
         Learning Software Engineer who geeks out over GPU programming and
         advanced computing systems. My superpower? Making computers think faster
-        and smarter, all while keeping my sanity (mostly) intact.{" "}
+        and smarter, all while keeping my sanity (mostly) intact.
       </p>
       <p className={textStyles}>
         I&apos;ve spent my professional life optimizing performance for some of
@@ -19,7 +19,7 @@ export default function Page() {
         Imagine tweaking Llama2-70B models and working on cutting-edge AI
         projects while balancing on a unicycle&mdash;that&apos;s my daily grind,
         except the unicycle is my standing desk chair and I don&apos;t actually
-        ride it… yet.{" "}
+        ride it… yet.
       </p>
       <p className={textStyles}>
         When I&apos;m not busy making GPUs do my bidding, you can find me diving

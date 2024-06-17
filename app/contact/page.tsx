@@ -1,58 +1,71 @@
 "use client";
 
-import { useState, useRef } from "react";
-import emailjs from "@emailjs/browser";
+import React, { useState } from "react";
 import {
   UserIcon,
   EnvelopeIcon,
   PaperAirplaneIcon,
 } from "@heroicons/react/24/solid";
 
+interface ResponseData {
+  success?: boolean;
+  error?: string;
+}
+
 export default function Contact() {
-  // const form = useRef<HTMLFormElement>(null);
-  const userName = useRef<HTMLInputElement>(null);
-  const userEmail = useRef<HTMLInputElement>(null);
-  const userMessage = useRef<HTMLTextAreaElement>(null);
-  const userFile = useRef<HTMLInputElement>(null);
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userMessage, setUserMessage] = useState("");
+  const [content, setContent] = useState("");
+  const [filename, setFilename] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const [response, setResponse] = useState<ResponseData | null>(null);
 
   const size = 24;
 
-  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+  const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSending(true);
 
-    const [myServiceID, myTemplateID, myPublicKey] = [
-      "service_3z476pn",
-      "template_tpkg6jo",
-      "eC1d_-MEz99ERo6pl",
-    ];
-
-    const currentUserName = userName.current as HTMLInputElement;
-    const currentUserEmail = userEmail.current as HTMLInputElement;
-    const currentUserMessage = userMessage.current as HTMLTextAreaElement;
-    const currentUserFile = userFile.current as HTMLInputElement;
-
-    const sentContent = {
-      from_name: currentUserName.value,
-      from_email: currentUserEmail.value,
-      message: currentUserMessage.value,
-      file: currentUserFile.files,
-    };
+    const base64Content = content.split(",")[1];
 
     try {
-      setIsSending(true);
-      const result = await emailjs.send(
-        myServiceID,
-        myTemplateID,
-        sentContent,
-        myPublicKey
-      );
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName,
+          userEmail,
+          userMessage,
+          base64Content,
+          filename,
+        }),
+      });
+
+      const data = await res.json();
+      setResponse(data);
     } catch (error) {
-      console.error(error);
-      alert("Failed to send message.");
+      setResponse({ error: "Internal Server Error" });
     } finally {
       setIsSending(false);
     }
+  };
+
+  const onAddFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+    const files = e.target.files as FileList;
+
+    reader.onload = (r: ProgressEvent<FileReader>) => {
+      if (r.target === null) return;
+      if (r.target.result === null) return;
+
+      setContent(r.target.result.toString());
+      setFilename(files[0].name);
+    };
+
+    reader.readAsDataURL(files[0]);
   };
 
   return (
@@ -68,33 +81,33 @@ export default function Contact() {
         <label className="input input-bordered text-lg flex items-center gap-2">
           <UserIcon width={size} height={size} />
           <input
-            ref={userName}
             type="text"
             className=""
             placeholder="Your name"
+            onChange={(e) => setUserName(e.target.value)}
           />
         </label>
         <label className="input input-bordered text-lg flex items-center gap-2">
           <EnvelopeIcon width={size} height={size} />
           <input
-            ref={userEmail}
             type="text"
             className=""
             placeholder="Your email address"
+            onChange={(e) => setUserEmail(e.target.value)}
             required
           />
         </label>
         <textarea
-          ref={userMessage}
           name="message"
           className="flex-1 textarea textarea-bordered text-lg"
           placeholder="Type your message here..."
+          onChange={(e) => setUserMessage(e.target.value)}
           required
         />
         <input
-          ref={userFile}
           type="file"
           className="file-input file-input-bordered "
+          onChange={onAddFile}
         />
         <button
           disabled={isSending}
@@ -106,9 +119,18 @@ export default function Contact() {
           ) : (
             <PaperAirplaneIcon width={size} height={size} />
           )}
-          {`${isSending ? "Sending" : "Send Message"}`}
+          {isSending ? "Sending" : "Send Message"}
         </button>
       </form>
+      {response && (
+        <div>
+          {response.error ? (
+            <p style={{ color: "red" }}>{response.error}</p>
+          ) : (
+            <p style={{ color: "green" }}>Message sent successfully!</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }

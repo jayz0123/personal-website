@@ -12,8 +12,7 @@ export default function NavBar() {
       <div className="navbar-start">
         <DropdownMenu />
         <Link href="/" className="btn text-xl">
-          <HomeIcon width="24" height="24" />
-          Howie Jayz
+          <HomeIcon width="28" height="28" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

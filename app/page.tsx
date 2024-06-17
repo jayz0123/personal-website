@@ -4,7 +4,7 @@ import Timeline from "@/components/Timeline";
 export default function Home() {
   const textStyles = "text-lg mb-4";
   return (
-    <div className="xl:flex xl:my-32 xl:space-x-10 my-10 items-baseline">
+    <div className="xl:flex xl:space-x-10 my-10 items-baseline">
       <div className="flex-1">
         <Greetings />
         <p className={textStyles}>

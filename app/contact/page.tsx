@@ -56,20 +56,22 @@ export default function Contact() {
   };
 
   return (
-    <div className="flex flex-col xl:flex-row xl:my-32 xl:space-x-10 my-10">
-      <h2 className="text-xl mb-10 font-bold">
+    <div className="flex flex-col xl:flex-row xl:space-x-10 my-10 grow">
+      <h2 className="text-xl mb-10 font-bold flex-none">
         Got something to say or just want to share a funny cat meme? Drop me a
         message!
       </h2>
-      <form onSubmit={sendEmail} className="flex flex-col grow space-y-4">
+      <form
+        onSubmit={sendEmail}
+        className="flex flex-col flex-1 space-y-4 items-stretch"
+      >
         <label className="input input-bordered text-lg flex items-center gap-2">
           <UserIcon width={size} height={size} />
           <input
             ref={userName}
             type="text"
-            className="grow"
+            className=""
             placeholder="Your name"
-            required
           />
         </label>
         <label className="input input-bordered text-lg flex items-center gap-2">
@@ -77,7 +79,7 @@ export default function Contact() {
           <input
             ref={userEmail}
             type="text"
-            className="grow"
+            className=""
             placeholder="Your email address"
             required
           />
@@ -85,14 +87,14 @@ export default function Contact() {
         <textarea
           ref={userMessage}
           name="message"
-          className="textarea textarea-bordered grow min-h-[28rem] text-lg mb-5"
+          className="flex-1 textarea textarea-bordered text-lg"
           placeholder="Type your message here..."
           required
         />
         <input
           ref={userFile}
           type="file"
-          className="file-input file-input-bordered w-full"
+          className="file-input file-input-bordered "
         />
         <button
           disabled={isSending}

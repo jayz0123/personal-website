@@ -56,14 +56,14 @@ export default function Contact() {
   };
 
   return (
-    <div className="flex flex-col xl:flex-row xl:space-x-10 my-10 grow">
+    <div className="flex flex-col xl:flex-row xl:space-x-20 my-12 xl:my-32 grow items-center">
       <h2 className="text-xl mb-10 font-bold flex-none">
         Got something to say or just want to share a funny cat meme? Drop me a
         message!
       </h2>
       <form
         onSubmit={sendEmail}
-        className="flex flex-col flex-1 space-y-4 items-stretch"
+        className="flex flex-col flex-1 space-y-4 items-stretch w-full h-full"
       >
         <label className="input input-bordered text-lg flex items-center gap-2">
           <UserIcon width={size} height={size} />

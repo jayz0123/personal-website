@@ -4,7 +4,7 @@ import Timeline from "@/components/Timeline";
 export default function Home() {
   const textStyles = "text-lg mb-4";
   return (
-    <div className="xl:flex xl:space-x-10 my-10 items-baseline">
+    <div className="flex flex-col xl:flex-row-reverse my-12 items-center">
       <div className="flex-1">
         <Greetings />
         <p className={textStyles}>
@@ -30,7 +30,7 @@ export default function Home() {
           world through my camera lens.
         </p>
       </div>
-      <div className="flex-1 my-10 xl:-my-20">
+      <div className="flex-none">
         <Timeline />
       </div>
     </div>

@@ -1,6 +1,7 @@
 // layout.tsx
-import type { Metadata } from "next";
 import "@/styles/globals.css";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import type { Metadata } from "next";
 import { garamond } from "@/ui/fonts";
 import Theme from "@/app/Theme";
 import NavBar from "@/components/NavBar";
@@ -33,6 +34,7 @@ export default function RootLayout({
             <Footer />
           </div>
         </Theme>
+        <SpeedInsights />
       </body>
     </html>
   );

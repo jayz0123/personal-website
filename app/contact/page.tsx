@@ -101,6 +101,15 @@ export default function Contact() {
     }
   };
 
+  const preventEnterKeySubmission = (
+    e: React.KeyboardEvent<HTMLFormElement>
+  ) => {
+    const target = e.target;
+    if (e.key === "Enter" && target instanceof HTMLInputElement) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div className="flex flex-col xl:flex-row xl:space-x-20 my-12 xl:my-32 grow items-center">
       <h2 className="text-xl mb-10 font-bold flex-none">
@@ -109,6 +118,7 @@ export default function Contact() {
       </h2>
       <form
         onSubmit={sendEmail}
+        onKeyDown={(e) => preventEnterKeySubmission(e)}
         className="flex flex-col flex-1 space-y-4 items-stretch w-full h-full"
       >
         <label className="input input-bordered text-lg flex items-center gap-2">

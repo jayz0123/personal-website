@@ -86,9 +86,10 @@ export default function Contact() {
         }),
       });
 
-      setFeedback({ success: true, prompt: "Message sent!" });
-    } catch {
-      setFeedback({ success: false, prompt: "Try again later." });
+      if (response.ok) setFeedback({ success: true, prompt: "Message sent!" });
+      else setFeedback({ success: false, prompt: "File type not accepted!" });
+    } catch (error) {
+      setFeedback({ success: false, prompt: "Try again later!" });
     } finally {
       setIsSent(() => {
         setIsSending(false);
@@ -117,6 +118,7 @@ export default function Contact() {
             className="grow"
             placeholder="Your name"
             onChange={(e) => setName(e.target.value)}
+            disabled={isSending}
           />
         </label>
         {/* <div className={``} data-tip="Not a valid email address."> */}
@@ -138,6 +140,7 @@ export default function Contact() {
             }}
             onChange={(e) => setEmail(e.target.value)}
             onBlur={(e) => validateEmail(e.target.value)}
+            disabled={isSending}
             required
           />
 
@@ -149,11 +152,13 @@ export default function Contact() {
           className="flex-1 textarea textarea-bordered text-lg"
           placeholder="Type your message here..."
           onChange={(e) => setMsg(e.target.value)}
+          disabled={isSending}
         />
         <input
           type="file"
           className="file-input file-input-bordered "
           onChange={handleFileUpload}
+          disabled={isSending}
         />
         <button
           disabled={isSending}

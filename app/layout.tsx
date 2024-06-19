@@ -1,16 +1,16 @@
 // layout.tsx
-import "@/styles/globals.css";
+import '@/styles/globals.css';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import type { Metadata } from "next";
-import { garamond } from "@/ui/fonts";
-import Theme from "@/app/Theme";
-import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
+import type { Metadata } from 'next';
+import { garamond } from '@/ui/fonts';
+import Theme from '@/app/Theme';
+import NavBar from '@/components/NavBar';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Jayz",
-    default: "Howie Jayz",
+    template: '%s | Jayz',
+    default: 'Howie Jayz',
   },
   description: "Howie Jayz's Personal Website Built with Next.js",
 };

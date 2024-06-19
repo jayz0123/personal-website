@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
-import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
+import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
+import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 
 export default function ThemeSwitch() {
   const [isMounted, setIsMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
-  const size = "28";
+  const size = '28';
 
   const toggleTheme = () => {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
   };
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function ThemeSwitch() {
       <input
         onClick={toggleTheme}
         type="checkbox"
-        defaultChecked={resolvedTheme === "dark"}
+        defaultChecked={resolvedTheme === 'dark'}
       />
 
       {/* sun icon */}

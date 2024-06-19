@@ -1,8 +1,8 @@
-import Greetings from "@/components/Greetings";
-import Timeline from "@/components/Timeline";
+import Greetings from '@/components/Greetings';
+import Timeline from '@/components/Timeline';
 
 export default function Home() {
-  const textStyles = "text-lg mb-4";
+  const textStyles = 'text-lg mb-4';
   return (
     <div className="flex flex-col xl:flex-row-reverse my-12 items-center">
       <div className="flex-1">

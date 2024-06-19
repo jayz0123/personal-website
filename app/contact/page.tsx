@@ -5,67 +5,99 @@ import {
   UserIcon,
   EnvelopeIcon,
   PaperAirplaneIcon,
+  CheckIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/solid";
 
-interface ResponseData {
-  success?: boolean;
-  error?: string;
+interface FeedBack {
+  success: boolean;
+  prompt: string;
 }
 
 export default function Contact() {
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userMessage, setUserMessage] = useState("");
-  const [content, setContent] = useState("");
-  const [filename, setFilename] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [msg, setMsg] = useState("");
+  const [filename, setFilename] = useState<string | null>(null);
+  const [file, setFile] = useState<string | null>(null);
+
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [showTip, setShowTip] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const [response, setResponse] = useState<ResponseData | null>(null);
+  const [isSent, setIsSent] = useState(false);
+  const [feedback, setFeedback] = useState<FeedBack | null>(null);
 
   const size = 24;
 
+  const validateEmail = (email: string) => {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    setIsValidEmail(re.test(email) || email === "");
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+
+    if (!files || files?.length === 0) {
+      setFilename(null);
+      setFile(null);
+      return;
+    }
+
+    // console.log(files);
+    const reader = new FileReader();
+    reader.onload = (r: ProgressEvent<FileReader>) => {
+      if (r.target && r.target.result) {
+        setFilename(files[0].name);
+        setFile(r.target.result.toString());
+      }
+    };
+
+    reader.readAsDataURL(files[0]);
+  };
+
   const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isValidEmail) {
+      setShowTip(() => {
+        setTimeout(() => {
+          setShowTip(false);
+        }, 3000);
+        return true;
+      });
+      return;
+    }
+
     setIsSending(true);
 
-    const base64Content = content.split(",")[1];
-
     try {
-      const res = await fetch("/api/send", {
+      const response = await fetch("/api/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userName,
-          userEmail,
-          userMessage,
-          base64Content,
+          name,
+          email,
+          msg,
           filename,
+          content: file ? file.split(",")[1] : null,
         }),
       });
 
-      const data = await res.json();
-      setResponse(data);
-    } catch (error) {
-      setResponse({ error: "Internal Server Error" });
+      setFeedback({ success: true, prompt: "Message sent!" });
+    } catch {
+      setFeedback({ success: false, prompt: "Try again later." });
     } finally {
-      setIsSending(false);
+      setIsSent(() => {
+        setIsSending(false);
+        setTimeout(() => {
+          setIsSent(false);
+        }, 3000);
+        return true;
+      });
     }
-  };
-
-  const onAddFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
-    const files = e.target.files as FileList;
-
-    reader.onload = (r: ProgressEvent<FileReader>) => {
-      if (r.target === null) return;
-      if (r.target.result === null) return;
-
-      setContent(r.target.result.toString());
-      setFilename(files[0].name);
-    };
-
-    reader.readAsDataURL(files[0]);
   };
 
   return (
@@ -82,55 +114,72 @@ export default function Contact() {
           <UserIcon width={size} height={size} />
           <input
             type="text"
-            className=""
+            className="grow"
             placeholder="Your name"
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <label className="input input-bordered text-lg flex items-center gap-2">
+        {/* <div className={``} data-tip="Not a valid email address."> */}
+        <label
+          className={`input input-bordered ${
+            !isValidEmail && "input-error tooltip tooltip-error"
+          } text-lg flex items-center gap-2 ${showTip && "tooltip-open"}`}
+          data-tip="Not a valid email address!"
+        >
           <EnvelopeIcon width={size} height={size} />
+
           <input
             type="text"
-            className=""
+            className="grow"
             placeholder="Your email address"
-            onChange={(e) => setUserEmail(e.target.value)}
+            onFocus={() => {
+              setIsValidEmail(true);
+              setShowTip(false);
+            }}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={(e) => validateEmail(e.target.value)}
             required
           />
+
+          <span className="badge">Required</span>
         </label>
+        {/* </div> */}
         <textarea
           name="message"
           className="flex-1 textarea textarea-bordered text-lg"
           placeholder="Type your message here..."
-          onChange={(e) => setUserMessage(e.target.value)}
-          required
+          onChange={(e) => setMsg(e.target.value)}
         />
         <input
           type="file"
           className="file-input file-input-bordered "
-          onChange={onAddFile}
+          onChange={handleFileUpload}
         />
         <button
           disabled={isSending}
           type="submit"
-          className="btn text-xl self-center"
+          className={`btn text-xl self-center ${
+            isSent
+              ? feedback?.success
+                ? "btn-success"
+                : "btn-error"
+              : "btn-ghost"
+          }`}
         >
           {isSending ? (
             <span className="loading loading-spinner" />
+          ) : isSent ? (
+            feedback?.success ? (
+              <CheckIcon width={size} height={size} />
+            ) : (
+              <XMarkIcon width={size} height={size} />
+            )
           ) : (
             <PaperAirplaneIcon width={size} height={size} />
           )}
-          {isSending ? "Sending" : "Send Message"}
+          {isSending ? "Sending" : isSent ? feedback?.prompt : "Send Message"}
         </button>
       </form>
-      {response && (
-        <div>
-          {response.error ? (
-            <p style={{ color: "red" }}>{response.error}</p>
-          ) : (
-            <p style={{ color: "green" }}>Message sent successfully!</p>
-          )}
-        </div>
-      )}
     </div>
   );
 }

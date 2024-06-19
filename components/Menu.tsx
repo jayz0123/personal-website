@@ -7,14 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 export default function Menu({ isDropdown }: { isDropdown: boolean }) {
-  // const Details = ({ children }: { children: React.ReactNode }) => {
-  //   return !isDropdown ? (
-  //     <details>{children}</details>
-  //   ) : (
-  //     <details open={false}>{children}</details>
-  //   );
-  // };
-  const size = "24";
+  const size = 24;
 
   return (
     <ul

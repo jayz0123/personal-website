@@ -20,13 +20,13 @@ export default function ThemeSwitch() {
 
   if (!isMounted)
     return (
-      <label className="btn btn-circle">
+      <label className="btn btn-ghost btn-circle">
         <span className="loading loading-ring loading-2xl"></span>
       </label>
     );
 
   return (
-    <label className="btn btn-circle swap swap-rotate">
+    <label className="btn btn-ghost btn-circle swap swap-rotate">
       {/* this hidden checkbox controls the state */}
       <input
         onClick={toggleTheme}

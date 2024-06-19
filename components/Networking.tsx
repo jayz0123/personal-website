@@ -8,7 +8,7 @@ export default function Networking() {
       <Link
         href="https://github.com/howiejayz"
         target="_blank"
-        className="btn btn-circle join-item group"
+        className="btn btn-ghost btn-circle join-item group"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,7 @@ export default function Networking() {
       <Link
         href="https://linkedin.com/in/junhao-zh"
         target="_blank"
-        className="btn btn-circle join-item group"
+        className="btn btn-ghost btn-circle join-item group"
       >
         <svg
           role="img"
@@ -40,7 +40,7 @@ export default function Networking() {
       <Link
         href="https://instagram.com/howiejayz"
         target="_blank"
-        className="btn btn-circle join-item group"
+        className="btn btn-ghost btn-circle join-item group"
       >
         <svg
           role="img"

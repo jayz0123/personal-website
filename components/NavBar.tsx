@@ -11,7 +11,7 @@ export default function NavBar() {
     <nav className="navbar w-full">
       <div className="navbar-start">
         <DropdownMenu />
-        <Link href="/" className="btn text-xl">
+        <Link href="/" className="btn btn-ghost text-xl">
           <HomeIcon width="28" height="28" />
         </Link>
       </div>

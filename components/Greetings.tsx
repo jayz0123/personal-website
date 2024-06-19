@@ -4,15 +4,16 @@ import getLocalTime from "@/utils/getLocalTime";
 
 export default function Greetings() {
   const date = new Date();
-  const currentTime = getLocalTime({ date });
-  // const isMorning = currentTime.includes("AM");
-  const isAfternoon = currentTime.includes("PM");
+  const currentTime = getLocalTime(date);
+  const isAfternoon =
+    Number(currentTime.split(":")[0]) >= 12 &&
+    Number(currentTime.split(":")[0]) < 18;
   const isEvening =
-    currentTime.includes("PM") && Number(currentTime.split(":")[0]) >= 6;
+    Number(currentTime.split(":")[0]) >= 18 &&
+    Number(currentTime.split(":")[0]) < 0;
   const isMidnight =
-    currentTime.includes("AM") &&
     Number(currentTime.split(":")[0]) >= 0 &&
-    Number(currentTime.split(":")[0]) <= 4;
+    Number(currentTime.split(":")[0]) < 5;
 
   return (
     <h2 className="text-3xl mb-10">

@@ -31,7 +31,7 @@ export default function ThemeSwitch() {
       <input
         onClick={toggleTheme}
         type="checkbox"
-        checked={resolvedTheme === "dark"}
+        defaultChecked={resolvedTheme === "dark"}
       />
 
       {/* sun icon */}

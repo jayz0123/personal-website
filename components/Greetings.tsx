@@ -24,15 +24,15 @@ export default function Greetings() {
 
   if (!isMounted)
     return (
-      <div className="flex flex-col text-3xl mb-10 gap-2">
+      <div className="flex flex-col mb-10 gap-2">
         <div className="skeleton h-6 w-full"></div>
         <div className="skeleton h-6 w-2/3"></div>
       </div>
     );
 
   return (
-    <h2 className="text-3xl mb-10">
-      <span className="font-bold">
+    <h2 className="mb-8">
+      <span className="text-3xl font-bold">
         {`${
           isMidnight
             ? 'Hey there, night wanderer! '
@@ -43,7 +43,7 @@ export default function Greetings() {
                 : 'Morning! '
         }`}
       </span>
-      <span>
+      <span className="text-2xl">
         {`${
           isMidnight
             ? "Let's pretend staying up late is totally a good idea!"

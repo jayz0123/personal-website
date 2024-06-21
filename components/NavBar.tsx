@@ -1,9 +1,9 @@
-import Link from "next/link";
-import Menu from "@/components/Menu";
-import DropdownMenu from "@/components/DropdownMenu";
-import Networking from "@/components/Networking";
-import ThemeSwitch from "@/components/ThemeSwitch";
-import { HomeIcon } from "@heroicons/react/24/solid";
+import Link from 'next/link';
+import Menu from '@/components/Menu';
+import DropdownMenu from '@/components/DropdownMenu';
+import Networking from '@/components/Networking';
+import ThemeSwitch from '@/components/ThemeSwitch';
+import { HomeIcon } from '@heroicons/react/24/solid';
 
 // components/Header.tsx
 export default function NavBar() {
@@ -11,7 +11,11 @@ export default function NavBar() {
     <nav className="navbar w-full">
       <div className="navbar-start">
         <DropdownMenu />
-        <Link href="/" className="btn btn-ghost text-xl">
+        <Link
+          href="/"
+          className="btn btn-ghost text-xl"
+          aria-label="home button"
+        >
           <HomeIcon width="28" height="28" />
         </Link>
       </div>

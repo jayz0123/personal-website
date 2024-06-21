@@ -26,7 +26,10 @@ export default function ThemeSwitch() {
     );
 
   return (
-    <label className="btn btn-ghost btn-circle swap swap-rotate">
+    <label
+      className="btn btn-ghost btn-circle swap swap-rotate"
+      aria-label="dark mode switch"
+    >
       {/* this hidden checkbox controls the state */}
       <input
         onClick={toggleTheme}

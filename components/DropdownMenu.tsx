@@ -1,5 +1,5 @@
-import Menu from "@/components/Menu";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import Menu from '@/components/Menu';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 
 export default function DropdownMenu() {
   const size = 28;
@@ -10,6 +10,7 @@ export default function DropdownMenu() {
         tabIndex={0}
         role="button"
         className="btn btn-ghost btn-circle lg:hidden"
+        aria-label="dropdown menu"
       >
         <Bars3Icon
           className="fill-current"

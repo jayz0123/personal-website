@@ -1,7 +1,7 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function Networking() {
-  const size = "28";
+  const size = '28';
 
   return (
     <div className="join">
@@ -9,6 +9,7 @@ export default function Networking() {
         href="https://github.com/howiejayz"
         target="_blank"
         className="btn btn-ghost btn-circle join-item group"
+        aria-label="GitHub"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -24,6 +25,7 @@ export default function Networking() {
         href="https://linkedin.com/in/junhao-zh"
         target="_blank"
         className="btn btn-ghost btn-circle join-item group"
+        aria-label="LinkedIn"
       >
         <svg
           role="img"
@@ -41,6 +43,7 @@ export default function Networking() {
         href="https://instagram.com/howiejayz"
         target="_blank"
         className="btn btn-ghost btn-circle join-item group"
+        aria-label="Instagram"
       >
         <svg
           role="img"

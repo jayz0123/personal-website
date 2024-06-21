@@ -1,10 +1,10 @@
-import Link from "next/link";
+import Link from 'next/link';
 import {
   PencilSquareIcon,
   FolderOpenIcon,
   CameraIcon,
   ChatBubbleLeftEllipsisIcon,
-} from "@heroicons/react/24/solid";
+} from '@heroicons/react/24/solid';
 
 export default function Menu({ isDropdown }: { isDropdown: boolean }) {
   const size = 24;
@@ -15,8 +15,8 @@ export default function Menu({ isDropdown }: { isDropdown: boolean }) {
       className={`menu text-lg
         ${
           isDropdown
-            ? "bg-base-200 text-lg w-60 dropdown-content mt-3 z-30 p-2 shadow rounded-box"
-            : "menu-horizontal"
+            ? 'bg-base-200 text-lg w-60 dropdown-content mt-3 z-30 p-2 shadow rounded-box'
+            : 'menu-horizontal'
         }
       `}
     >

@@ -13,6 +13,7 @@ export default function Contact() {
         Got something to say or just want to share a funny cat meme? Drop me a
         message!
       </h2>
+      <div className="divider divider-horizontal" />
       <ContactForm />
     </>
   );

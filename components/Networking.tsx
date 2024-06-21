@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 export default function Networking() {
-  const size = '28';
+  const size = 28;
 
   return (
     <div className="join">

@@ -1,7 +1,7 @@
-import { AcademicCapIcon, BriefcaseIcon } from "@heroicons/react/24/solid";
+import { AcademicCapIcon, BriefcaseIcon } from '@heroicons/react/24/solid';
 
 export default function Timeline() {
-  const size = "20";
+  const size = 18;
 
   return (
     <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
@@ -9,7 +9,7 @@ export default function Timeline() {
         <div className="timeline-middle">
           <AcademicCapIcon width={size} height={size} />
         </div>
-        <div className="timeline-start md:text-end mb-10">
+        <div className="timeline-start md:text-end mb-auto">
           <time className="font-mono italic">2016</time>
           <div className="text-lg font-black">
             BEng at Xi&apos;an Jiaotong-Liverpool University
@@ -23,7 +23,7 @@ export default function Timeline() {
         <div className="timeline-middle">
           <AcademicCapIcon width={size} height={size} />
         </div>
-        <div className="timeline-end mb-10">
+        <div className="timeline-end mb-auto">
           <time className="font-mono italic">2018</time>
           <div className="text-lg font-black">
             BEng at University of Liverpool
@@ -37,7 +37,7 @@ export default function Timeline() {
         <div className="timeline-middle">
           <AcademicCapIcon width={size} height={size} />
         </div>
-        <div className="timeline-start md:text-end mb-10">
+        <div className="timeline-start md:text-end mb-auto">
           <time className="font-mono italic">2020</time>
           <div className="text-lg font-black">
             MSc at Imperial College London
@@ -51,7 +51,7 @@ export default function Timeline() {
         <div className="timeline-middle">
           <BriefcaseIcon width={size} height={size} />
         </div>
-        <div className="timeline-end mb-10">
+        <div className="timeline-end mb-auto">
           <time className="font-mono italic">2022</time>
           <div className="text-lg font-black">Software Engineer at AMD</div>
           Placeholder
@@ -63,7 +63,7 @@ export default function Timeline() {
         <div className="timeline-middle">
           <AcademicCapIcon width={size} height={size} />
         </div>
-        <div className="timeline-start md:text-end mb-10">
+        <div className="timeline-start md:text-end mb-auto">
           <time className="font-mono italic">2024</time>
           <div className="text-lg font-black">PhD at University of Oxford</div>
           Placeholder
@@ -75,7 +75,7 @@ export default function Timeline() {
         <div className="timeline-middle">
           <AcademicCapIcon width={size} height={size} />
         </div>
-        <div className="timeline-start md:text-end mb-10">
+        <div className="timeline-start md:text-end mb-auto">
           <time className="font-mono italic">Present</time>
         </div>
       </li>

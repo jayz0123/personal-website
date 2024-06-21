@@ -5,7 +5,7 @@ export default function Home() {
   const textStyles = 'text-lg mb-4';
   return (
     <div className="flex flex-col xl:flex-row-reverse mt-16 mb-8 items-center">
-      <section className="flex-1">
+      <section className="flex-1 mb-8 xl:mb-0">
         <Greetings />
         <p className={textStyles}>
           I&apos;m Junhao Zhang (张俊豪), but you can call me Jayz because it
@@ -30,7 +30,8 @@ export default function Home() {
           world through my camera lens.
         </p>
       </section>
-      <section className="mt-4 flex-none">
+      <div className="divider divider-horizontal" />
+      <section className="flex-1">
         <Timeline />
       </section>
     </div>

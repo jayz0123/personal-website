@@ -24,9 +24,9 @@ export default function Greetings() {
 
   if (!isMounted)
     return (
-      <div className="flex flex-col mb-10 gap-2">
-        <div className="skeleton h-6 w-full"></div>
-        <div className="skeleton h-6 w-2/3"></div>
+      <div className="flex flex-col mb-8 gap-2">
+        <div className="skeleton h-8 w-full"></div>
+        <div className="skeleton h-8 w-2/3"></div>
       </div>
     );
 

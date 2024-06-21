@@ -1,8 +1,11 @@
 'use client';
 
 import getLocalTime from '@/utils/getLocalTime';
+import { useState, useEffect } from 'react';
 
 export default function Greetings() {
+  const [isMounted, setIsMounted] = useState(false);
+
   const date = new Date();
   const currentTime = getLocalTime(date);
   const isAfternoon =
@@ -14,6 +17,18 @@ export default function Greetings() {
   const isMidnight =
     Number(currentTime.split(':')[0]) >= 0 &&
     Number(currentTime.split(':')[0]) < 5;
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted)
+    return (
+      <div className="flex flex-col text-3xl mb-10 gap-2">
+        <div className="skeleton h-6 w-full"></div>
+        <div className="skeleton h-6 w-2/3"></div>
+      </div>
+    );
 
   return (
     <h2 className="text-3xl mb-10">

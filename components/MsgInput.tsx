@@ -23,7 +23,7 @@ export default function MsgInput({
       <input
         type="file"
         aria-label="file input"
-        className="file-input file-input-bordered"
+        className="file-input file-input-bordered flex-none"
         onChange={async (e) => {
           const file = await handleFileUpload(e.target.files);
           onFileChange(file);

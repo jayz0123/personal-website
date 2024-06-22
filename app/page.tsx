@@ -4,7 +4,7 @@ import Timeline from '@/components/Timeline';
 export default function Home() {
   const textStyles = 'text-lg mb-4';
   return (
-    <div className="flex flex-col xl:flex-row-reverse mt-16 mb-8 items-center">
+    <div className="flex flex-col xl:flex-row-reverse items-center">
       <section className="flex-1 mb-8 xl:mb-0">
         <Greetings />
         <p className={textStyles}>

@@ -31,7 +31,9 @@ export default function RootLayout({
             <div className="sticky top-0 z-30 flex h-16 w-full items-center backdrop-blur">
               <NavBar />
             </div>
-            <main className="flex w-10/12 grow">{children}</main>
+            <main className="flex w-10/12 grow mt-16 mb-8 xl:mt-32">
+              {children}
+            </main>
             <Footer />
           </div>
         </Theme>

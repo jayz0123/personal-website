@@ -11,7 +11,7 @@ export default function NameInput({
 }) {
   return (
     <label
-      className="input input-bordered text-lg flex items-center gap-2"
+      className="input input-bordered text-lg flex items-center gap-2 flex-none"
       aria-label="name input"
     >
       <UserIcon width={textSize} height={textSize} />

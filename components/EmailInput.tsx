@@ -22,7 +22,7 @@ export default function EmailInput({
     <label
       className={`input input-bordered ${
         isValidEmail === false && 'input-error'
-      }  text-lg flex items-center gap-2`}
+      }  text-lg flex items-center gap-2 flex-none`}
       data-tip="Not a valid email address!"
       aria-label="message input"
     >

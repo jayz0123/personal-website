@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       from: 'Howie Jayz <contact@howiejayz.com>',
       to: ['howiejayzh@gmail.com'],
       reply_to: email,
-      subject: `New message from ${name ? name : 'Anonymous'}`,
+      subject: `New message from ${name || 'Anonymous'}`,
       react: <EmailToMe userEmail={email} userMessage={msg} />,
       attachments: filename ? [{ filename, content }] : undefined,
     });

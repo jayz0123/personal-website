@@ -22,9 +22,6 @@ export default function EmailToUser({
   userName: string;
   userMessage: string;
 }) {
-  const preview = userName
-    ? `Hi ${userName}! I got your message!`
-    : `I got your message!`;
   const paragraphs = userMessage.split(/\r?\n|\r|\n/g);
   return (
     <Html>
@@ -46,7 +43,7 @@ export default function EmailToUser({
               <strong>Howie Jayz</strong>
             </Heading>
             <Text className="text-black text-[14px] leading-[24px]">
-              Hello {userName ? userName : 'there'},
+              Hello {userName || 'there'},
             </Text>
             <Text className="text-black text-[14px] leading-[24px]">
               You have just sent me a message on my website. Here is what you

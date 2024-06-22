@@ -14,7 +14,7 @@ export default function MsgInput({
       <textarea
         name="message"
         aria-label="message input"
-        className="flex-1 textarea textarea-bordered text-lg"
+        className="flex-1 textarea textarea-bordered text-lg min-h-48"
         placeholder="Type your message here..."
         onChange={(e) => onTextChange(e.target.value)}
         disabled={isSending}

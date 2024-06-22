@@ -19,7 +19,7 @@ export default function NavBar() {
           <HomeIcon width="28" height="28" />
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-center hidden md:flex">
         <Menu isDropdown={false} />
       </div>
       <div className="navbar-end">

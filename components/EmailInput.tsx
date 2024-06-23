@@ -1,49 +1,36 @@
-'use client';
+import { useMemo } from 'react';
 
-import { useState, useRef, useEffect } from 'react';
-
-import { EnvelopeIcon } from '@heroicons/react/24/solid';
+import { Input } from '@nextui-org/input';
 import validateEmail from '@/utils/validateEmail';
 
 export default function EmailInput({
-  onTextChange,
+  onEmailChange,
   isSending,
-  size = 24,
 }: {
-  onTextChange: (arg0: string) => void;
+  onEmailChange: (arg0: string) => void;
   isSending: boolean;
-  size?: number;
 }) {
-  const [isValidEmail, setIsValidEmail] = useState<boolean | undefined>(
-    undefined,
-  );
+  // const [isInvalid, setIsInvalid] = useState<boolean | undefined>(undefined);
 
   return (
-    <label
-      className={`input input-bordered ${
-        isValidEmail === false && 'input-error'
-      }  text-lg flex items-center gap-2 flex-none`}
-      data-tip="Not a valid email address!"
-      aria-label="message input"
-    >
-      <EnvelopeIcon
-        width={size}
-        height={size}
-        className={`${isValidEmail === false && !isSending && 'text-error'}`}
-      />
-      <input
-        type="text"
-        className="grow"
-        placeholder="Your email address"
-        onFocus={() => {
-          setIsValidEmail(undefined);
-        }}
-        onChange={(e) => onTextChange(e.target.value)}
-        onBlur={(e) => setIsValidEmail(validateEmail(e.target.value))}
-        disabled={isSending}
-        required
-      />
-      <span className="badge">Required</span>
-    </label>
+    <Input
+      isRequired
+      isClearable
+      isDisabled={isSending}
+      type="email"
+      label="Email"
+      onValueChange={onEmailChange}
+      validate={(value) => {
+        if (value.length <= 0) {
+          return 'Please enter an email address';
+        } else if (validateEmail(value) === false) {
+          return 'Please enter a valid email';
+        } else return true;
+      }}
+      validationBehavior="native"
+      errorMessage={(res) => {
+        return res.isInvalid ? res.validationErrors : null;
+      }}
+    />
   );
 }

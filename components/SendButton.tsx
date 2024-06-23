@@ -3,6 +3,7 @@ import {
   XMarkIcon,
   PaperAirplaneIcon,
 } from '@heroicons/react/24/solid';
+import { Button, ButtonGroup } from '@nextui-org/button';
 
 export default function SendButton({
   isSending,
@@ -18,26 +19,27 @@ export default function SendButton({
   size?: number;
 }) {
   return (
-    <button
-      disabled={isSending}
+    <Button
       type="submit"
-      className={`btn text-xl self-center ${
-        isSent ? (success ? 'btn-success' : 'btn-error') : 'btn-ghost'
-      }`}
+      // variant={''}
+      color={isSent ? (success ? 'success' : 'danger') : 'default'}
+      isLoading={isSending}
+      isDisabled={isSending || isSent}
+      startContent={
+        isSent ? (
+          success ? (
+            <CheckIcon width={size} height={size} />
+          ) : (
+            <XMarkIcon width={size} height={size} />
+          )
+        ) : !isSending ? (
+          <PaperAirplaneIcon width={size} height={size} />
+        ) : null
+      }
       aria-label="send message button"
+      className="text-lg"
     >
-      {isSending ? (
-        <span className="loading loading-spinner" />
-      ) : isSent ? (
-        success ? (
-          <CheckIcon width={size} height={size} />
-        ) : (
-          <XMarkIcon width={size} height={size} />
-        )
-      ) : (
-        <PaperAirplaneIcon width={size} height={size} />
-      )}
-      {isSending ? 'Sending' : isSent ? prompt : 'Send Message'}
-    </button>
+      {isSending ? 'Sending' : isSent ? prompt : 'Send'}
+    </Button>
   );
 }

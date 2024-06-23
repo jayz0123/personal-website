@@ -1,4 +1,5 @@
-import type { Config } from 'tailwindcss'
+import { nextui } from '@nextui-org/theme';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   darkMode: ['class'],
@@ -6,17 +7,16 @@ const config: Config = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@nextui-org/theme/dist/components/(button|input|navbar|ripple|spinner).js',
   ],
   theme: {
     extend: {
       translate: {
-        'double': '200%',
+        double: '200%',
       },
     },
   },
-  plugins: [
-    require('daisyui'),
-  ],
+  plugins: [require('daisyui'), nextui()],
 
   daisyui: {
     // styled: false,
@@ -26,6 +26,6 @@ const config: Config = {
   future: {
     // hoverOnlyWhenSupported: true,
   },
-}
+};
 
-export default config
+export default config;

@@ -1,35 +1,26 @@
-import handleFileUpload, { File } from '@/utils/handleFileUpload';
+import { Textarea } from '@nextui-org/input';
 
 export default function MsgInput({
-  onTextChange,
-  onFileChange,
+  onMsgChange,
   isSending,
 }: {
-  onTextChange: (arg0: string) => void;
-  onFileChange: (arg0: File | undefined) => void;
+  onMsgChange: (arg0: string) => void;
   isSending: boolean;
 }) {
   return (
-    <>
-      <textarea
-        name="message"
-        aria-label="message input"
-        className="flex-1 textarea textarea-bordered text-lg min-h-48"
-        placeholder="Type your message here..."
-        onChange={(e) => onTextChange(e.target.value)}
-        disabled={isSending}
-        required
-      />
-      <input
-        type="file"
-        aria-label="file input"
-        className="file-input file-input-bordered flex-none"
-        onChange={async (e) => {
-          const file = await handleFileUpload(e.target.files);
-          onFileChange(file);
-        }}
-        disabled={isSending}
-      />
-    </>
+    <Textarea
+      isRequired
+      isDisabled={isSending}
+      label="Message"
+      minRows={6}
+      onValueChange={onMsgChange}
+      validate={(value) => {
+        return value.length > 0 ? true : 'Please enter a message';
+      }}
+      validationBehavior="native"
+      errorMessage={(res) => {
+        return res.isInvalid ? res.validationErrors : null;
+      }}
+    />
   );
 }

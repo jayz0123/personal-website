@@ -9,6 +9,7 @@ import NameInput from './NameInput';
 import EmailInput from './EmailInput';
 import MsgInput from './MsgInput';
 import SendButton from './SendButton';
+import FileInput from './FileInput';
 
 interface FeedBack {
   success: boolean;
@@ -75,13 +76,10 @@ export function ContactForm() {
       onKeyDown={(e) => preventEnterKeySubmission(e)}
       className="flex flex-col flex-1 space-y-4 items-stretch w-full h-full"
     >
-      <NameInput isSending={isSending} onTextChange={setName} />
-      <EmailInput isSending={isSending} onTextChange={setEmail} />
-      <MsgInput
-        isSending={isSending}
-        onTextChange={setMsg}
-        onFileChange={setFile}
-      />
+      <NameInput isSending={isSending} onNameChange={setName} />
+      <EmailInput isSending={isSending} onEmailChange={setEmail} />
+      <MsgInput isSending={isSending} onMsgChange={setMsg} />
+      <FileInput isSending={isSending} onFileChange={setFile} />
       <SendButton
         isSending={isSending}
         isSent={isSent}

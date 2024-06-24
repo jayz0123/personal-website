@@ -8,7 +8,7 @@ export default function ThemeSwitch() {
   const [isMounted, setIsMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
-  const size = '28';
+  const size = '24';
 
   const toggleTheme = () => {
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
@@ -26,10 +26,7 @@ export default function ThemeSwitch() {
     );
 
   return (
-    <label
-      className="btn btn-ghost btn-circle swap swap-rotate"
-      aria-label="dark mode switch"
-    >
+    <label className="swap swap-rotate" aria-label="dark mode switch">
       {/* this hidden checkbox controls the state */}
       <input
         onClick={toggleTheme}

@@ -25,14 +25,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body
-        className={`${garamond.className} bg-base-100 text-base-content transition duration-200 ease-in-out text-pretty antialiased `}
-      >
+      <body className={`${garamond.className} text-pretty antialiased `}>
         <Providers>
           <div className="flex flex-col items-center justify-between min-h-screen">
-            <div className="sticky top-0 z-30 flex h-16 w-full items-center backdrop-blur">
-              <NavBar />
-            </div>
+            {/* <div className="sticky top-0 z-30 flex h-16 w-full items-center backdrop-blur"> */}
+            <NavBar />
+            {/* </div> */}
             <main className="flex w-10/12 grow mt-16 mb-8 xl:mt-32">
               {children}
             </main>

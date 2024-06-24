@@ -4,9 +4,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 
+import Providers from './Providers';
 import { garamond } from '@/ui/fonts';
-import Theme from '@/app/Theme';
-import UIProvider from '@/app/UIProviders';
 
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
@@ -29,19 +28,17 @@ export default function RootLayout({
       <body
         className={`${garamond.className} bg-base-100 text-base-content transition duration-200 ease-in-out text-pretty antialiased `}
       >
-        <UIProvider>
-          <Theme>
-            <div className="flex flex-col items-center justify-between min-h-screen">
-              <div className="sticky top-0 z-30 flex h-16 w-full items-center backdrop-blur">
-                <NavBar />
-              </div>
-              <main className="flex w-10/12 grow mt-16 mb-8 xl:mt-32">
-                {children}
-              </main>
-              <Footer />
+        <Providers>
+          <div className="flex flex-col items-center justify-between min-h-screen">
+            <div className="sticky top-0 z-30 flex h-16 w-full items-center backdrop-blur">
+              <NavBar />
             </div>
-          </Theme>
-        </UIProvider>
+            <main className="flex w-10/12 grow mt-16 mb-8 xl:mt-32">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </Providers>
         <SpeedInsights />
         <Analytics />
       </body>

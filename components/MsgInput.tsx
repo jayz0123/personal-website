@@ -1,4 +1,5 @@
 import { Textarea } from '@nextui-org/input';
+import { useState } from 'react';
 
 export default function MsgInput({
   onMsgChange,
@@ -15,7 +16,7 @@ export default function MsgInput({
       minRows={6}
       onValueChange={onMsgChange}
       validate={(value) => {
-        return value.length > 0 ? true : 'Please enter a message';
+        return value.length <= 0 ? 'Please enter a message' : true;
       }}
       validationBehavior="native"
       errorMessage={(res) => {

@@ -1,9 +1,9 @@
 import { createClient } from '@/utils/supabase/server';
 import Photo from './Photo';
+import { url } from 'inspector';
 
 export default async function PhotoCarousel() {
   const supabase = createClient();
-  console.log(supabase);
 
   // list all files in the requested folder
   const { data: files, error: errorListing } = await supabase.storage
@@ -22,15 +22,15 @@ export default async function PhotoCarousel() {
   const paths = files.map((file) => 'Japan' + '/' + file.name);
 
   // create signed urls for all files
-  const { data, error: errorCreating } = await supabase.storage
-    .from('Gallery')
-    .createSignedUrls(paths, 60);
+  const images = paths.map((path) => {
+    return supabase.storage.from('Gallery').getPublicUrl(path);
+  });
 
-  if (!data) {
+  if (!images) {
     return <div>Error creating urls</div>;
   }
 
-  const urls = data?.map((file) => file.signedUrl);
+  const urls = images.map((image) => image.data.publicUrl);
 
   return (
     <div className="carousel carousel-center glass p-4 space-x-8 rounded-box">
@@ -41,8 +41,4 @@ export default async function PhotoCarousel() {
       ))}
     </div>
   );
-  // } catch (error) {
-  //   console.log(error);
-  //   return <div>Error fetching photos</div>;
-  // }
 }

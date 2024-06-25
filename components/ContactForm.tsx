@@ -1,91 +1,188 @@
-'use clinet';
-
 import { useState } from 'react';
+import { Controller, Form, useForm } from 'react-hook-form';
 
-import preventEnterKeySubmission from '@/utils/preventEnterKeySubmission';
+import {
+  CheckIcon,
+  XMarkIcon,
+  PaperAirplaneIcon,
+} from '@heroicons/react/24/solid';
+
+import { Input, Textarea } from '@nextui-org/input';
+import { Button } from '@nextui-org/button';
+
 import { File } from '@/utils/handleFileUpload';
-
-import NameInput from './NameInput';
-import EmailInput from './EmailInput';
-import MsgInput from './MsgInput';
-import SendButton from './SendButton';
 import FileInput from './FileInput';
 
-interface FeedBack {
-  success: boolean;
-  prompt: string;
+interface IFormInput {
+  name?: string;
+  email: string;
+  message: string;
+  filename?: string | false | undefined;
+  content?: string | Buffer;
 }
 
 export function ContactForm() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [msg, setMsg] = useState('');
-  const [file, setFile] = useState<File | undefined>(undefined);
+  const {
+    control,
+    reset,
+    formState: { isSubmitting, isValid, isDirty, isSubmitSuccessful },
+  } = useForm<IFormInput>({
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+      filename: '',
+      content: '',
+    },
+    progressive: true,
+  });
+  const [response, setResponse] = useState<string | null>(null);
 
-  const [isSending, setIsSending] = useState(false);
-  const [isSent, setIsSent] = useState(false);
-  const [feedback, setFeedback] = useState<FeedBack | undefined>(undefined);
+  const IconSize = 24;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    setIsSending(true);
-
-    try {
-      const response = await fetch('/api/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          msg,
-          filename: file?.name,
-          content: file?.content ? file.content.split(',')[1] : undefined,
-        }),
-      });
-
-      const { body } = await response.json();
-
-      setFeedback({
-        success: response.ok,
-        prompt:
-          body === 'validation_error'
-            ? 'Invalid email address'
-            : body === 'invalid_attachment'
-              ? 'File type not supported'
-              : body,
-      });
-    } catch (error) {
-      setFeedback({ success: false, prompt: 'Try again later' });
-    } finally {
-      setIsSent(() => {
-        setIsSending(false);
-        setTimeout(() => {
-          setIsSent(false);
-        }, 3000);
-        return true;
-      });
-    }
-  };
+  const regExp =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      onKeyDown={(e) => preventEnterKeySubmission(e)}
-      className="flex flex-col flex-1 space-y-4 items-stretch w-full h-full"
-    >
-      <NameInput isSending={isSending} onNameChange={setName} />
-      <EmailInput isSending={isSending} onEmailChange={setEmail} />
-      <MsgInput isSending={isSending} onMsgChange={setMsg} />
-      <FileInput isSending={isSending} onFileChange={setFile} />
-      <SendButton
-        isSending={isSending}
-        isSent={isSent}
-        success={feedback?.success}
-        prompt={feedback?.prompt}
-      />
-    </form>
+    <div className="w-full h-full flex-1">
+      <Form
+        action="/api/send"
+        headers={{
+          'Content-Type': 'application/json',
+        }}
+        control={control}
+        onSubmit={({ data }) => {
+          console.log(data);
+        }}
+        onSuccess={async ({ response }) => {
+          const { body } = await response?.json();
+          setResponse(() => {
+            setTimeout(() => {
+              reset();
+              setResponse(null);
+            }, 3000);
+            return body;
+          });
+        }}
+        onError={async ({ response }) => {
+          const { body } = await response?.json();
+          setResponse(() => {
+            setTimeout(() => {
+              setResponse(null);
+            }, 3000);
+            return body;
+          });
+        }}
+        className="flex flex-col space-y-4 items-stretch w-full"
+      >
+        {/* user's name */}
+        <Controller
+          name="name"
+          control={control}
+          render={({
+            field: { onChange, value },
+            formState: { isSubmitting },
+          }) => (
+            <Input
+              isClearable
+              isDisabled={isSubmitting || isSubmitSuccessful}
+              value={value}
+              onValueChange={onChange}
+              type="name"
+              label="Name"
+            />
+          )}
+        />
+
+        {/* user's email */}
+        <Controller
+          name="email"
+          control={control}
+          rules={{
+            required: 'Please enter an email address',
+            pattern: { value: regExp, message: 'Invalid email address' },
+          }}
+          render={({
+            field: { value, onChange },
+            fieldState: { invalid, error },
+            formState: { isSubmitting },
+          }) => (
+            <Input
+              isRequired
+              isClearable
+              isDisabled={isSubmitting || isSubmitSuccessful}
+              value={value}
+              onValueChange={onChange}
+              isInvalid={invalid}
+              errorMessage={error?.message}
+              type="email"
+              label="Email"
+            />
+          )}
+        />
+
+        {/* user's message */}
+        <Controller
+          name="message"
+          control={control}
+          rules={{ required: 'Please enter a message' }}
+          render={({
+            field: { value, onChange },
+            fieldState: { invalid, error },
+            formState: { isSubmitting },
+          }) => (
+            <Textarea
+              isRequired
+              isDisabled={isSubmitting || isSubmitSuccessful}
+              value={value}
+              onValueChange={onChange}
+              isInvalid={invalid}
+              errorMessage={error?.message}
+              label="Message"
+              minRows={8}
+            />
+          )}
+        />
+
+        {/* send button */}
+        <Button
+          type="submit"
+          variant={'shadow'}
+          color={
+            isSubmitting
+              ? 'default'
+              : isDirty
+                ? isValid
+                  ? 'success'
+                  : 'warning'
+                : isSubmitSuccessful
+                  ? response
+                    ? 'success'
+                    : 'danger'
+                  : 'default'
+          }
+          isLoading={isSubmitting}
+          isDisabled={isSubmitting || isSubmitSuccessful}
+          startContent={
+            response && !isSubmitting ? (
+              isSubmitSuccessful ? (
+                <CheckIcon width={IconSize} height={IconSize} />
+              ) : (
+                <XMarkIcon width={IconSize} height={IconSize} />
+              )
+            ) : (
+              !isSubmitting && (
+                <PaperAirplaneIcon width={IconSize} height={IconSize} />
+              )
+            )
+          }
+          aria-label="send button"
+          className="text-lg"
+        >
+          {(!isSubmitting && response) ||
+            (isSubmitting ? 'Sending...' : 'Send')}
+        </Button>
+      </Form>
+    </div>
   );
 }

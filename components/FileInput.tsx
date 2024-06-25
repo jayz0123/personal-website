@@ -10,7 +10,7 @@ export default function FileInput({
 }) {
   return (
     <div className="flex items-center justify-center w-full">
-      <label
+      {/* <label
         htmlFor="dropzone-file"
         className="flex flex-col items-center justify-center w-full border-2 border-dashed rounded-lg cursor-pointer"
       >
@@ -45,7 +45,7 @@ export default function FileInput({
           }}
           className="hidden"
         />
-      </label>
+      </label> */}
     </div>
   );
 }

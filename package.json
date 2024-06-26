@@ -20,6 +20,7 @@
     "@nextui-org/link": "^2.0.32",
     "@nextui-org/navbar": "^2.0.33",
     "@nextui-org/scroll-shadow": "^2.1.17",
+    "@nextui-org/skeleton": "^2.0.29",
     "@nextui-org/system": "^2.2.2",
     "@nextui-org/theme": "^2.2.6",
     "@react-email/components": "0.0.19",

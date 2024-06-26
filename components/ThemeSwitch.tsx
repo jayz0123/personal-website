@@ -6,7 +6,7 @@ import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 
 export default function ThemeSwitch() {
   const [isMounted, setIsMounted] = useState(false);
-  const { resolvedTheme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
 
   const size = '24';
 
@@ -18,13 +18,9 @@ export default function ThemeSwitch() {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted)
-    return (
-      <label className="btn btn-ghost btn-circle">
-        <span className="loading loading-ring loading-2xl"></span>
-      </label>
-    );
-
+  if (!isMounted) {
+    return <span className="loading loading-ball loading-xl"></span>;
+  }
   return (
     <label className="swap swap-rotate" aria-label="dark mode switch">
       {/* this hidden checkbox controls the state */}

@@ -47,6 +47,7 @@ export function ContactForm() {
 
   return (
     <div className="w-full h-full flex-1">
+      {/* react hook form component */}
       <Form
         action="/api/send"
         headers={{
@@ -75,7 +76,7 @@ export function ContactForm() {
             return body;
           });
         }}
-        className="flex flex-col space-y-4 items-stretch w-full"
+        className="flex flex-col space-y-4 items-stretch w-full h-full"
       >
         {/* user's name */}
         <Input
@@ -107,7 +108,12 @@ export function ContactForm() {
           isDisabled={isSubmitting || isSubmitSuccessful}
           isInvalid={getFieldState('message').invalid}
           errorMessage={getFieldState('message').error?.message}
-          minRows={8}
+          minRows={6}
+          className="flex-1"
+          classNames={{
+            inputWrapper: 'grow min-h-full',
+            input: 'min-h-full',
+          }}
         />
 
         {/* send button */}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Controller, Form, useForm } from 'react-hook-form';
+import { Form, useForm } from 'react-hook-form';
 
 import {
   CheckIcon,
@@ -11,7 +11,6 @@ import { Input, Textarea } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
 
 import { File } from '@/utils/handleFileUpload';
-import FileInput from './FileInput';
 
 interface IFormInput {
   name?: string;
@@ -21,7 +20,7 @@ interface IFormInput {
   content?: string | Buffer;
 }
 
-export function ContactForm() {
+export default function ContactForm() {
   const {
     register,
     getFieldState,

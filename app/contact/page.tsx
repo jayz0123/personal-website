@@ -1,10 +1,6 @@
-import { Metadata } from 'next';
+'use client';
 
-import { ContactForm } from '@/lib/contact_form';
-
-export const metadata: Metadata = {
-  title: 'Contact',
-};
+import ContactForm from '@/components/ContactForm';
 
 export default function Contact() {
   return (

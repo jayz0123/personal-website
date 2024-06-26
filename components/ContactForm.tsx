@@ -23,6 +23,8 @@ interface IFormInput {
 
 export function ContactForm() {
   const {
+    register,
+    getFieldState,
     control,
     reset,
     formState: { isSubmitting, isValid, isDirty, isSubmitSuccessful },
@@ -76,72 +78,36 @@ export function ContactForm() {
         className="flex flex-col space-y-4 items-stretch w-full"
       >
         {/* user's name */}
-        <Controller
-          name="name"
-          control={control}
-          render={({
-            field: { onChange, value },
-            formState: { isSubmitting },
-          }) => (
-            <Input
-              isClearable
-              isDisabled={isSubmitting || isSubmitSuccessful}
-              value={value}
-              onValueChange={onChange}
-              type="name"
-              label="Name"
-            />
-          )}
+        <Input
+          {...register('name')}
+          label="Name"
+          isClearable
+          isDisabled={isSubmitting || isSubmitSuccessful}
         />
 
         {/* user's email */}
-        <Controller
-          name="email"
-          control={control}
-          rules={{
+        <Input
+          {...register('email', {
             required: 'Please enter an email address',
             pattern: { value: regExp, message: 'Invalid email address' },
-          }}
-          render={({
-            field: { value, onChange },
-            fieldState: { invalid, error },
-            formState: { isSubmitting },
-          }) => (
-            <Input
-              isRequired
-              isClearable
-              isDisabled={isSubmitting || isSubmitSuccessful}
-              value={value}
-              onValueChange={onChange}
-              isInvalid={invalid}
-              errorMessage={error?.message}
-              type="email"
-              label="Email"
-            />
-          )}
+          })}
+          label="Email"
+          isRequired
+          isClearable
+          isDisabled={isSubmitting || isSubmitSuccessful}
+          isInvalid={getFieldState('email').invalid}
+          errorMessage={getFieldState('email').error?.message}
         />
 
         {/* user's message */}
-        <Controller
-          name="message"
-          control={control}
-          rules={{ required: 'Please enter a message' }}
-          render={({
-            field: { value, onChange },
-            fieldState: { invalid, error },
-            formState: { isSubmitting },
-          }) => (
-            <Textarea
-              isRequired
-              isDisabled={isSubmitting || isSubmitSuccessful}
-              value={value}
-              onValueChange={onChange}
-              isInvalid={invalid}
-              errorMessage={error?.message}
-              label="Message"
-              minRows={8}
-            />
-          )}
+        <Textarea
+          {...register('message', { required: 'Please enter a message' })}
+          label="Message"
+          isRequired
+          isDisabled={isSubmitting || isSubmitSuccessful}
+          isInvalid={getFieldState('message').invalid}
+          errorMessage={getFieldState('message').error?.message}
+          minRows={8}
         />
 
         {/* send button */}

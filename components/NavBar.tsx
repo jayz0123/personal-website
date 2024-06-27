@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 import { Link } from '@nextui-org/link';
@@ -12,15 +12,6 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from '@nextui-org/navbar';
-
-import { Button } from '@nextui-org/button';
-
-import {
-  Dropdown,
-  DropdownMenu,
-  DropdownTrigger,
-  DropdownItem,
-} from '@nextui-org/dropdown';
 
 import {
   PencilSquareIcon,
@@ -116,14 +107,12 @@ export default function NavBar() {
         ))}
       </NavbarContent>
       <NavbarContent justify="end">
-        {/* <div className="flex flex-row gap-4"> */}
         <NavbarItem>
           <Social />
         </NavbarItem>
         <NavbarItem>
           <ThemeSwitch />
         </NavbarItem>
-        {/* </div> */}
         <NavbarMenuToggle
           className="md:hidden"
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}

@@ -7,7 +7,7 @@ const config: Config = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/dist/components/(button|dropdown|image|input|link|navbar|scroll-shadow|skeleton|ripple|spinner|menu|divider|popover).js',
+    './node_modules/@nextui-org/theme/dist/components/(accordion|button|card|dropdown|image|input|link|navbar|scroll-shadow|skeleton|divider|ripple|spinner|menu|popover).js',
   ],
   theme: {
     extend: {
@@ -16,16 +16,25 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('daisyui'), nextui()],
-
-  daisyui: {
-    // styled: false,
-    // themes: ["light", "dark"],
-  },
-
-  future: {
-    // hoverOnlyWhenSupported: true,
-  },
+  plugins: [
+    require('daisyui'),
+    nextui({
+      themes: {
+        light: {
+          colors: {
+            background: '#F7F7F7',
+            foreground: '#4B5563',
+          },
+        },
+        dark: {
+          colors: {
+            background: '#242629',
+            foreground: '#CBD2D9',
+          },
+        },
+      },
+    }),
+  ],
 };
 
 export default config;

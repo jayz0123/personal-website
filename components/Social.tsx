@@ -4,7 +4,7 @@ export default function Social() {
   const size = 24;
 
   return (
-    <div className="flex flex-row items-center gap-2">
+    <div className="flex flex-row items-center gap-3">
       <Link
         href="https://github.com/howiejayz"
         target="_blank"

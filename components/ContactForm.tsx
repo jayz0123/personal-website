@@ -8,9 +8,9 @@ import {
 } from '@heroicons/react/24/solid';
 
 import { Input, Textarea } from '@nextui-org/input';
-import { Button } from '@nextui-org/button';
+import { Button, ButtonGroup } from '@nextui-org/button';
 
-import { File } from '@/utils/handleFileUpload';
+import FileDropdown from './FileDropdown';
 
 interface IFormInput {
   name?: string;
@@ -110,49 +110,55 @@ export default function ContactForm() {
           minRows={6}
           className="flex-1"
           classNames={{
-            inputWrapper: 'grow min-h-full',
+            inputWrapper: 'grow',
             input: 'min-h-full',
           }}
         />
 
+        {/* file dropzone */}
+        {/* <FileDropzone /> */}
+
         {/* send button */}
-        <Button
-          type="submit"
-          variant={'shadow'}
-          color={
-            isSubmitting
-              ? 'default'
-              : isDirty
-                ? isValid
-                  ? 'success'
-                  : 'warning'
-                : isSubmitSuccessful
-                  ? response
+        <ButtonGroup className="w-full">
+          <FileDropdown />
+          <Button
+            type="submit"
+            variant={'shadow'}
+            color={
+              isSubmitting
+                ? 'default'
+                : isDirty
+                  ? isValid
                     ? 'success'
-                    : 'danger'
-                  : 'default'
-          }
-          isLoading={isSubmitting}
-          isDisabled={isSubmitting || isSubmitSuccessful}
-          startContent={
-            response && !isSubmitting ? (
-              isSubmitSuccessful ? (
-                <CheckIcon width={IconSize} height={IconSize} />
+                    : 'warning'
+                  : isSubmitSuccessful
+                    ? response
+                      ? 'success'
+                      : 'danger'
+                    : 'default'
+            }
+            isLoading={isSubmitting}
+            isDisabled={isSubmitting || isSubmitSuccessful}
+            startContent={
+              response && !isSubmitting ? (
+                isSubmitSuccessful ? (
+                  <CheckIcon width={IconSize} height={IconSize} />
+                ) : (
+                  <XMarkIcon width={IconSize} height={IconSize} />
+                )
               ) : (
-                <XMarkIcon width={IconSize} height={IconSize} />
+                !isSubmitting && (
+                  <PaperAirplaneIcon width={IconSize} height={IconSize} />
+                )
               )
-            ) : (
-              !isSubmitting && (
-                <PaperAirplaneIcon width={IconSize} height={IconSize} />
-              )
-            )
-          }
-          aria-label="send button"
-          className="text-lg"
-        >
-          {(!isSubmitting && response) ||
-            (isSubmitting ? 'Sending...' : 'Send')}
-        </Button>
+            }
+            aria-label="send button"
+            className="text-lg w-full"
+          >
+            {(!isSubmitting && response) ||
+              (isSubmitting ? 'Sending...' : 'Send')}
+          </Button>
+        </ButtonGroup>
       </Form>
     </div>
   );

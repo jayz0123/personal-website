@@ -24,11 +24,13 @@ interface IFormInput {
 
 export default function FileDropdown({
   control,
+  isDisabled,
 }: {
   control: Control<IFormInput, any>;
+  isDisabled: boolean;
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  // const [files, setFiles] = useState<File[]>([]);
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'attachments',
@@ -70,6 +72,7 @@ export default function FileDropdown({
     >
       <DropdownTrigger>
         <Button
+          isDisabled={isDisabled}
           isIconOnly
           variant="shadow"
           color={`${fields.length ? 'success' : 'default'}`}

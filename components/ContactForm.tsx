@@ -1,16 +1,8 @@
 import { useState } from 'react';
 import { Form, useForm } from 'react-hook-form';
-
-import {
-  CheckIcon,
-  XMarkIcon,
-  PaperAirplaneIcon,
-} from '@heroicons/react/24/solid';
-
 import { Input, Textarea } from '@nextui-org/input';
-import { Button, ButtonGroup } from '@nextui-org/button';
 
-import FileDropdown from './FileDropdown';
+import ContactFormButton from './ContactFormButton';
 
 interface IFormInput {
   name?: string;
@@ -37,9 +29,41 @@ export default function ContactForm() {
   });
   const [response, setResponse] = useState<string | null>(null);
 
-  const IconSize = 24;
   const regExp =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const handleSuccess = async (response: Response) => {
+    try {
+      const { body } = await response.json();
+      setResponse(body); // Update the state with the response body
+
+      // Use setTimeout to reset the form and clear the response after 3 seconds
+      setTimeout(() => {
+        reset();
+        setResponse(null);
+      }, 3000);
+    } catch (error) {
+      console.error('Error processing response:', error);
+      // Handle any errors that occur during the fetch operation
+    }
+  };
+
+  const handleError = async (response: Response | undefined) => {
+    if (!response) return;
+
+    try {
+      const { body } = await response.json();
+      setResponse(body); // Update the state with the response body
+
+      // Use setTimeout to clear the response after 3 seconds
+      setTimeout(() => {
+        setResponse(null);
+      }, 3000);
+    } catch (error) {
+      console.error('Error processing response:', error);
+      // Handle any errors that occur during the fetch operation
+    }
+  };
 
   return (
     <div className="w-full h-full flex-1">
@@ -53,24 +77,11 @@ export default function ContactForm() {
         onSubmit={({ data }) => {
           console.log(data);
         }}
-        onSuccess={async ({ response }) => {
-          const { body } = await response?.json();
-          setResponse(() => {
-            setTimeout(() => {
-              reset();
-              setResponse(null);
-            }, 3000);
-            return body;
-          });
+        onSuccess={({ response }) => {
+          handleSuccess(response);
         }}
-        onError={async ({ response }) => {
-          const { body } = await response?.json();
-          setResponse(() => {
-            setTimeout(() => {
-              setResponse(null);
-            }, 3000);
-            return body;
-          });
+        onError={({ response }) => {
+          handleError(response);
         }}
         className="flex flex-col space-y-4 items-stretch w-full h-full"
       >
@@ -79,7 +90,7 @@ export default function ContactForm() {
           {...register('name')}
           label="Name"
           isClearable
-          isDisabled={isSubmitting || isSubmitSuccessful}
+          isDisabled={isSubmitting}
         />
 
         {/* user's email */}
@@ -91,7 +102,7 @@ export default function ContactForm() {
           label="Email"
           isRequired
           isClearable
-          isDisabled={isSubmitting || isSubmitSuccessful}
+          isDisabled={isSubmitting}
           isInvalid={getFieldState('email').invalid}
           errorMessage={getFieldState('email').error?.message}
         />
@@ -101,7 +112,7 @@ export default function ContactForm() {
           {...register('message', { required: 'Please enter a message' })}
           label="Message"
           isRequired
-          isDisabled={isSubmitting || isSubmitSuccessful}
+          isDisabled={isSubmitting}
           isInvalid={getFieldState('message').invalid}
           errorMessage={getFieldState('message').error?.message}
           minRows={6}
@@ -113,46 +124,14 @@ export default function ContactForm() {
         />
 
         {/* file dropdown and send button*/}
-        <ButtonGroup className="w-full">
-          <FileDropdown control={control} />
-          <Button
-            type="submit"
-            variant={'shadow'}
-            color={
-              isSubmitting
-                ? 'default'
-                : isDirty
-                  ? isValid
-                    ? 'success'
-                    : 'warning'
-                  : isSubmitSuccessful
-                    ? response
-                      ? 'success'
-                      : 'danger'
-                    : 'default'
-            }
-            isLoading={isSubmitting}
-            isDisabled={isSubmitting || isSubmitSuccessful}
-            startContent={
-              response && !isSubmitting ? (
-                isSubmitSuccessful ? (
-                  <CheckIcon width={IconSize} height={IconSize} />
-                ) : (
-                  <XMarkIcon width={IconSize} height={IconSize} />
-                )
-              ) : (
-                !isSubmitting && (
-                  <PaperAirplaneIcon width={IconSize} height={IconSize} />
-                )
-              )
-            }
-            aria-label="send button"
-            className="text-lg w-full"
-          >
-            {(!isSubmitting && response) ||
-              (isSubmitting ? 'Sending...' : 'Send')}
-          </Button>
-        </ButtonGroup>
+        <ContactFormButton
+          control={control}
+          isSubmitting={isSubmitting}
+          isDirty={isDirty}
+          isValid={isValid}
+          isSubmitSuccessful={isSubmitSuccessful}
+          response={response}
+        />
       </Form>
     </div>
   );

@@ -16,8 +16,7 @@ interface IFormInput {
   name?: string;
   email: string;
   message: string;
-  filename?: string | false | undefined;
-  content?: string | Buffer;
+  attachments?: { filename: string; content: string }[];
 }
 
 export default function ContactForm() {
@@ -32,15 +31,13 @@ export default function ContactForm() {
       name: '',
       email: '',
       message: '',
-      filename: '',
-      content: '',
+      attachments: [],
     },
     progressive: true,
   });
   const [response, setResponse] = useState<string | null>(null);
 
   const IconSize = 24;
-
   const regExp =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -115,12 +112,9 @@ export default function ContactForm() {
           }}
         />
 
-        {/* file dropzone */}
-        {/* <FileDropzone /> */}
-
-        {/* send button */}
+        {/* file dropdown and send button*/}
         <ButtonGroup className="w-full">
-          <FileDropdown />
+          <FileDropdown control={control} />
           <Button
             type="submit"
             variant={'shadow'}

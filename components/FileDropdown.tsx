@@ -1,4 +1,5 @@
-import { useState, useMemo, useRef } from 'react';
+import { useRef, ChangeEvent } from 'react';
+import { Control, useFieldArray } from 'react-hook-form';
 
 import {
   Dropdown,
@@ -14,12 +15,51 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 
-// import handleFileUpload, { File } from '@/utils/handleFileUpload';
+interface IFormInput {
+  name?: string;
+  email: string;
+  message: string;
+  attachments?: { filename: string; content: string }[];
+}
 
-export default function FileDropdown({}: {}) {
+export default function FileDropdown({
+  control,
+}: {
+  control: Control<IFormInput, any>;
+}) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  // const [files, setFiles] = useState<File[]>([]);
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'attachments',
+  });
+
   const size = 24;
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [files, setFiles] = useState<File[]>([]);
+
+  const handleAddFiles = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files || event.target.files.length === 0) return;
+
+    const files = Array.from(event.target.files);
+
+    files.forEach((file: File) => {
+      const reader = new FileReader();
+      reader.onload = (r: ProgressEvent<FileReader>) => {
+        if (r.target && r.target.result) {
+          const attachment: { filename: string; content: string } = {
+            filename: file.name,
+            content: r.target.result.toString().split(',')[1],
+          };
+          append(attachment);
+        }
+      };
+
+      reader.onerror = () => {
+        console.error('Failed to load file');
+      };
+
+      reader.readAsDataURL(file);
+    });
+  };
 
   return (
     <Dropdown
@@ -29,7 +69,11 @@ export default function FileDropdown({}: {}) {
       closeOnSelect={false}
     >
       <DropdownTrigger>
-        <Button isIconOnly variant="flat">
+        <Button
+          isIconOnly
+          variant="shadow"
+          color={`${fields.length ? 'success' : 'default'}`}
+        >
           <input type="file" className="hidden"></input>
           <ChevronUpIcon width={size} height={size} />
         </Button>
@@ -40,28 +84,26 @@ export default function FileDropdown({}: {}) {
         selectionMode="none"
         className="min-w-60"
       >
-        <DropdownSection showDivider={files.length > 0}>
-          {files.map((file) => (
+        <DropdownSection showDivider={fields.length > 0}>
+          {fields.map((field, index) => (
             <DropdownItem
               isReadOnly
-              key={file.name}
-              textValue={file.name}
+              key={field.id}
+              textValue={field.filename}
               endContent={
                 <Button
                   isIconOnly
                   size="sm"
                   color="danger"
                   onPress={() => {
-                    setFiles((prev) =>
-                      prev.filter((f) => f.name !== file.name),
-                    );
+                    remove(index);
                   }}
                 >
                   <XMarkIcon width={16} height={16} />
                 </Button>
               }
             >
-              {file.name}
+              {field.filename}
             </DropdownItem>
           ))}
         </DropdownSection>
@@ -79,14 +121,7 @@ export default function FileDropdown({}: {}) {
               type="file"
               multiple
               ref={fileInputRef}
-              onChange={(e) => {
-                const newFiles = Array.from(e.target.files || []);
-                const uniqueFiles = newFiles.filter(
-                  (newFile) =>
-                    !files.some((file) => file.name === newFile.name),
-                );
-                setFiles((prev) => [...prev, ...uniqueFiles]);
-              }}
+              onChange={handleAddFiles}
               className="hidden"
             />
           </DropdownItem>

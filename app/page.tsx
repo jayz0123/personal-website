@@ -1,6 +1,5 @@
 import Greetings from '@/components/Greetings';
 import Timeline from '@/components/Timeline';
-import Gallery from '@/components/Gallery';
 
 export default function Home() {
   const textStyles = 'text-lg mb-4';

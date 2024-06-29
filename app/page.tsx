@@ -38,12 +38,6 @@ export default function Home() {
           <Timeline />
         </section>
       </div>
-
-      {/* <div className="divider divider-vertical" /> */}
-
-      {/* <section className="" aria-label="gallery">
-        <Gallery />
-      </section> */}
     </div>
   );
 }

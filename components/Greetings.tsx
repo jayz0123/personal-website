@@ -28,7 +28,7 @@ export default function Greetings() {
     <div className="mb-8">
       <Skeleton isLoaded={isMounted} className="rounded-lg">
         <h2>
-          <span className="text-3xl font-bold">
+          <span className="text-3xl font-bold" suppressHydrationWarning>
             {`${
               isMidnight
                 ? 'Hey there, night wanderer! '
@@ -39,7 +39,7 @@ export default function Greetings() {
                     : 'Morning! '
             }`}
           </span>
-          <span className="text-2xl">
+          <span className="text-2xl" suppressHydrationWarning>
             {`${
               isMidnight
                 ? "Let's pretend staying up late is totally a good idea!"

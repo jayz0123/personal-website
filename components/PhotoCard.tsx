@@ -9,7 +9,11 @@ export default function PhotoCard({
   area: string;
 }) {
   return (
-    <Card isPressable className="col-span-12 md:col-span-4 h-[300px]">
+    <Card
+      isPressable
+      disableRipple
+      className="col-span-12 md:col-span-4 h-[300px]"
+    >
       <CardHeader className="w-fit justify-center overflow-hidden py-2 absolute bottom-1 left-1 ml-1 z-10">
         <p className="text-white text-md uppercase font-bold">
           {area.replaceAll('_', ' ')}
@@ -20,7 +24,7 @@ export default function PhotoCard({
         alt={area}
         width={300}
         height={300}
-        className="z-0 w-full h-full object-cover"
+        className="z-0 w-full h-full object-cover transform-gpu hover:scale-125 transition-transform duration-400 ease-in-out"
       />
     </Card>
   );

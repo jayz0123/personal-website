@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth">
       <body className={`${garamond.className} text-pretty antialiased `}>
         <Providers>
           <div className="flex flex-col items-center justify-between min-h-screen">

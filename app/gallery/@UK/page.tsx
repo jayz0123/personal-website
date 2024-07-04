@@ -12,7 +12,7 @@ export default function UK() {
   return areas.map((area, index) => (
     <PhotoCard
       key={area}
-      loading={index === 0 ? 'eager' : 'lazy'}
+      loading="eager"
       area={area}
       src={`/previews/UK/${area}.jpg`}
     />

@@ -20,6 +20,7 @@
     "@nextui-org/image": "^2.0.29",
     "@nextui-org/input": "^2.2.2",
     "@nextui-org/link": "^2.0.32",
+    "@nextui-org/modal": "^2.0.36",
     "@nextui-org/navbar": "^2.0.33",
     "@nextui-org/scroll-shadow": "^2.1.17",
     "@nextui-org/skeleton": "^2.0.29",

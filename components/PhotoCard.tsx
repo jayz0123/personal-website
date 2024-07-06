@@ -28,7 +28,7 @@ export default function PhotoCard({
     <Card
       isPressable
       disableRipple
-      className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px] 2xl:h-[360px]"
+      className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px]"
     >
       <Image
         // loader={cloudFrontLoader}

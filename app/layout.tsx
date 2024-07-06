@@ -29,7 +29,7 @@ export default function RootLayout({
         <Providers>
           <div className="flex flex-col items-center justify-between min-h-screen">
             <NavBar />
-            <main className="flex w-10/12 grow mt-16 mb-8 xl:mt-32">
+            <main className="flex w-10/12 max-w-screen-xl grow mt-16 mb-8 xl:mt-32">
               {children}
             </main>
             <Footer />

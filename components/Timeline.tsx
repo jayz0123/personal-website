@@ -14,7 +14,9 @@ export default function Timeline() {
           <div className="text-lg font-black">
             BEng at Xi&apos;an Jiaotong-Liverpool University
           </div>
-          Placeholder
+          Conquered the fundamentals of engineering, mastering complex
+          calculations and innovative problem-solving. Graduated with top marks
+          and an impressive collection of late-night study hacks.
         </div>
         <hr />
       </li>
@@ -28,7 +30,10 @@ export default function Timeline() {
           <div className="text-lg font-black">
             BEng at University of Liverpool
           </div>
-          Placeholder
+          Delved into advanced engineering concepts, leading group projects and
+          acing exams. Engineered brilliant solutions and survived on a strict
+          diet of fish and chips. Left with honors and an impressive Beatles
+          playlist.
         </div>
         <hr />
       </li>
@@ -42,7 +47,9 @@ export default function Timeline() {
           <div className="text-lg font-black">
             MSc at Imperial College London
           </div>
-          Placeholder
+          Mastered machine learning and discovered the secret coffee spots of
+          London. Walked away with a degree and a habit of speaking in
+          algorithms.
         </div>
         <hr />
       </li>
@@ -54,7 +61,9 @@ export default function Timeline() {
         <div className="timeline-end mb-auto">
           <time className="font-mono italic">2022</time>
           <div className="text-lg font-black">Software Engineer at AMD</div>
-          Placeholder
+          Enhanced GPU performance and optimized code, ensuring smooth graphics
+          for gamers worldwide. Became a debugging ninja and a master of
+          efficient code.
         </div>
         <hr />
       </li>
@@ -66,7 +75,9 @@ export default function Timeline() {
         <div className="timeline-start md:text-end mb-auto">
           <time className="font-mono italic">2024</time>
           <div className="text-lg font-black">PhD at University of Oxford</div>
-          Placeholder
+          Currently decoding the universe&apos;s secrets and occasionally rowing
+          on the Thames. Mixing groundbreaking research with tea breaks and
+          punting adventures
         </div>
         <hr />
       </li>

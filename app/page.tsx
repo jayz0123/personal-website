@@ -5,7 +5,7 @@ export default function Home() {
   const textStyles = 'text-lg mb-4';
   return (
     <div className="flex flex-col items-center">
-      <div className="flex flex-col xl:flex-row-reverse items-center">
+      <div className="flex flex-col xl:flex-row-reverse items-start">
         <section className="flex-1 mb-8 xl:mb-0" aria-label="greetings">
           <Greetings />
           <p className={textStyles}>

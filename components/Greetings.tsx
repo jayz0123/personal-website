@@ -26,31 +26,31 @@ export default function Greetings() {
 
   return (
     <Suspense key={isMounted ? 'local' : 'UTC'}>
-      <div className="mb-8">
+      <div className="mb-4">
         <Skeleton isLoaded={isMounted} className="rounded-lg">
           <h2>
-            <span className="text-3xl font-bold">
+            <p className="text-3xl font-bold mb-2">
               {`${
                 isMidnight
-                  ? 'Hey there, night wanderer! '
+                  ? 'Hey, late owl '
                   : isEvening
-                    ? 'Good evening! '
+                    ? 'Good evening '
                     : isAfternoon
-                      ? 'Afternoon greetings! '
-                      : 'Morning! '
+                      ? 'Hello, afternoon '
+                      : 'Good morning '
               }`}
-            </span>
-            <span className="text-2xl">
+            </p>
+            <p className="text-2xl">
               {`${
                 isMidnight
-                  ? "Let's pretend staying up late is totally a good idea!"
+                  ? "— Let's pretend staying up late is totally a good idea!"
                   : isEvening
-                    ? "Let's relax and do nothing—like the pros we are."
+                    ? "— Let's relax and do absolutely nothing—like the pros we are."
                     : isAfternoon
-                      ? 'Keep calm and fake productivity for a few more hours!'
-                      : 'The early bird gets the worm, but the second mouse gets the cheese!'
+                      ? '— Keep calm and fake productivity for a few more hours!'
+                      : '— Early bird gets worms, but second mouse gets cheese!'
               }`}
-            </span>
+            </p>
           </h2>
         </Skeleton>
       </div>

@@ -21,7 +21,7 @@ export const listFilePaths = cache(async (dir: string) => {
     return [];
   }
 
-  console.log(response);
+  console.log('called listFilePaths');
   return response.Contents.reduce((acc: string[], content) => {
     if (content.Size !== 0) {
       acc.push(content.Key!);
@@ -42,7 +42,7 @@ export const listFolders = cache(async (dir: string) => {
     return [];
   }
 
-  console.log(response);
+  console.log('called listFolder');
   return response.CommonPrefixes.map((item) =>
     item.Prefix!.replace(dir, '').replace('/', ''),
   );

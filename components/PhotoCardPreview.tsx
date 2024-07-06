@@ -16,7 +16,6 @@ export default function PhotoCardPrewiew({
   area: string;
 }) {
   const router = useRouter();
-  // router.prefetch(`/gallery/${country}/${area}`);
 
   return (
     <Card

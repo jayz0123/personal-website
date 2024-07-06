@@ -21,7 +21,6 @@ export default async function Area({
 }: {
   params: { country: string; area: string };
 }) {
-  console.log(area);
   const photoPaths = await listFilePaths(`gallery/${country}/${area}/`);
 
   return (

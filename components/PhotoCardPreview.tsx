@@ -1,39 +1,38 @@
+'use client';
+
 import Image from 'next/image';
 import { Card, CardHeader } from '@nextui-org/card';
+import { useRouter } from 'next/navigation';
 
-// const cloudFrontLoader = ({
-//   src,
-//   width,
-//   quality,
-// }: {
-//   src: string;
-//   width: number;
-//   quality?: number;
-// }) => {
-//   if (quality) {
-//     return `https://api.howiejayz.com/${src}?format=auto&quality=${quality}&width=${width}`;
-//   }
-
-//   return `https://api.howiejayz.com/${src}?format=auto&width=${width}`;
-// };
-
-export default function PhotoCard({
+export default function PhotoCardPrewiew({
   src,
   priority = false,
+  country,
+  area,
 }: {
   src: string;
   priority?: boolean;
+  country: string;
+  area: string;
 }) {
+  const router = useRouter();
+  // router.prefetch(`/gallery/${country}/${area}`);
+
   return (
     <Card
       isPressable
       disableRipple
+      onPressEnd={(e) => router.push(`/gallery/${country}/${area}`)}
       className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px] 2xl:h-[360px]"
     >
+      <CardHeader className="w-fit justify-center overflow-hidden py-2 absolute bottom-1 left-1 ml-1 z-10">
+        <p className="text-white text-md uppercase font-bold">
+          {area.replaceAll('-', ' ')}
+        </p>
+      </CardHeader>
       <Image
-        // loader={cloudFrontLoader}
-        src={`https://api.howiejayz.com/${src}?format=auto&quality=${75}&width=${720}`}
-        alt={src}
+        src={src}
+        alt={area}
         priority={priority}
         width={450}
         height={300}

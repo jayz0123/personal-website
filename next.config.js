@@ -2,10 +2,19 @@ const withMDX = require('@next/mdx')()
  
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // output: 'export',
   // Configure `pageExtensions` to include MDX files
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-  // Optionally, add any other Next.js config below
-  // images: { loader: 'custom' }, 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.howiejayz.com",
+        port: "",
+        // pathname: "/gallery/**",
+      },
+    ]
+  }
 }
  
 module.exports = withMDX(nextConfig)

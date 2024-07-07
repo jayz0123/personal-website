@@ -18,7 +18,7 @@ export default function PhotoCardContainer({
         {breadcrumbs.map((breadcrumb, index) => (
           <BreadcrumbItem
             key={index}
-            onPressEnd={() => {
+            onPress={() => {
               if (index < breadcrumbs.length - 1) router.back();
             }}
           >

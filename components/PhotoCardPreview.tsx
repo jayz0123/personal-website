@@ -21,7 +21,7 @@ export default function PhotoCardPrewiew({
     <Card
       isPressable
       disableRipple
-      onPressEnd={(e) => router.push(`/gallery/${country}/${area}`)}
+      onPress={(e) => router.push(`/gallery/${country}/${area}`)}
       className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px]"
     >
       <CardHeader className="w-fit justify-center overflow-hidden py-2 absolute bottom-1 left-1 ml-1 z-10">

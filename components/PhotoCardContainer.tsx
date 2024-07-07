@@ -14,7 +14,14 @@ export default function PhotoCardContainer({
 
   return (
     <div id={breadcrumbs[0]} className="flex flex-col items-center min-w-full">
-      <Breadcrumbs size="lg" className="font-bold uppercase mb-4">
+      <Breadcrumbs
+        size="lg"
+        underline="hover"
+        className="font-bold uppercase mb-4"
+        itemClasses={{
+          item: 'text-xl',
+        }}
+      >
         {breadcrumbs.map((breadcrumb, index) => (
           <BreadcrumbItem
             key={index}

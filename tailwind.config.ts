@@ -16,6 +16,10 @@ const config: Config = {
       },
     },
   },
+  daisyui: {
+    base: false,
+    // styled: false,
+  },
   plugins: [
     require('daisyui'),
     nextui({

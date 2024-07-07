@@ -116,6 +116,7 @@ export default function ContactForm() {
           isInvalid={getFieldState('message').invalid}
           errorMessage={getFieldState('message').error?.message}
           minRows={6}
+          cacheMeasurements
           className="flex-1"
           classNames={{
             inputWrapper: 'grow',

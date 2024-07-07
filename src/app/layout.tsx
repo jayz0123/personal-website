@@ -1,12 +1,10 @@
-import '@/styles/globals.css';
-import { garamond } from '@/styles/fonts';
-
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 
-import Providers from './Providers';
-
+import '@/styles/globals.css';
+import { garamond } from '@/styles/fonts';
+import Providers from '@/components/Providers';
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 

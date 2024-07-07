@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { Breadcrumbs, BreadcrumbItem } from '@nextui-org/breadcrumbs';
 
-export default function PhotoCardContainer({
+export function PhotoCardContainer({
   children,
   breadcrumbs,
 }: {

@@ -1,4 +1,4 @@
-import { listFolders } from '@/utils/aws/s3';
+import { listFolders } from '@/services/aws-s3';
 
 export const dynamicParams = false;
 

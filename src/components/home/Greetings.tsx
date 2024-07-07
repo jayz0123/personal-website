@@ -5,7 +5,7 @@ import { Skeleton } from '@nextui-org/skeleton';
 
 import getLocalTime from '@/utils/getLocalTime';
 
-export default function Greetings() {
+export function Greetings() {
   const [isMounted, setIsMounted] = useState(false);
 
   const date = new Date();

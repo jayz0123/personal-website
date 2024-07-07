@@ -1,6 +1,5 @@
-import { listFilePaths, listFolders } from '@/utils/aws/s3';
-import PhotoCard from '@/components/PhotoCard';
-import PhotoCardContainer from '@/components/PhotoCardContainer';
+import { listFilePaths, listFolders } from '@/services/aws-s3';
+import { PhotoCard, PhotoCardContainer } from '@/components/gallery';
 
 export const dynamicParams = false;
 

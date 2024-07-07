@@ -5,16 +5,11 @@ import {
   XMarkIcon,
   PaperAirplaneIcon,
 } from '@heroicons/react/24/solid';
-import FileDropdown from './FileDropdown';
 
-interface IFormInput {
-  name?: string;
-  email: string;
-  message: string;
-  attachments?: { filename: string; content: string }[];
-}
+import { IFormInput } from './types';
+import { FileDropdown } from './FileDropdown';
 
-export default function ContactFormButton({
+export function ContactFormButton({
   control,
   isSubmitting,
   isDirty,

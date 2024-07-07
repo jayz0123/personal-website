@@ -1,5 +1,5 @@
-import Greetings from '@/components/Greetings';
-import Timeline from '@/components/Timeline';
+import { Greetings } from '@/components/home';
+import { Timeline } from '@/components/home';
 
 export default function Home() {
   const textStyles = 'text-lg mb-4';

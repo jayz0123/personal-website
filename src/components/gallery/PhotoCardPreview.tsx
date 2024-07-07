@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Card, CardHeader } from '@nextui-org/card';
 import { useRouter } from 'next/navigation';
 
-export default function PhotoCardPrewiew({
+export function PhotoCardPreview({
   src,
   priority = false,
   country,

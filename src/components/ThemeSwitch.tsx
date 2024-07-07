@@ -6,7 +6,7 @@ import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 
 export default function ThemeSwitch() {
   const [isMounted, setIsMounted] = useState(false);
-  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   const size = '24';
 

@@ -15,14 +15,9 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 
-interface IFormInput {
-  name?: string;
-  email: string;
-  message: string;
-  attachments?: { filename: string; content: string }[];
-}
+import { IFormInput } from './types';
 
-export default function FileDropdown({
+export function FileDropdown({
   control,
   isDisabled,
 }: {

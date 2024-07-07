@@ -17,7 +17,7 @@ import { Card, CardHeader } from '@nextui-org/card';
 //   return `https://api.howiejayz.com/${src}?format=auto&width=${width}`;
 // };
 
-export default function PhotoCard({
+export function PhotoCard({
   src,
   priority = false,
 }: {

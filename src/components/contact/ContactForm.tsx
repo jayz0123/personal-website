@@ -2,16 +2,10 @@ import { useState } from 'react';
 import { Form, useForm } from 'react-hook-form';
 import { Input, Textarea } from '@nextui-org/input';
 
-import ContactFormButton from './ContactFormButton';
+import { IFormInput } from './types';
+import { ContactFormButton } from './ContactFormButton';
 
-interface IFormInput {
-  name?: string;
-  email: string;
-  message: string;
-  attachments?: { filename: string; content: string }[];
-}
-
-export default function ContactForm() {
+export function ContactForm() {
   const {
     register,
     getFieldState,

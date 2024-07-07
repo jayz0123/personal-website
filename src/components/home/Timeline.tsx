@@ -1,7 +1,7 @@
 import { AcademicCapIcon, BriefcaseIcon } from '@heroicons/react/24/solid';
 import { ScrollShadow } from '@nextui-org/scroll-shadow';
 
-export default function Timeline() {
+export function Timeline() {
   const size = 18;
 
   return (

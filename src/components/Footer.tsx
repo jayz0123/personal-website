@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import dio from '@/public/dio-avatar.png';
+import dio_avatar from '../../public/dio-avatar.png';
 
 export default function Footer() {
   return (
@@ -8,7 +8,7 @@ export default function Footer() {
       <footer className="footer footer-center pb-4">
         <aside>
           <Image
-            src={dio}
+            src={dio_avatar}
             width={50}
             height={50}
             alt="dio"

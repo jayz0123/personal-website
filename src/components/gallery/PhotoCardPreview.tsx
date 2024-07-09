@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { Card, CardHeader } from '@nextui-org/card';
 import { useRouter } from 'next/navigation';
+
+import { Card, CardHeader } from '@nextui-org/card';
 
 export function PhotoCardPreview({
   src,

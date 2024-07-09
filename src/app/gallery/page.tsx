@@ -1,4 +1,4 @@
-import { PhotoCardPreview, PhotoCardContainer } from '@/components/gallery';
+import { PhotoCardContainer, PhotoCardPreview } from '@/components/gallery';
 
 export default function Gallery() {
   const places = [

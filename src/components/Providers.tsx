@@ -1,14 +1,16 @@
 'use client';
 
-import { ThemeProvider } from 'next-themes';
-import { NextUIProvider } from '@nextui-org/system';
 import { ParallaxProvider } from 'react-scroll-parallax';
+
+import { ThemeProvider } from 'next-themes';
 import { useRouter } from 'next/navigation';
+
+import { NextUIProvider } from '@nextui-org/system';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   return (
-    <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
+    <ThemeProvider enableSystem attribute="data-theme" defaultTheme="system">
       <ParallaxProvider>
         <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
       </ParallaxProvider>

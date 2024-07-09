@@ -1,8 +1,9 @@
-import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
 
-import EmailToUser from './EmailToUser';
+import { Resend } from 'resend';
+
 import EmailToMe from './EmailToMe';
+import EmailToUser from './EmailToUser';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

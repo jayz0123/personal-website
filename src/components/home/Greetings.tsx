@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+
 import { Skeleton } from '@nextui-org/skeleton';
 
 import getLocalTime from '@/utils/getLocalTime';

@@ -1,21 +1,6 @@
 import Image from 'next/image';
+
 import { Card, CardHeader } from '@nextui-org/card';
-
-// const cloudFrontLoader = ({
-//   src,
-//   width,
-//   quality,
-// }: {
-//   src: string;
-//   width: number;
-//   quality?: number;
-// }) => {
-//   if (quality) {
-//     return `https://api.howiejayz.com/${src}?format=auto&quality=${quality}&width=${width}`;
-//   }
-
-//   return `https://api.howiejayz.com/${src}?format=auto&width=${width}`;
-// };
 
 export function PhotoCard({
   src,
@@ -31,7 +16,6 @@ export function PhotoCard({
       className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px]"
     >
       <Image
-        // loader={cloudFrontLoader}
         src={`https://api.howiejayz.com/${src}?format=auto&quality=${75}&width=${720}`}
         alt={src}
         priority={priority}

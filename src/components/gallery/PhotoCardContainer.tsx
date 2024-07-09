@@ -1,7 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Breadcrumbs, BreadcrumbItem } from '@nextui-org/breadcrumbs';
+
+import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/breadcrumbs';
 
 export function PhotoCardContainer({
   children,

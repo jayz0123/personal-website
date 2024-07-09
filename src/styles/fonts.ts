@@ -1,11 +1,6 @@
-import { EB_Garamond, Inconsolata } from 'next/font/google';
+import { Lusitana } from 'next/font/google';
 
-export const garamond = EB_Garamond({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-});
-
-export const inconsolata = Inconsolata({
+export const LusitanaFont = Lusitana({
   weight: ['400', '700'],
   subsets: ['latin'],
 });

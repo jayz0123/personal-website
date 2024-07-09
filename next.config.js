@@ -1,20 +1,32 @@
-const withMDX = require('@next/mdx')()
- 
+const withMDX = require('@next/mdx')();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: 'export',
-  // Configure `pageExtensions` to include MDX files
-  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "api.howiejayz.com",
-        port: "",
+        protocol: 'https',
+        hostname: 'api.howiejayz.com',
+        port: '',
         // pathname: "/gallery/**",
       },
-    ]
-  }
-}
- 
-module.exports = withMDX(nextConfig)
+    ],
+  },
+  experimental: {
+    // reactCompiler: true,
+    turbo: {
+      resolveExtensions: [
+        '.mdx',
+        '.tsx',
+        '.ts',
+        '.jsx',
+        '.js',
+        '.mjs',
+        '.json',
+      ],
+    },
+  },
+};
+
+module.exports = withMDX(nextConfig);

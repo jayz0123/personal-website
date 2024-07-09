@@ -1,12 +1,12 @@
 import { Control } from 'react-hook-form';
-import { Button, ButtonGroup } from '@nextui-org/button';
-import {
-  CheckIcon,
-  XMarkIcon,
-  PaperAirplaneIcon,
-} from '@heroicons/react/24/solid';
 
-import { IFormInput } from './types';
+import { Sen } from 'next/font/google';
+
+import { Button, ButtonGroup } from '@nextui-org/button';
+
+import { IContactForm } from '@/lib/definitions';
+
+import { CheckIcon, ExclamationIcon, SendIcon } from '../ui/Icons';
 import { FileDropdown } from './FileDropdown';
 
 export function ContactFormButton({
@@ -17,15 +17,13 @@ export function ContactFormButton({
   isSubmitSuccessful,
   response,
 }: {
-  control: Control<IFormInput, any>;
+  control: Control<IContactForm, any>;
   isSubmitting: boolean;
   isDirty: boolean;
   isValid: boolean;
   isSubmitSuccessful: boolean;
   response: string | null;
 }) {
-  const IconSize = 24;
-
   const determineButtonColor = () => {
     if (isSubmitting) return 'default';
     if (response) {
@@ -49,14 +47,12 @@ export function ContactFormButton({
         startContent={
           response && !isSubmitting ? (
             isSubmitSuccessful ? (
-              <CheckIcon width={IconSize} height={IconSize} />
+              <CheckIcon />
             ) : (
-              <XMarkIcon width={IconSize} height={IconSize} />
+              <ExclamationIcon />
             )
           ) : (
-            !isSubmitting && (
-              <PaperAirplaneIcon width={IconSize} height={IconSize} />
-            )
+            !isSubmitting && <SendIcon />
           )
         }
         aria-label="send button"

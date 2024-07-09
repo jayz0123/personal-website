@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Form, useForm } from 'react-hook-form';
+
 import { Input, Textarea } from '@nextui-org/input';
 
-import { IFormInput } from './types';
+import type { IContactForm } from '@/lib/definitions';
+
 import { ContactFormButton } from './ContactFormButton';
 
 export function ContactForm() {
@@ -12,7 +14,7 @@ export function ContactForm() {
     control,
     reset,
     formState: { isSubmitting, isValid, isDirty, isSubmitSuccessful },
-  } = useForm<IFormInput>({
+  } = useForm<IContactForm>({
     defaultValues: {
       name: '',
       email: '',
@@ -83,6 +85,7 @@ export function ContactForm() {
         <Input
           {...register('name')}
           label="Name"
+          autoFocus
           isClearable
           isDisabled={isSubmitting}
         />
@@ -91,7 +94,10 @@ export function ContactForm() {
         <Input
           {...register('email', {
             required: 'Please enter an email address',
-            pattern: { value: regExp, message: 'Invalid email address' },
+            pattern: {
+              value: regExp,
+              message: 'Invalid email address',
+            },
           })}
           label="Email"
           isRequired
@@ -103,7 +109,9 @@ export function ContactForm() {
 
         {/* user's message */}
         <Textarea
-          {...register('message', { required: 'Please enter a message' })}
+          {...register('message', {
+            required: 'Please enter a message',
+          })}
           label="Message"
           isRequired
           isDisabled={isSubmitting}

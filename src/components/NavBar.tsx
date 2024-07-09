@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+
 import { usePathname } from 'next/navigation';
 
 import { Link } from '@nextui-org/link';
@@ -8,42 +9,41 @@ import {
   Navbar,
   NavbarContent,
   NavbarItem,
-  NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
+  NavbarMenuToggle,
 } from '@nextui-org/navbar';
-
-import {
-  PencilSquareIcon,
-  FolderOpenIcon,
-  CameraIcon,
-  ChatBubbleLeftEllipsisIcon,
-} from '@heroicons/react/24/solid';
-import { HomeIcon } from '@heroicons/react/24/solid';
 
 import Social from '@/components/Social';
 import ThemeSwitch from '@/components/ThemeSwitch';
 
+import {
+  ContactIcon,
+  GalleryIcon,
+  HomeIcon,
+  ProjectsIcon,
+  ThoughtsIcon,
+} from './ui/Icons';
+
 export default function NavBar() {
-  const size = 24;
   const MenuItems = [
     {
-      icon: <PencilSquareIcon width={size} height={size} />,
+      icon: <ThoughtsIcon />,
       title: 'Thoughts',
       href: '/thoughts',
     },
     {
-      icon: <FolderOpenIcon width={size} height={size} />,
+      icon: <ProjectsIcon />,
       title: 'Projects',
       href: '/projects',
     },
     {
-      icon: <CameraIcon width={size} height={size} />,
+      icon: <GalleryIcon />,
       title: 'Gallery',
       href: '/gallery',
     },
     {
-      icon: <ChatBubbleLeftEllipsisIcon width={size} height={size} />,
+      icon: <ContactIcon />,
       title: 'Contact',
       href: '/contact',
     },
@@ -59,27 +59,7 @@ export default function NavBar() {
       shouldHideOnScroll
       maxWidth="full"
       classNames={{
-        item: [
-          'flex',
-          'relative',
-          'h-full',
-          'items-center',
-          // 'data-[active=true]:bg-gradient-to-r',
-          // 'data-[active=true]:from-primary',
-          // 'data-[active=true]:via-green-500',
-          // 'data-[active=true]:to-secondary',
-          // 'data-[active=true]:text-transparent',
-          // 'data-[active=true]:bg-clip-text',
-          // 'data-[active=true]:after:absolute',
-          // "data-[active=true]:after:content-['']",
-          // 'data-[active=true]:after:absolute',
-          // 'data-[active=true]:after:bottom-0',
-          // 'data-[active=true]:after:left-0',
-          // 'data-[active=true]:after:right-0',
-          // 'data-[active=true]:after:h-[2px]',
-          // 'data-[active=true]:after:rounded-[2px]',
-          // 'data-[active=true]:after:bg-primary',
-        ],
+        item: ['flex', 'relative', 'h-full', 'items-center'],
       }}
     >
       <NavbarContent justify="start">
@@ -89,7 +69,7 @@ export default function NavBar() {
             color="foreground"
             onPress={() => setIsMenuOpen(false)}
           >
-            <HomeIcon width={size} height={size} />
+            <HomeIcon />
           </Link>
         </NavbarItem>
       </NavbarContent>

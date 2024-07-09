@@ -1,9 +1,8 @@
-import { AcademicCapIcon, BriefcaseIcon } from '@heroicons/react/24/solid';
 import { ScrollShadow } from '@nextui-org/scroll-shadow';
 
-export function Timeline() {
-  const size = 18;
+import { AcademicCapIcon, BriefcaseIcon } from '@/components/ui/Icons';
 
+export function Timeline() {
   return (
     <ScrollShadow
       hideScrollBar
@@ -13,7 +12,7 @@ export function Timeline() {
       <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
         <li>
           <div className="timeline-middle">
-            <AcademicCapIcon width={size} height={size} />
+            <AcademicCapIcon />
           </div>
           <div className="timeline-start md:text-end mb-auto">
             <time className="font-mono italic">2016</time>
@@ -29,7 +28,7 @@ export function Timeline() {
         <li>
           <hr />
           <div className="timeline-middle">
-            <AcademicCapIcon width={size} height={size} />
+            <AcademicCapIcon />
           </div>
           <div className="timeline-end mb-auto">
             <time className="font-mono italic">2018</time>
@@ -46,7 +45,7 @@ export function Timeline() {
         <li>
           <hr />
           <div className="timeline-middle">
-            <AcademicCapIcon width={size} height={size} />
+            <AcademicCapIcon />
           </div>
           <div className="timeline-start md:text-end mb-auto">
             <time className="font-mono italic">2020</time>
@@ -62,7 +61,7 @@ export function Timeline() {
         <li>
           <hr />
           <div className="timeline-middle">
-            <BriefcaseIcon width={size} height={size} />
+            <BriefcaseIcon />
           </div>
           <div className="timeline-end mb-auto">
             <time className="font-mono italic">2022</time>
@@ -76,7 +75,7 @@ export function Timeline() {
         <li>
           <hr />
           <div className="timeline-middle">
-            <AcademicCapIcon width={size} height={size} />
+            <AcademicCapIcon />
           </div>
           <div className="timeline-start md:text-end mb-auto">
             <time className="font-mono italic">2024</time>
@@ -92,7 +91,7 @@ export function Timeline() {
         <li>
           <hr />
           <div className="timeline-middle">
-            <AcademicCapIcon width={size} height={size} />
+            <AcademicCapIcon />
           </div>
           <div className="timeline-start md:text-end mb-auto">
             <time className="font-mono italic">Present</time>

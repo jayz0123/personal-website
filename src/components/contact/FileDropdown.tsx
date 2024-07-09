@@ -1,27 +1,24 @@
-import { useRef, ChangeEvent } from 'react';
+import { ChangeEvent, useRef } from 'react';
 import { Control, useFieldArray } from 'react-hook-form';
 
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownSection,
-  DropdownItem,
-} from '@nextui-org/dropdown';
 import { Button } from '@nextui-org/button';
 import {
-  DocumentPlusIcon,
-  ChevronUpIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline';
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownSection,
+  DropdownTrigger,
+} from '@nextui-org/dropdown';
 
-import { IFormInput } from './types';
+import type { IContactForm } from '@/lib/definitions';
+
+import { AttachmentIcon, FileAddIcon, XMarkIcon } from '../ui/Icons';
 
 export function FileDropdown({
   control,
   isDisabled,
 }: {
-  control: Control<IFormInput, any>;
+  control: Control<IContactForm, any>;
   isDisabled: boolean;
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -30,8 +27,6 @@ export function FileDropdown({
     control,
     name: 'attachments',
   });
-
-  const size = 24;
 
   const handleAddFiles = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || event.target.files.length === 0) return;
@@ -73,7 +68,7 @@ export function FileDropdown({
           color={`${fields.length ? 'success' : 'default'}`}
         >
           <input type="file" className="hidden"></input>
-          <ChevronUpIcon width={size} height={size} />
+          <AttachmentIcon />
         </Button>
       </DropdownTrigger>
       <DropdownMenu
@@ -97,7 +92,7 @@ export function FileDropdown({
                     remove(index);
                   }}
                 >
-                  <XMarkIcon width={16} height={16} />
+                  <XMarkIcon />
                 </Button>
               }
             >
@@ -112,7 +107,7 @@ export function FileDropdown({
             onPress={() => {
               fileInputRef.current?.click();
             }}
-            startContent={<DocumentPlusIcon width={size} height={size} />}
+            startContent={<FileAddIcon />}
           >
             <span>Attach new files</span>
             <input

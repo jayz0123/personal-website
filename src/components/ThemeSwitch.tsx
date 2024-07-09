@@ -1,14 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { useTheme } from 'next-themes';
-import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
+
+import { MoonIcon, SunIcon } from '@/components/ui/Icons';
 
 export default function ThemeSwitch() {
   const [isMounted, setIsMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
-
-  const size = '24';
 
   const toggleTheme = () => {
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
@@ -31,14 +31,10 @@ export default function ThemeSwitch() {
       />
 
       {/* sun icon */}
-      <SunIcon
-        width={size}
-        height={size}
-        className="fill-yellow-400 swap-off"
-      />
+      <SunIcon />
 
       {/* moon icon */}
-      <MoonIcon width={size} height={size} className="fill-blue-700 swap-on" />
+      <MoonIcon />
     </label>
   );
 }

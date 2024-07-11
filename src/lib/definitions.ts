@@ -5,10 +5,10 @@ export interface IContactForm {
   attachments?: { filename: string; content: string }[];
 }
 
-export interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  role: string;
-}
+export type {
+  Account,
+  DefaultSession,
+  Profile,
+  Session,
+  User,
+} from '@auth/core/types';

@@ -8,8 +8,6 @@ export async function LoginButton() {
   const session = await auth();
   const loggedIn = session?.user !== undefined;
 
-  console.log(session?.user);
-
   return (
     <form
       action={async () => {

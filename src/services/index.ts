@@ -1,22 +1,27 @@
-import { AWS_CLOUDFRONT_BASE_URL } from './aws-cloudfront';
-import { awsS3List, awsS3Put } from './aws-s3';
+import { AWS_CLOUDFRONT_BASE_URL } from './awsCloudfront';
+import { awsS3List, awsS3Put } from './awsS3';
 
-const THOUGHTS_PREFIX = 'thoughts/';
-const PROJECTS_PREFIX = 'projects/';
-const GALLERY_PREFIX = 'gallery/';
+export const THOUGHTS_REMOTE_PREFIX = 'thoughts';
+export const PROJECTS_REMOTE_PREFIX = 'projects';
+export const GALLERY_REMOTE_PREFIX = 'gallery';
 
-export const putFileInGallery = async (
-  file: Buffer,
-  fileName: string,
-  country: string,
-  area: string,
+export const generateRemoteDirForPrefix = (prefix: string, ...args: string[]) =>
+  `${prefix}/${args.join('/')}`;
+
+export const getURLsForRemoteDir = (remoteDir: string) =>
+  `${AWS_CLOUDFRONT_BASE_URL}/${remoteDir}`;
+
+export const uploadToRemote = async (
+  fileBuffer: Buffer,
+  remoteDir: string,
+  fileType: string,
 ) => {
-  const key = `${GALLERY_PREFIX}${country}/${area}/${fileName}`;
+  await awsS3Put(remoteDir, fileBuffer, fileType);
 
-  await awsS3Put(key, file);
+  return getURLsForRemoteDir(remoteDir);
 };
 
-const getCdnUrlsForPrefix = async (prefix: string) => {
+const getURLsForPrefix = async (prefix: string) => {
   const storageFilePaths = await awsS3List(prefix);
 
   return storageFilePaths.map(
@@ -24,7 +29,7 @@ const getCdnUrlsForPrefix = async (prefix: string) => {
   );
 };
 
-export async function getGalleryResizedCdnUrls({
+export async function getGalleryResizedURLs({
   format = 'auto',
   quality = 75,
   width,
@@ -35,17 +40,17 @@ export async function getGalleryResizedCdnUrls({
   width?: Number;
   height?: Number;
 } = {}) {
-  const originalUrls = await getCdnUrlsForPrefix(GALLERY_PREFIX);
+  const originalURLs = await getURLsForPrefix(GALLERY_REMOTE_PREFIX);
 
-  if (!format) return originalUrls;
+  if (!format) return originalURLs;
 
-  return originalUrls.map((originalUrl) => {
-    let resizedUrl = originalUrl + `?format=${format}`;
+  return originalURLs.map((originalURL) => {
+    let resizedURL = originalURL + `?format=${format}`;
 
-    resizedUrl += quality ? `&quality=${quality}` : null;
-    resizedUrl += width ? `&width=${width}` : null;
-    resizedUrl += height ? `&height=${height}` : null;
+    resizedURL += quality ? `&quality=${quality}` : null;
+    resizedURL += width ? `&width=${width}` : null;
+    resizedURL += height ? `&height=${height}` : null;
 
-    return resizedUrl;
+    return resizedURL;
   });
 }

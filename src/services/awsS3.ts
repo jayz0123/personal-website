@@ -1,8 +1,5 @@
-import {
-  ListObjectsV2Command,
-  PutObjectCommand,
-  S3Client,
-} from '@aws-sdk/client-s3';
+import { ListObjectsV2Command, S3Client } from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
 
 const ASW_S3_BUCKET_NAME = process.env.NEXT_PUBLIC_S3_BUCKET_NAME ?? '';
 const AWS_S3_REGION = process.env.NEXT_PUBLIC_S3_REGION ?? '';
@@ -43,12 +40,29 @@ export const awsS3List = async (Prefix: string) => {
   }, []);
 };
 
-export const awsS3Put = async (Key: string, Body: Buffer) => {
-  const response = await s3.send(
-    new PutObjectCommand({
-      Bucket: ASW_S3_BUCKET_NAME,
-      Key,
-      Body,
-    }),
-  );
+export const awsS3Put = async (
+  Key: string,
+  Body: Buffer,
+  ContentType: string,
+) => {
+  try {
+    const upload = new Upload({
+      client: s3,
+      params: {
+        Bucket: ASW_S3_BUCKET_NAME,
+        Key,
+        Body,
+        ContentType,
+      },
+      queueSize: 10,
+    });
+
+    upload.on('httpUploadProgress', (progress) => {
+      console.log(progress);
+    });
+
+    await upload.done();
+  } catch (e) {
+    console.log(e);
+  }
 };

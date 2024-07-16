@@ -1,11 +1,11 @@
 import Image from 'next/image';
 
-import { auth, signIn, signOut } from '@/auth';
+import { authCached, signIn, signOut } from '@/auth';
 
 import { CommandLineIcon } from './ui/Icons';
 
 export async function LoginButton() {
-  const session = await auth();
+  const session = await authCached();
   const loggedIn = session?.user !== undefined;
 
   return (

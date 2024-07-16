@@ -19,7 +19,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  auth,
   children,
 }: {
   auth: React.ReactNode;
@@ -34,7 +33,6 @@ export default function RootLayout({
             <main className="flex w-10/12 max-w-screen-xl grow mt-16 mb-8 xl:mt-32">
               {children}
             </main>
-            {auth}
             <Footer />
           </div>
         </Providers>

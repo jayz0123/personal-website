@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Place {
+  photos    Photo[]
+  country   String
+  area      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([country, area])
+  @@map("places")
+}
+
+model Photo {
+  id           String @id @default(cuid())
+  title        String @default("untitled")
+  url          String @unique
+  thumbnailURL String
+  blurDataURL  String
+
+  // Place info
+  place        Place  @relation(fields: [placeCountry, placeArea], references: [country, area])
+  placeCountry String
+  placeArea    String
+
+  // EXIF info
+  fileType              String?
+  make                  String?
+  model                 String?
+  orientation           String?
+  height                Int?
+  width                 Int?
+  brightness            String?
+  exposureBias          String?
+  exposureTime          String?
+  exposureMode          String?
+  exposureProgram       String?
+  fNumber               String?
+  focalLength           String?
+  focalLengthIn35mmFilm String?
+  iso                   String?
+  lensMake              String?
+  lensModel             String?
+  dateTime              DateTime?
+  dateTimeOriginal      DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("photos")
+}

@@ -1,0 +1,78 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+import {
+  GALLERY_REMOTE_PREFIX,
+  generateRemoteDirForPrefix,
+  uploadToRemote,
+} from '@/services';
+
+import { IGalleryPhotoExif, IGalleryPhotoUpload } from '@/lib/definitions';
+
+import extractExif from '@/utils/extractExif';
+
+import { createPhoto } from '@/services/db/gallery';
+
+const generateblurDataURL = async (url: string) => {
+  const response = await fetch(`${url}?format=auto&quality=75&width=10`);
+  let type = response.headers.get('Content-Type');
+
+  if (!type) type = 'image/svg+xml';
+
+  const arrayBuffer = await response.arrayBuffer();
+  const base64Data = Buffer.from(arrayBuffer).toString('base64');
+
+  return `data:${type};base64,${base64Data}`;
+};
+
+const generateThumbnailURL = (url: string) => {
+  return `${url}?format=auto&quality=75&width=640`;
+};
+
+export async function POST(request: NextRequest) {
+  try {
+    const { title, country, area, photos } =
+      (await request.json()) as IGalleryPhotoUpload;
+
+    for (const photo of photos) {
+      const photoContentBuffer = Buffer.from(
+        photo.content.split(',')[1],
+        'base64',
+      );
+      const exif: IGalleryPhotoExif = extractExif(photoContentBuffer);
+
+      const remoteDir = generateRemoteDirForPrefix(
+        GALLERY_REMOTE_PREFIX,
+        country.replace(' ', '-'),
+        area.replace(' ', '-'),
+        photo.fileName.replace(' ', '-'),
+      );
+
+      const url = await uploadToRemote(
+        photoContentBuffer,
+        remoteDir,
+        photo.fileType,
+      );
+
+      const thumbnailURL = generateThumbnailURL(url);
+      const blurDataURL = await generateblurDataURL(url);
+
+      const _ = await createPhoto(
+        {
+          title,
+          url,
+          thumbnailURL,
+          blurDataURL,
+          ...exif,
+        },
+        {
+          country,
+          area,
+        },
+      );
+    }
+
+    return NextResponse.json({ body: `Uploaded photos` }, { status: 200 });
+  } catch {
+    return NextResponse.error();
+  }
+}

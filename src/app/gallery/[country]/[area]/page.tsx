@@ -1,18 +1,29 @@
-import { listFilePaths, listFolders } from '@/services/aws-s3';
+import {
+  findAreasForEveryCountryCached,
+  findPhotosForCountryAreaCached,
+} from '@/services/db/gallery';
+
 import { PhotoCard, PhotoCardContainer } from '@/components/gallery';
 
 export const dynamicParams = false;
+export let generateStaticParams:
+  | (() => Promise<{ country: string; area: string }[]>)
+  | undefined = undefined;
 
-export async function generateStaticParams({
-  params: { country },
-}: {
-  params: { country: string };
-}) {
-  const areas = await listFolders(`gallery/${country}/`);
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+if (IS_PRODUCTION) {
+  generateStaticParams = async () => {
+    const countries = await findAreasForEveryCountryCached();
 
-  return areas.map((area) => ({
-    area,
-  }));
+    return Object.entries(countries!)
+      .map(([country, areas]) =>
+        areas.map((area) => ({
+          country: country.replace(' ', '-'),
+          area: area.replace(' ', '-'),
+        })),
+      )
+      .flat();
+  };
 }
 
 export default async function Area({
@@ -20,14 +31,21 @@ export default async function Area({
 }: {
   params: { country: string; area: string };
 }) {
-  const photoPaths = await listFilePaths(`gallery/${country}/${area}/`);
+  const photos = await findPhotosForCountryAreaCached(
+    country.replace('-', ' '),
+    area.replace('-', ' '),
+  );
+  if (!photos) return null;
 
   return (
-    <PhotoCardContainer breadcrumbs={[country, area]}>
-      {photoPaths.map((photoPath, index) => (
+    <PhotoCardContainer
+      breadcrumbs={[country.replace('-', ' '), area.replace('-', ' ')]}
+    >
+      {photos.map(({ thumbnailURL, blurDataURL }, index) => (
         <PhotoCard
           key={index}
-          src={photoPath}
+          src={thumbnailURL}
+          blurDataURL={blurDataURL}
           priority={index < 4 ? true : false}
         />
       ))}

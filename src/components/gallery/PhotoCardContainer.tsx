@@ -30,7 +30,7 @@ export function PhotoCardContainer({
               if (index < breadcrumbs.length - 1) router.back();
             }}
           >
-            {breadcrumb.replace('-', ' ')}
+            {breadcrumb}
           </BreadcrumbItem>
         ))}
       </Breadcrumbs>

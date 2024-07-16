@@ -1,38 +1,34 @@
+import { authCached } from '@/auth';
+
+import { findAreaPhotoCoversForEveryCountryCached } from '@/services/db/gallery';
+
 import { PhotoCardContainer, PhotoCardPreview } from '@/components/gallery';
+import { PhotoUpload } from '@/components/gallery/admin/PhotoUpload';
 
-export default function Gallery() {
-  const places = [
-    {
-      country: 'UK',
-      areas: [
-        'London',
-        'Liverpool',
-        'Lake-District',
-        'Isle-of-Skye',
-        'Coastal-Path',
-      ],
-    },
-    {
-      country: 'Japan',
-      areas: ['Kumano-Kodo', 'Kyoto', 'Nara', 'Osaka'],
-    },
-    {
-      country: 'China',
-      areas: ['Tibet'],
-    },
-  ];
+export default async function Gallery() {
+  const session = await authCached();
+  const areaPhotoCoversForEveryCountry =
+    await findAreaPhotoCoversForEveryCountryCached();
 
-  return places.map((place, index) => (
-    <PhotoCardContainer key={index} breadcrumbs={[place.country]}>
-      {place.areas.map((area, index) => (
-        <PhotoCardPreview
-          key={index}
-          src={`/previews/${place.country}/${area}.jpg`}
-          priority={index === 0 ? true : false}
-          country={place.country}
-          area={area}
-        />
-      ))}
-    </PhotoCardContainer>
-  ));
+  return (
+    <>
+      {Object.entries(areaPhotoCoversForEveryCountry!).map(
+        ([country, photoData], index) => (
+          <PhotoCardContainer key={index} breadcrumbs={[country]}>
+            {photoData.map(({ area, thumbnailURL, blurDataURL }, index) => (
+              <PhotoCardPreview
+                key={index}
+                src={thumbnailURL}
+                blurDataURL={blurDataURL}
+                country={country}
+                area={area}
+                priority={index < 4 ? true : false}
+              />
+            ))}
+          </PhotoCardContainer>
+        ),
+      )}
+      {session?.user.role === 'admin' && <PhotoUpload />}
+    </>
+  );
 }

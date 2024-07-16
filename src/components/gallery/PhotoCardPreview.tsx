@@ -7,14 +7,16 @@ import { Card, CardHeader } from '@nextui-org/card';
 
 export function PhotoCardPreview({
   src,
-  priority = false,
+  blurDataURL,
   country,
   area,
+  priority = false,
 }: {
   src: string;
-  priority?: boolean;
+  blurDataURL: string;
   country: string;
   area: string;
+  priority?: boolean;
 }) {
   const router = useRouter();
 
@@ -22,7 +24,11 @@ export function PhotoCardPreview({
     <Card
       isPressable
       disableRipple
-      onPress={(e) => router.push(`/gallery/${country}/${area}`)}
+      onPress={(e) =>
+        router.push(
+          `/gallery/${country.replace(' ', '-')}/${area.replace(' ', '-')}`,
+        )
+      }
       className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px]"
     >
       <CardHeader className="w-fit justify-center overflow-hidden py-2 absolute bottom-1 left-1 ml-1 z-10">
@@ -32,10 +38,12 @@ export function PhotoCardPreview({
       </CardHeader>
       <Image
         src={src}
+        placeholder="blur"
+        blurDataURL={blurDataURL}
         alt={area}
         priority={priority}
-        width={450}
-        height={300}
+        width={640}
+        height={480}
         sizes="(max-width: 768px) 84vw, (max-width: 1280px) 42vw, 28vw"
         className="z-0 w-full h-full object-cover hover:scale-125 transition-transform transform-gpu duration-400 ease-in-out"
       />

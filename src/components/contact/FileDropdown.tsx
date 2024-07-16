@@ -12,6 +12,8 @@ import {
 
 import type { IContactForm } from '@/lib/definitions';
 
+import readFiles from '@/utils/readFiles';
+
 import { AttachmentIcon, FileAddIcon, XMarkIcon } from '../ui/Icons';
 
 export function FileDropdown({
@@ -31,26 +33,7 @@ export function FileDropdown({
   const handleAddFiles = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || event.target.files.length === 0) return;
 
-    const files = Array.from(event.target.files);
-
-    files.forEach((file: File) => {
-      const reader = new FileReader();
-      reader.onload = (r: ProgressEvent<FileReader>) => {
-        if (r.target && r.target.result) {
-          const attachment: { filename: string; content: string } = {
-            filename: file.name,
-            content: r.target.result.toString().split(',')[1],
-          };
-          append(attachment);
-        }
-      };
-
-      reader.onerror = () => {
-        console.error('Failed to load file');
-      };
-
-      reader.readAsDataURL(file);
-    });
+    readFiles(event.target.files, append);
   };
 
   return (
@@ -82,7 +65,7 @@ export function FileDropdown({
             <DropdownItem
               isReadOnly
               key={field.id}
-              textValue={field.filename}
+              textValue={field.fileName}
               endContent={
                 <Button
                   isIconOnly
@@ -96,7 +79,7 @@ export function FileDropdown({
                 </Button>
               }
             >
-              {field.filename}
+              {field.fileName}
             </DropdownItem>
           ))}
         </DropdownSection>

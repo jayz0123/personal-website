@@ -9,7 +9,17 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, message, attachments } = await request.json();
+    const {
+      name,
+      email,
+      message,
+      attachments,
+    }: {
+      name: string;
+      email: string;
+      message: string;
+      attachments: { filename: string; content: string }[];
+    } = await request.json();
 
     const userSubject = name
       ? `Thanks for your message, ${name}!`
@@ -22,7 +32,13 @@ export async function POST(request: NextRequest) {
       reply_to: email,
       subject: `New message from ${name || 'Anonymous'}`,
       react: <EmailToMe userEmail={email} userMessage={message} />,
-      attachments: attachments || undefined,
+      attachments:
+        attachments.map((attachment) => {
+          return {
+            filename: attachment.filename,
+            content: attachment.content.split(',')[1],
+          };
+        }) || undefined,
     });
 
     if (error) {

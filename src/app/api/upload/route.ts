@@ -42,9 +42,9 @@ export async function POST(request: NextRequest) {
 
       const remoteDir = generateRemoteDirForPrefix(
         GALLERY_REMOTE_PREFIX,
-        country.replace(' ', '-'),
-        area.replace(' ', '-'),
-        photo.fileName.replace(' ', '-'),
+        country.replace(/ /g, '-'),
+        area.replace(/ /g, '-'),
+        photo.fileName.replace(/ /g, '-'),
       );
 
       const url = await uploadToRemote(

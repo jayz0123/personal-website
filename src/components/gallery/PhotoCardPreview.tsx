@@ -26,7 +26,7 @@ export function PhotoCardPreview({
       disableRipple
       onPress={(e) =>
         router.push(
-          `/gallery/${country.replace(' ', '-')}/${area.replace(' ', '-')}`,
+          `/gallery/${country.replace(/ /g, '-')}/${area.replace(/ /g, '-')}`,
         )
       }
       className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px]"

@@ -18,8 +18,8 @@ if (IS_PRODUCTION) {
     return Object.entries(countries!)
       .map(([country, areas]) =>
         areas.map((area) => ({
-          country: country.replace(' ', '-'),
-          area: area.replace(' ', '-'),
+          country: country.replace(/ /g, '-'),
+          area: area.replace(/ /g, '-'),
         })),
       )
       .flat();
@@ -32,14 +32,14 @@ export default async function Area({
   params: { country: string; area: string };
 }) {
   const photos = await findPhotosForCountryAreaCached(
-    country.replace('-', ' '),
-    area.replace('-', ' '),
+    country.replace(/-/g, ' '),
+    area.replace(/-/g, ' '),
   );
   if (!photos) return null;
 
   return (
     <PhotoCardContainer
-      breadcrumbs={[country.replace('-', ' '), area.replace('-', ' ')]}
+      breadcrumbs={[country.replace(/-/g, ' '), area.replace(/-/g, ' ')]}
     >
       {photos.map(({ thumbnailURL, blurDataURL }, index) => (
         <PhotoCard

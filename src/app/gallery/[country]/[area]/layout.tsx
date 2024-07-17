@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import {
   findAreasForEveryCountryCached,
   findPhotoThumbnailsForCountryAreaCached,
@@ -26,12 +28,16 @@ if (IS_PRODUCTION) {
   };
 }
 
+const findPhotoThumbnailsForCountryAreaCachedCached = cache(
+  findPhotoThumbnailsForCountryAreaCached,
+);
+
 export default async function AreaLayout({
   params: { country, area },
 }: {
   params: { country: string; area: string };
 }) {
-  const photoThumbnails = await findPhotoThumbnailsForCountryAreaCached(
+  const photoThumbnails = await findPhotoThumbnailsForCountryAreaCachedCached(
     country.replace(/-/g, ' '),
     area.replace(/-/g, ' '),
   );

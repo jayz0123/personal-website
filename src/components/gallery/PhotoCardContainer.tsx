@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactElement, useState } from 'react';
+import { useEffect } from 'react';
 
 import {
   useParams,
@@ -24,6 +24,10 @@ export function PhotoCardContainer({
 }) {
   const router = useRouter();
   const { country: currentCountry, area: currentArea } = useParams();
+
+  useEffect(() => {
+    router.prefetch(`/gallery/${currentCountry}/${currentArea}`);
+  }, [currentArea, currentCountry, router]);
 
   console.log(currentCountry);
 

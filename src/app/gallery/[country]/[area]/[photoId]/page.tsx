@@ -26,16 +26,19 @@ if (IS_PRODUCTION) {
     if (!photoIds) return [];
     console.log(photoIds);
 
-    return photoIds.map(({ id }) => ({ photoId: id }));
+    const p = photoIds.map(({ id }) => ({ photoId: id }));
+    console.log('called generateStaticParams', p);
+
+    return p;
   };
 }
 
-export default async function Area({
+export default async function Photo({
   params: { photoId },
 }: {
   params: { photoId: string };
 }) {
-  console.log(photoId);
+  console.log('called Photo Pages');
   const photo = await findPhotoForIdCached(photoId);
   if (!photo) return null;
 

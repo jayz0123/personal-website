@@ -66,8 +66,8 @@ export default function NavBar() {
         <NavbarItem>
           <Link
             href="/"
-            color="foreground"
             onPress={() => setIsMenuOpen(false)}
+            color="foreground"
           >
             <HomeIcon />
           </Link>
@@ -77,7 +77,7 @@ export default function NavBar() {
         {MenuItems.map((item, index) => (
           <NavbarItem
             key={`${item}-${index}`}
-            isActive={pathname === item.href}
+            isActive={pathname.includes(item.href)}
           >
             <Link href={item.href} color="foreground" className="gap-1">
               {item.icon}
@@ -100,7 +100,7 @@ export default function NavBar() {
       </NavbarContent>
       <NavbarMenu>
         {MenuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+          <NavbarMenuItem key={index}>
             <Link
               href={item.href}
               onPress={() => setIsMenuOpen(false)}

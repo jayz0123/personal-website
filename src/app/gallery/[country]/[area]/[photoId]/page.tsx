@@ -15,7 +15,7 @@ type GenerateStaticParamsFunction = (
   arg0: Params,
 ) => Promise<{ photoId: string }[]>;
 
-export const dynamicParams = false;
+// export const dynamicParams = false;
 export let generateStaticParams: GenerateStaticParamsFunction | undefined =
   undefined;
 

@@ -15,7 +15,7 @@ type GenerateStaticParamsFunction = (
   arg0: Params,
 ) => Promise<{ photoId: string }[]>;
 
-// export const dynamicParams = false;
+export const dynamicParams = false;
 export let generateStaticParams: GenerateStaticParamsFunction | undefined =
   undefined;
 
@@ -24,12 +24,8 @@ if (IS_PRODUCTION) {
   generateStaticParams = async ({ params: { country, area } }: Params) => {
     const photoIds = await findPhotoIdsForCountryAreaCached(country, area);
     if (!photoIds) return [];
-    console.log(photoIds);
 
-    const p = photoIds.map(({ id }) => ({ photoId: id }));
-    console.log('called generateStaticParams', p);
-
-    return p;
+    return photoIds.map(({ id }) => ({ photoId: id }));
   };
 }
 

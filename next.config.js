@@ -19,20 +19,20 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    // reactCompiler: true,
-    turbo: {
-      resolveExtensions: [
-        '.mdx',
-        '.tsx',
-        '.ts',
-        '.jsx',
-        '.js',
-        '.mjs',
-        '.json',
-      ],
-    },
-  },
+  // experimental: {
+  //   // reactCompiler: true,
+  //   turbo: {
+  //     resolveExtensions: [
+  //       '.mdx',
+  //       '.tsx',
+  //       '.ts',
+  //       '.jsx',
+  //       '.js',
+  //       '.mjs',
+  //       '.json',
+  //     ],
+  //   },
+  // },
 };
 
 module.exports = withMDX(nextConfig);

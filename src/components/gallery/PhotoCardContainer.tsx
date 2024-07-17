@@ -1,20 +1,34 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { ReactElement, useState } from 'react';
+
+import {
+  useParams,
+  useRouter,
+  useSelectedLayoutSegments,
+} from 'next/navigation';
 
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/breadcrumbs';
 
+import { PhotoCardPreview } from './PhotoCardPreview';
+
 export function PhotoCardContainer({
   children,
-  breadcrumbs,
+  areaPhotoCovers,
 }: {
   children: React.ReactNode;
-  breadcrumbs: string[];
+  areaPhotoCovers: Record<
+    string,
+    { area: string; thumbnailURL: string; blurDataURL: string }[]
+  >;
 }) {
   const router = useRouter();
+  const { country: currentCountry, area: currentArea } = useParams();
 
-  return (
-    <div id={breadcrumbs[0]} className="flex flex-col items-center min-w-full">
+  console.log(currentCountry);
+
+  return Object.entries(areaPhotoCovers!).map(([country, photoData], index) => (
+    <div key={index} className="flex flex-col items-center min-w-full">
       <Breadcrumbs
         size="lg"
         underline="hover"
@@ -23,19 +37,33 @@ export function PhotoCardContainer({
           item: 'text-xl',
         }}
       >
-        {breadcrumbs.map((breadcrumb, index) => (
-          <BreadcrumbItem
-            key={index}
-            onPress={() => {
-              if (index < breadcrumbs.length - 1) router.back();
-            }}
-          >
-            {breadcrumb}
-          </BreadcrumbItem>
-        ))}
+        <BreadcrumbItem
+          key={index}
+          onPress={() => {
+            router.back();
+          }}
+        >
+          {country}
+        </BreadcrumbItem>
+        {currentCountry === country.replace(/ /g, '-') ? (
+          <BreadcrumbItem>{currentArea}</BreadcrumbItem>
+        ) : null}
       </Breadcrumbs>
-      {/* <div className="divider divider-vertical mt-0" /> */}
-      <div className="min-w-full gap-2 grid grid-cols-12">{children}</div>
+
+      <div className="min-w-full gap-2 grid grid-cols-12">
+        {currentCountry === country.replace(/ /g, '-')
+          ? children
+          : photoData.map(({ area, thumbnailURL, blurDataURL }, index) => (
+              <PhotoCardPreview
+                key={index}
+                src={thumbnailURL}
+                blurDataURL={blurDataURL}
+                country={country}
+                area={area}
+                priority={index < 4 ? true : false}
+              />
+            ))}
+      </div>
     </div>
-  );
+  ));
 }

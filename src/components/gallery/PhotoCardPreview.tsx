@@ -27,6 +27,7 @@ export function PhotoCardPreview({
       onPress={() =>
         router.push(
           `/gallery/${country.replace(/ /g, '-')}/${area.replace(/ /g, '-')}`,
+          // { scroll: false },
         )
       }
       className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px]"

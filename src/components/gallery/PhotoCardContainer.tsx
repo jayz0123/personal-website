@@ -26,7 +26,9 @@ export function PhotoCardContainer({
   const { country: currentCountry, area: currentArea } = useParams();
 
   useEffect(() => {
-    router.prefetch(`/gallery/${currentCountry}/${currentArea}`);
+    currentArea && currentCountry
+      ? router.prefetch(`/gallery/${currentCountry}/${currentArea}`)
+      : router.prefetch(`/gallery`);
   }, [currentArea, currentCountry, router]);
 
   console.log(currentCountry);

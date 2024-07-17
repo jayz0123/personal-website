@@ -24,6 +24,7 @@ if (IS_PRODUCTION) {
   generateStaticParams = async ({ params: { country, area } }: Params) => {
     const photoIds = await findPhotoIdsForCountryAreaCached(country, area);
     if (!photoIds) return [];
+    console.log(photoIds);
 
     return photoIds.map(({ id }) => ({ photoId: id }));
   };

@@ -40,7 +40,7 @@ export function PhotoCardContainer({
         <BreadcrumbItem
           key={index}
           onPress={() => {
-            router.back();
+            router.replace('/gallery', { scroll: false });
           }}
         >
           {country}

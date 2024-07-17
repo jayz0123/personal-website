@@ -1,6 +1,6 @@
 import {
   findAreasForEveryCountryCached,
-  findPhotosForCountryAreaCached,
+  findPhotoThumbnailsForCountryAreaCached,
 } from '@/services/db/gallery';
 
 import { PhotoCard, PhotoCardContainer } from '@/components/gallery';
@@ -31,21 +31,24 @@ export default async function Area({
 }: {
   params: { country: string; area: string };
 }) {
-  const photos = await findPhotosForCountryAreaCached(
+  const photoThumbnails = await findPhotoThumbnailsForCountryAreaCached(
     country.replace(/-/g, ' '),
     area.replace(/-/g, ' '),
   );
-  if (!photos) return null;
+  if (!photoThumbnails) return null;
 
   return (
     <PhotoCardContainer
       breadcrumbs={[country.replace(/-/g, ' '), area.replace(/-/g, ' ')]}
     >
-      {photos.map(({ thumbnailURL, blurDataURL }, index) => (
+      {photoThumbnails.map(({ id, thumbnailURL, blurDataURL }, index) => (
         <PhotoCard
           key={index}
           src={thumbnailURL}
           blurDataURL={blurDataURL}
+          country={country}
+          area={area}
+          id={id}
           priority={index < 4 ? true : false}
         />
       ))}

@@ -24,7 +24,7 @@ export function PhotoCardPreview({
     <Card
       isPressable
       disableRipple
-      onPress={(e) =>
+      onPress={() =>
         router.push(
           `/gallery/${country.replace(/ /g, '-')}/${area.replace(/ /g, '-')}`,
         )

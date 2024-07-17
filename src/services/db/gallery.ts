@@ -109,7 +109,10 @@ const findAreasForEveryCountry = async () => {
   }
 };
 
-const findPhotosForCountryArea = async (country: string, area: string) => {
+const findPhotoThumbnailsForCountryArea = async (
+  country: string,
+  area: string,
+) => {
   try {
     console.log('querying findPhotosForCountryArea');
     const photosForCountryArea = await prisma.photo.findMany({
@@ -118,6 +121,7 @@ const findPhotosForCountryArea = async (country: string, area: string) => {
         placeArea: area,
       },
       select: {
+        id: true,
         thumbnailURL: true,
         blurDataURL: true,
       },
@@ -127,6 +131,43 @@ const findPhotosForCountryArea = async (country: string, area: string) => {
     });
 
     return photosForCountryArea;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const findPhotoIdsForCountryArea = async (country: string, area: string) => {
+  try {
+    console.log('querying findPhotoIdsForCountryArea');
+    const photoIdsForCountryArea = await prisma.photo.findMany({
+      where: {
+        placeCountry: country,
+        placeArea: area,
+      },
+      select: {
+        id: true,
+      },
+      orderBy: {
+        title: 'asc',
+      },
+    });
+
+    return photoIdsForCountryArea;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const findPhotoForId = async (id: string) => {
+  try {
+    console.log('querying findPhotoForId');
+    const photoForId = await prisma.photo.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return photoForId;
   } catch (e) {
     console.log(e);
   }
@@ -142,7 +183,16 @@ export const findAreasForEveryCountryCached = unstable_cache(
   ['areas-for-every-country'],
 );
 
-export const findPhotosForCountryAreaCached = unstable_cache(
-  findPhotosForCountryArea,
-  ['photos-for-country-area'],
+export const findPhotoThumbnailsForCountryAreaCached = unstable_cache(
+  findPhotoThumbnailsForCountryArea,
+  ['photo-thumbnails-for-country-area'],
 );
+
+export const findPhotoIdsForCountryAreaCached = unstable_cache(
+  findPhotoIdsForCountryArea,
+  ['photo-ids-for-country-area'],
+);
+
+export const findPhotoForIdCached = unstable_cache(findPhotoForId, [
+  'photo-for-id',
+]);

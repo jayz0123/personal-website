@@ -1,20 +1,36 @@
+'use client';
+
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { Card, CardHeader } from '@nextui-org/card';
 
 export function PhotoCard({
   src,
   blurDataURL,
+  country,
+  area,
+  id,
   priority = false,
 }: {
   src: string;
   blurDataURL: string;
+  country: string;
+  area: string;
+  id: string;
   priority?: boolean;
 }) {
+  const router = useRouter();
+
   return (
     <Card
       isPressable
       disableRipple
+      onPress={() =>
+        router.push(
+          `/gallery/${country.replace(/ /g, '-')}/${area.replace(/ /g, '-')}/${id}`,
+        )
+      }
       className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px]"
     >
       <Image

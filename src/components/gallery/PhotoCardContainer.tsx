@@ -33,43 +33,48 @@ export function PhotoCardContainer({
 
   console.log(currentCountry);
 
-  return Object.entries(areaPhotoCovers!).map(([country, photoData], index) => (
-    <div key={index} className="flex flex-col items-center min-w-full">
-      <Breadcrumbs
-        size="lg"
-        underline="hover"
-        className="font-bold uppercase mb-4"
-        itemClasses={{
-          item: 'text-xl',
-        }}
-      >
-        <BreadcrumbItem
-          key={index}
-          onPress={() => {
-            router.replace('/gallery', { scroll: false });
+  return Object.entries(areaPhotoCovers!).map(
+    ([country, photoData], countryIndex) => (
+      <div key={countryIndex} className="flex flex-col items-center min-w-full">
+        <Breadcrumbs
+          size="lg"
+          underline="hover"
+          className="font-bold uppercase mb-4"
+          itemClasses={{
+            item: 'text-xl',
           }}
         >
-          {country}
-        </BreadcrumbItem>
-        {currentCountry === country.replace(/ /g, '-') ? (
-          <BreadcrumbItem>{currentArea}</BreadcrumbItem>
-        ) : null}
-      </Breadcrumbs>
+          <BreadcrumbItem
+            onPress={() => {
+              router.replace('/gallery', { scroll: false });
+            }}
+          >
+            {country}
+          </BreadcrumbItem>
+          {currentCountry === country.replace(/ /g, '-') ? (
+            <BreadcrumbItem>{currentArea}</BreadcrumbItem>
+          ) : null}
+        </Breadcrumbs>
 
-      <div className="min-w-full gap-2 grid grid-cols-12">
-        {currentCountry === country.replace(/ /g, '-')
-          ? children
-          : photoData.map(({ area, thumbnailURL, blurDataURL }, index) => (
-              <PhotoCardPreview
-                key={index}
-                src={thumbnailURL}
-                blurDataURL={blurDataURL}
-                country={country}
-                area={area}
-                priority={index < 4 ? true : false}
-              />
-            ))}
+        <div className="min-w-full gap-2 grid grid-cols-12">
+          {currentCountry === country.replace(/ /g, '-')
+            ? children
+            : photoData.map(
+                ({ area, thumbnailURL, blurDataURL }, areaIndex) => (
+                  <PhotoCardPreview
+                    key={areaIndex}
+                    src={thumbnailURL}
+                    blurDataURL={blurDataURL}
+                    country={country}
+                    area={area}
+                    priority={
+                      countryIndex < 2 && areaIndex === 0 ? true : false
+                    }
+                  />
+                ),
+              )}
+        </div>
       </div>
-    </div>
-  ));
+    ),
+  );
 }

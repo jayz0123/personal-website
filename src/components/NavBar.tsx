@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Link } from '@nextui-org/link';
 import {
@@ -49,8 +49,13 @@ export default function NavBar() {
     },
   ];
 
+  const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    router.prefetch(pathname);
+  }, [pathname, router]);
 
   return (
     <Navbar

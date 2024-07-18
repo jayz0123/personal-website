@@ -31,8 +31,6 @@ export function PhotoCardContainer({
       : router.prefetch(`/gallery`);
   }, [currentArea, currentCountry, router]);
 
-  console.log(currentCountry);
-
   return Object.entries(areaPhotoCovers!).map(
     ([country, photoData], countryIndex) => (
       <div key={countryIndex} className="flex flex-col items-center min-w-full">

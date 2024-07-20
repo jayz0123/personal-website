@@ -67,12 +67,13 @@ export function PhotoCardWithModal({
         />
         <CardFooter className="absolute bg-white/30 bottom-0 z-10 justify-between p-2">
           <div>
-            <p className="text-white text-tiny flex space-x-2 justify-between">
+            <p className="text-white text-tiny flex space-x-3 justify-between font-serif">
               <span>{exif.make}</span>
               <span>{exif.model}</span>
               <span>{exif.lensModel}</span>
               <span>{exif.exposureTime}</span>
               <span>{exif.fNumber}</span>
+              <span>{exif.iso}</span>
             </p>
           </div>
         </CardFooter>

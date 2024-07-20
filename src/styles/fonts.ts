@@ -1,4 +1,4 @@
-import { Lusitana } from 'next/font/google';
+import { Lusitana, Roboto_Mono } from 'next/font/google';
 
 export const LusitanaFont = Lusitana({
   weight: ['400', '700'],

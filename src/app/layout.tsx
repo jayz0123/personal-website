@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${LusitanaFont.className} text-pretty antialiased `}>
+      <body className={`${LusitanaFont.className} text-pretty antialiased`}>
         <Providers>
           <div className="flex flex-col items-center justify-between min-h-screen">
             <NavBar />

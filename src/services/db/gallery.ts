@@ -33,7 +33,11 @@ const findAreaPhotoCoversForEveryCountry = async () => {
         country: true,
         area: true,
         photos: {
-          take: 1,
+          where: {
+            isCover: {
+              equals: true,
+            },
+          },
           select: {
             thumbnailURL: true,
             blurDataURL: true,
@@ -117,14 +121,8 @@ const findPhotosForCountryArea = async (country: string, area: string) => {
         placeCountry: country,
         placeArea: area,
       },
-      // select: {
-      //   id: true,
-      //   url: true,
-      //   thumbnailURL: true,
-      //   blurDataURL: true,
-      // },
       orderBy: {
-        title: 'asc',
+        dateTime: 'asc',
       },
     });
 

@@ -27,11 +27,12 @@ model Place {
 }
 
 model Photo {
-  id           String @id @default(cuid())
-  title        String @default("untitled")
-  url          String @unique
+  id           String  @id @default(cuid())
+  title        String  @default("untitled")
+  url          String  @unique
   thumbnailURL String
   blurDataURL  String
+  isCover      Boolean @default(false)
 
   // Place info
   place        Place  @relation(fields: [placeCountry, placeArea], references: [country, area])

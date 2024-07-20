@@ -2,10 +2,10 @@ import { cache } from 'react';
 
 import {
   findAreasForEveryCountryCached,
-  findPhotoThumbnailsForCountryAreaCached,
+  findPhotosForCountryAreaCached,
 } from '@/services/db/gallery';
 
-import { PhotoCard } from '@/components/gallery';
+import { PhotoCardWithModal } from '@/components/gallery';
 
 export const dynamicParams = false;
 export let generateStaticParams:
@@ -28,31 +28,37 @@ if (IS_PRODUCTION) {
   };
 }
 
-const findPhotoThumbnailsForCountryAreaCachedCached = cache(
-  findPhotoThumbnailsForCountryAreaCached,
+const findPhotosForCountryAreaCachedCached = cache(
+  findPhotosForCountryAreaCached,
 );
 
 export default async function AreaLayout({
+  children,
   params: { country, area },
 }: {
+  children: React.ReactNode;
   params: { country: string; area: string };
 }) {
-  const photoThumbnails = await findPhotoThumbnailsForCountryAreaCachedCached(
+  const photos = await findPhotosForCountryAreaCachedCached(
     country.replace(/-/g, ' '),
     area.replace(/-/g, ' '),
   );
 
-  if (!photoThumbnails) return null;
+  if (!photos) return null;
 
-  return photoThumbnails.map(({ id, thumbnailURL, blurDataURL }, index) => (
-    <PhotoCard
-      key={index}
-      src={thumbnailURL}
-      blurDataURL={blurDataURL}
-      country={country}
-      area={area}
-      id={id}
-      priority={index < 4 ? true : false}
-    />
-  ));
+  return photos.map(
+    ({ id, url, thumbnailURL, blurDataURL, ...exif }, index) => (
+      <PhotoCardWithModal
+        key={index}
+        src={url}
+        thumbnailURL={thumbnailURL}
+        blurDataURL={blurDataURL}
+        country={country}
+        area={area}
+        id={id}
+        exif={exif}
+        priority={index < 4 ? true : false}
+      />
+    ),
+  );
 }

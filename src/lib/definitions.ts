@@ -17,23 +17,23 @@ export interface IGalleryPhotoUpload {
 }
 
 export interface IGalleryPhotoExif {
-  fileType?: string;
-  make?: string;
-  model?: string;
-  orientation?: string;
-  height?: number;
-  width?: number;
-  brightness?: string;
-  exposureBias?: string;
-  exposureTime?: string;
-  exposureMode?: string;
-  exposureProgram?: string;
-  fNumber?: string;
-  focalLength?: string;
-  focalLengthIn35mmFilm?: string;
-  iso?: string;
-  lensMake?: string;
-  lensModel?: string;
-  dateTime?: Date;
-  dateTimeOriginal?: Date;
+  fileType?: string | null;
+  make?: string | null;
+  model?: string | null;
+  orientation?: string | null;
+  height?: number | null;
+  width?: number | null;
+  brightness?: string | null;
+  exposureBias?: string | null;
+  exposureTime?: string | null;
+  exposureMode?: string | null;
+  exposureProgram?: string | null;
+  fNumber?: string | null;
+  focalLength?: string | null;
+  focalLengthIn35mmFilm?: string | null;
+  iso?: string | null;
+  lensMake?: string | null;
+  lensModel?: string | null;
+  dateTime?: Date | null;
+  dateTimeOriginal?: Date | null;
 }

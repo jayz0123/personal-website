@@ -109,10 +109,7 @@ const findAreasForEveryCountry = async () => {
   }
 };
 
-const findPhotoThumbnailsForCountryArea = async (
-  country: string,
-  area: string,
-) => {
+const findPhotosForCountryArea = async (country: string, area: string) => {
   try {
     console.log('querying findPhotosForCountryArea');
     const photosForCountryArea = await prisma.photo.findMany({
@@ -120,11 +117,12 @@ const findPhotoThumbnailsForCountryArea = async (
         placeCountry: country,
         placeArea: area,
       },
-      select: {
-        id: true,
-        thumbnailURL: true,
-        blurDataURL: true,
-      },
+      // select: {
+      //   id: true,
+      //   url: true,
+      //   thumbnailURL: true,
+      //   blurDataURL: true,
+      // },
       orderBy: {
         title: 'asc',
       },
@@ -183,9 +181,9 @@ export const findAreasForEveryCountryCached = unstable_cache(
   ['areas-for-every-country'],
 );
 
-export const findPhotoThumbnailsForCountryAreaCached = unstable_cache(
-  findPhotoThumbnailsForCountryArea,
-  ['photo-thumbnails-for-country-area'],
+export const findPhotosForCountryAreaCached = unstable_cache(
+  findPhotosForCountryArea,
+  ['photos-for-country-area'],
 );
 
 export const findPhotoIdsForCountryAreaCached = unstable_cache(

@@ -34,9 +34,11 @@ const findPhotosForCountryAreaCachedCached = cache(
 
 export default async function AreaLayout({
   children,
+  modal,
   params: { country, area },
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
   params: { country: string; area: string };
 }) {
   const photos = await findPhotosForCountryAreaCachedCached(
@@ -46,19 +48,23 @@ export default async function AreaLayout({
 
   if (!photos) return null;
 
-  return photos.map(
-    ({ id, url, thumbnailURL, blurDataURL, ...exif }, index) => (
-      <PhotoCardWithModal
-        key={index}
-        src={url}
-        thumbnailURL={thumbnailURL}
-        blurDataURL={blurDataURL}
-        country={country}
-        area={area}
-        id={id}
-        exif={exif}
-        priority={index < 4 ? true : false}
-      />
-    ),
+  return (
+    <>
+      {photos.map(({ id, url, thumbnailURL, blurDataURL, ...exif }, index) => (
+        <PhotoCardWithModal
+          key={index}
+          src={url}
+          thumbnailURL={thumbnailURL}
+          blurDataURL={blurDataURL}
+          country={country}
+          area={area}
+          id={id}
+          exif={exif}
+          priority={index < 4 ? true : false}
+        />
+      ))}
+      {children}
+      {modal}
+    </>
   );
 }

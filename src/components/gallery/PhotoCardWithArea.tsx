@@ -34,7 +34,7 @@ export function PhotoCardWithArea({
       isPressable
       disableRipple
       onPress={() => {
-        router.replace(`/gallery/${countrySlug}/${areaSlug}`, {
+        router.push(`/gallery/${countrySlug}/${areaSlug}`, {
           scroll: false,
         });
       }}

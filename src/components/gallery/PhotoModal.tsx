@@ -8,21 +8,15 @@ import {
   Modal,
   ModalBody,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   useDisclosure,
 } from '@nextui-org/modal';
-import { useAnimation } from 'framer-motion';
-import { animate } from 'framer-motion';
 
 export function PhotoModal({
   children,
   id,
-  orientation,
 }: {
   children: React.ReactNode;
   id: string;
-  orientation: string;
 }) {
   const router = useRouter();
   const { isOpen, onOpenChange } = useDisclosure({
@@ -37,12 +31,11 @@ export function PhotoModal({
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      hideCloseButton
       placement="center"
       backdrop="blur"
       classNames={{
         body: 'p-0',
-        base: `sm:m-auto sm:mx-1 md:m-auto md:mx-1 ${orientation === 'left-bottom' ? 'max-h-[90vh] max-w-fit' : 'max-w-7xl max-h-min'}`,
+        base: `items-center justify-center bg-transparent max-w-[90vw] max-h-[90vh] w-fit h-fit`,
       }}
     >
       <ModalContent>

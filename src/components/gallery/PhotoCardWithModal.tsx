@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import router from 'next/router';
@@ -29,6 +31,13 @@ export function PhotoCardWithModal({
   priority?: boolean;
 }) {
   const router = useRouter();
+
+  // prefetch routes for modals
+  useEffect(() => {
+    router.prefetch(
+      `/gallery/${country.replace(/ /g, '-')}/${area.replace(/ /g, '-')}/photo/${id}`,
+    );
+  }, [country, area, id, router]);
 
   return (
     <Card

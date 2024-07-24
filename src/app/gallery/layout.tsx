@@ -32,7 +32,7 @@ export default async function GalleryLayout({
         {children}
       </PhotoCardContainer>
 
-      {session?.user.role === 'admin' && <PhotoUpload />}
+      {session?.user?.role === 'admin' && <PhotoUpload />}
     </section>
   );
 }

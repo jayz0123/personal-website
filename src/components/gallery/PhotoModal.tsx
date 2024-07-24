@@ -19,7 +19,6 @@ export function PhotoModal({
   id: string;
 }) {
   const router = useRouter();
-  router.prefetch(`/gallery/`);
 
   const { isOpen, onOpenChange } = useDisclosure({
     defaultOpen: true,

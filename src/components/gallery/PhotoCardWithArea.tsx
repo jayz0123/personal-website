@@ -21,23 +21,22 @@ export function PhotoCardWithArea({
   priority?: boolean;
 }) {
   const router = useRouter();
+  const countrySlug = country.replace(/ /g, '-');
+  const areaSlug = area.replace(/ /g, '-');
 
   // prefetch routes
   useEffect(() => {
-    router.prefetch(
-      `/gallery/${country.replace(/ /g, '-')}/${area.replace(/ /g, '-')}`,
-    );
-  }, [country, area, router]);
+    router.prefetch(`/gallery/${countrySlug}/${areaSlug}`);
+  }, [router, countrySlug, areaSlug]);
 
   return (
     <Card
       isPressable
       disableRipple
       onPress={() => {
-        router.replace(
-          `/gallery/${country.replace(/ /g, '-')}/${area.replace(/ /g, '-')}`,
-          { scroll: false },
-        );
+        router.replace(`/gallery/${countrySlug}/${areaSlug}`, {
+          scroll: false,
+        });
       }}
       className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px]"
     >

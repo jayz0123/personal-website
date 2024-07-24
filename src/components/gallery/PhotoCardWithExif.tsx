@@ -31,13 +31,13 @@ export function PhotoCardWithExif({
   priority?: boolean;
 }) {
   const router = useRouter();
+  const countrySlug = country.replace(/ /g, '-');
+  const areaSlug = area.replace(/ /g, '-');
 
   // prefetch routes for modals
   useEffect(() => {
-    router.prefetch(
-      `/gallery/${country.replace(/ /g, '-')}/${area.replace(/ /g, '-')}/photo/${id}`,
-    );
-  }, [country, area, id, router]);
+    router.prefetch(`/gallery/${countrySlug}/${areaSlug}/photo/${id}`);
+  }, [id, router, countrySlug, areaSlug]);
 
   return (
     <Card
@@ -45,10 +45,9 @@ export function PhotoCardWithExif({
       disableRipple
       isFooterBlurred
       onPress={() =>
-        router.push(
-          `/gallery/${country.replace(/ /g, '-')}/${area.replace(/ /g, '-')}/photo/${id}`,
-          { scroll: false },
-        )
+        router.push(`/gallery/${countrySlug}/${areaSlug}/photo/${id}`, {
+          scroll: false,
+        })
       }
       className="col-span-12 xl:col-span-4 md:col-span-6 h-[240px]"
     >

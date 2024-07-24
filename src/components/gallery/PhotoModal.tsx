@@ -23,7 +23,8 @@ export function PhotoModal({
   const { isOpen, onOpenChange } = useDisclosure({
     defaultOpen: true,
     onClose() {
-      setTimeout(() => router.back(), 200);
+      // setTimeout(() => router.back(), 200);
+      router.back();
     },
     id,
   });
@@ -34,9 +35,10 @@ export function PhotoModal({
       onOpenChange={onOpenChange}
       placement="center"
       backdrop="blur"
+      disableAnimation
       classNames={{
         body: 'p-0',
-        base: `items-center justify-center bg-transparent max-w-[90vw] max-h-[90vh] w-fit h-fit`,
+        base: `items-center justify-center bg-transparent max-w-[90vw] max-h-[90vh] w-fit h-fit sm:my-auto`,
       }}
     >
       <ModalContent>

@@ -11,7 +11,7 @@ import {
 
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/breadcrumbs';
 
-import { PhotoCardPreview } from './PhotoCardPreview';
+import { PhotoCardWithArea } from './PhotoCardWithArea';
 
 export function PhotoCardContainer({
   children,
@@ -60,7 +60,7 @@ export function PhotoCardContainer({
             ? children
             : photoData.map(
                 ({ area, thumbnailURL, blurDataURL }, areaIndex) => (
-                  <PhotoCardPreview
+                  <PhotoCardWithArea
                     key={areaIndex}
                     src={thumbnailURL}
                     blurDataURL={blurDataURL}

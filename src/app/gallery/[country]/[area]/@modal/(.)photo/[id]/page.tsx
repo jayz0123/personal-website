@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { findPhotoForIdCached } from '@/services/db/gallery';
 
-import { PhotoModal } from '@/components/gallery/PhotoModal';
+import { PhotoModal } from '@/components/gallery';
 
 const findPhotoForIdCachedCached = cache(findPhotoForIdCached);
 

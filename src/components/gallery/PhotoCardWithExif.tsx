@@ -11,7 +11,7 @@ import { Card, CardFooter, CardHeader } from '@nextui-org/card';
 
 import { IGalleryPhotoExif } from '@/lib/definitions';
 
-export function PhotoCardWithModal({
+export function PhotoCardWithExif({
   src,
   thumbnailURL,
   blurDataURL,

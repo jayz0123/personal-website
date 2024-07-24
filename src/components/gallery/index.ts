@@ -1,3 +1,4 @@
-export * from './PhotoCardWithModal';
-export * from './PhotoCardPreview';
+export * from './PhotoCardWithExif';
+export * from './PhotoCardWithArea';
 export * from './PhotoCardContainer';
+export * from './PhotoModal';

@@ -7,7 +7,7 @@ import {
   findPhotoIdsForCountryAreaCached,
 } from '@/services/db/gallery';
 
-import { PhotoModal } from '@/components/gallery/PhotoModal';
+import { PhotoModal } from '@/components/gallery';
 
 type GenerateStaticParamsProps = {
   params: { country: string; area: string };

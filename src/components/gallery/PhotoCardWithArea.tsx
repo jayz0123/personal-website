@@ -1,11 +1,13 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { Card, CardHeader } from '@nextui-org/card';
 
-export function PhotoCardPreview({
+export function PhotoCardWithArea({
   src,
   blurDataURL,
   country,
@@ -19,6 +21,13 @@ export function PhotoCardPreview({
   priority?: boolean;
 }) {
   const router = useRouter();
+
+  // prefetch routes
+  useEffect(() => {
+    router.prefetch(
+      `/gallery/${country.replace(/ /g, '-')}/${area.replace(/ /g, '-')}`,
+    );
+  }, [country, area, router]);
 
   return (
     <Card

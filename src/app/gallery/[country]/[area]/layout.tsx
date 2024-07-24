@@ -5,7 +5,7 @@ import {
   findPhotosForCountryAreaCached,
 } from '@/services/db/gallery';
 
-import { PhotoCardWithModal } from '@/components/gallery';
+import { PhotoCardWithExif } from '@/components/gallery';
 
 export const dynamicParams = false;
 export let generateStaticParams:
@@ -51,7 +51,7 @@ export default async function AreaLayout({
   return (
     <>
       {photos.map(({ id, url, thumbnailURL, blurDataURL, ...exif }, index) => (
-        <PhotoCardWithModal
+        <PhotoCardWithExif
           key={index}
           src={url}
           thumbnailURL={thumbnailURL}

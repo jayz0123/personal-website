@@ -64,7 +64,12 @@ export default function NavBar() {
     >
       <NavbarContent justify="start">
         <NavbarItem>
-          <Link href="/" prefetch color="foreground">
+          <Link
+            href="/"
+            prefetch
+            onClick={() => setIsMenuOpen(false)}
+            color="foreground"
+          >
             <HomeIcon />
           </Link>
         </NavbarItem>
@@ -75,6 +80,7 @@ export default function NavBar() {
             <Link
               href={href}
               prefetch
+              onClick={() => setIsMenuOpen(false)}
               color="foreground"
               className="gap-1 flex"
             >
@@ -102,6 +108,7 @@ export default function NavBar() {
             <Link
               href={href}
               prefetch
+              onClick={() => setIsMenuOpen(false)}
               color="foreground"
               className="gap-1 flex"
             >

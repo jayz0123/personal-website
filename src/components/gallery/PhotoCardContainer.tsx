@@ -1,13 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
-
-import { revalidateTag } from 'next/cache';
-import {
-  useParams,
-  useRouter,
-  useSelectedLayoutSegments,
-} from 'next/navigation';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/breadcrumbs';
 
@@ -23,18 +17,15 @@ export function PhotoCardContainer({
     { area: string; thumbnailURL: string; blurDataURL: string }[]
   >;
 }) {
-  const router = useRouter();
   const { country: currentCountry, area: currentArea } = useParams();
-
-  useEffect(() => {
-    currentArea && currentCountry
-      ? router.prefetch(`/gallery/${currentCountry}/${currentArea}`)
-      : router.prefetch(`/gallery`);
-  }, [currentArea, currentCountry, router]);
 
   return Object.entries(areaPhotoCovers).map(
     ([country, photoData], countryIndex) => (
-      <div key={countryIndex} className="flex flex-col items-center min-w-full">
+      <div
+        id={country.replace(/ /g, '-')}
+        key={countryIndex}
+        className="flex flex-col items-center min-w-full"
+      >
         <Breadcrumbs
           size="lg"
           underline="hover"
@@ -43,12 +34,10 @@ export function PhotoCardContainer({
             item: 'text-xl',
           }}
         >
-          <BreadcrumbItem
-            onPress={() => {
-              router.replace('/gallery', { scroll: false });
-            }}
-          >
-            {country}
+          <BreadcrumbItem>
+            <Link href={'/gallery/#' + country.replace(/ /g, '-')}>
+              {country}
+            </Link>
           </BreadcrumbItem>
           {currentCountry === country.replace(/ /g, '-') ? (
             <BreadcrumbItem>{currentArea}</BreadcrumbItem>

@@ -24,6 +24,7 @@ export function PhotoModal({
     defaultOpen: true,
     onClose() {
       // setTimeout(() => router.back(), 200);
+      // router.replace('/gallery', { scroll: false });
       router.back();
     },
     id,

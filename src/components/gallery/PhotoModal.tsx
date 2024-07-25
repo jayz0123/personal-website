@@ -35,8 +35,6 @@ export function PhotoModal({
       onOpenChange={onOpenChange}
       placement="center"
       backdrop="blur"
-      disableAnimation
-      shouldBlockScroll={false}
       classNames={{
         body: 'p-0',
         base: `items-center justify-center bg-transparent max-w-[90vw] max-h-[90vh] w-fit h-fit sm:my-auto`,

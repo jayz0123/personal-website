@@ -60,7 +60,6 @@ export default async function AreaLayout({
           area={area}
           id={id}
           exif={exif}
-          priority={index < 4 ? true : false}
         />
       ))}
       {children}

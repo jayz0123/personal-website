@@ -30,6 +30,7 @@
     "@nextui-org/scroll-shadow": "^2.1.19",
     "@nextui-org/skeleton": "^2.0.31",
     "@nextui-org/system": "^2.2.2",
+    "@nextui-org/tabs": "^2.0.35",
     "@nextui-org/theme": "^2.2.9",
     "@prisma/client": "^5.17.0",
     "@react-email/components": "0.0.19",

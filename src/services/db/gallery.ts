@@ -25,6 +25,42 @@ export async function createPhoto(
   }
 }
 
+const findAreaPhotoCoversForCountry = async (country: string) => {
+  try {
+    console.log('querying findAreaPhotoCoversForCountry');
+    const areaPhotoCoversForCountry = await prisma.place.findMany({
+      where: {
+        country: country.replace(/-/g, ' '),
+      },
+      select: {
+        area: true,
+        photos: {
+          where: {
+            isCover: {
+              equals: true,
+            },
+          },
+          select: {
+            thumbnailURL: true,
+            blurDataURL: true,
+          },
+        },
+      },
+      orderBy: {
+        area: 'asc',
+      },
+    });
+
+    return areaPhotoCoversForCountry.map(({ area, photos }) => ({
+      area,
+      thumbnailURL: photos[0].thumbnailURL,
+      blurDataURL: photos[0].blurDataURL,
+    }));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const findAreaPhotoCoversForEveryCountry = async () => {
   try {
     console.log('querying findAreaPhotoCoversForEveryCountry');
@@ -78,6 +114,25 @@ const findAreaPhotoCoversForEveryCountry = async () => {
   }
 };
 
+const findCountries = async () => {
+  try {
+    console.log('querying findCountries');
+    const countries = await prisma.place.findMany({
+      select: {
+        country: true,
+      },
+      distinct: ['country'],
+      orderBy: {
+        country: 'asc',
+      },
+    });
+
+    return countries.map(({ country }) => country);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const findAreasForEveryCountry = async () => {
   try {
     console.log('querying findAreasForEveryCountry');
@@ -118,8 +173,8 @@ const findPhotosForCountryArea = async (country: string, area: string) => {
     console.log('querying findPhotosForCountryArea');
     const photosForCountryArea = await prisma.photo.findMany({
       where: {
-        placeCountry: country,
-        placeArea: area,
+        placeCountry: country.replace(/-/g, ' '),
+        placeArea: area.replace(/-/g, ' '),
       },
       orderBy: {
         dateTime: 'asc',
@@ -169,6 +224,11 @@ const findPhotoForId = async (id: string) => {
   }
 };
 
+export const findAreaPhotoCoversForCountryCached = unstable_cache(
+  findAreaPhotoCoversForCountry,
+  ['area-photo-covers-for-country'],
+);
+
 export const findAreaPhotoCoversForEveryCountryCached = unstable_cache(
   findAreaPhotoCoversForEveryCountry,
   ['area-photo-covers-for-every-country'],
@@ -192,3 +252,5 @@ export const findPhotoIdsForCountryAreaCached = unstable_cache(
 export const findPhotoForIdCached = unstable_cache(findPhotoForId, [
   'photo-for-id',
 ]);
+
+export const findCountriesCached = unstable_cache(findCountries, ['countries']);

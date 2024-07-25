@@ -4,9 +4,12 @@ import { Metadata } from 'next';
 
 import { authCached } from '@/auth';
 
-import { findAreaPhotoCoversForEveryCountryCached } from '@/services/db/gallery';
+import {
+  findAreaPhotoCoversForEveryCountryCached,
+  findCountriesCached,
+} from '@/services/db/gallery';
 
-import { PhotoCardContainer } from '@/components/gallery';
+import { CountryTabs, PhotoCardContainer } from '@/components/gallery';
 import { PhotoUpload } from '@/components/gallery/admin/PhotoUpload';
 
 export const metadata: Metadata = {
@@ -23,14 +26,25 @@ export default async function GalleryLayout({
   children: React.ReactNode;
 }) {
   const session = await authCached();
-  const areaPhotoCovers =
-    await findAreaPhotoCoversForEveryCountryCachedCached();
+  // const areaPhotoCovers =
+  //   await findAreaPhotoCoversForEveryCountryCachedCached();
+  const countries = await findCountriesCached();
+  if (!countries) return null;
 
   return (
     <section className="flex flex-col gap-y-16 items-center min-w-full">
-      <PhotoCardContainer areaPhotoCovers={areaPhotoCovers!}>
+      {/* <PhotoCardContainer areaPhotoCovers={areaPhotoCovers!}>
         {children}
-      </PhotoCardContainer>
+      </PhotoCardContainer> */}
+      <CountryTabs
+        countries={countries.map((country) => ({
+          id: country.replace(/ /g, '-'),
+          label: country,
+          href: `/gallery/${country.replace(/ /g, '-')}`,
+        }))}
+      >
+        {children}
+      </CountryTabs>
 
       {session?.user?.role === 'admin' && <PhotoUpload />}
     </section>

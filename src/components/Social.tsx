@@ -1,4 +1,4 @@
-import { Link } from '@nextui-org/link';
+import Link from 'next/link';
 
 import { GitHubIcon, InstagramIcon, LinkedInIcon } from './ui/Icons';
 

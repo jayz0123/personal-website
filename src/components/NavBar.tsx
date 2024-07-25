@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { Link } from '@nextui-org/link';
 import {
   Navbar,
   NavbarContent,
@@ -49,13 +49,8 @@ export default function NavBar() {
     },
   ];
 
-  const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    router.prefetch(pathname);
-  }, [pathname, router]);
 
   return (
     <Navbar
@@ -69,24 +64,17 @@ export default function NavBar() {
     >
       <NavbarContent justify="start">
         <NavbarItem>
-          <Link
-            href="/"
-            onPress={() => setIsMenuOpen(false)}
-            color="foreground"
-          >
+          <Link href="/" color="foreground">
             <HomeIcon />
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent className="hidden md:flex" justify="center">
-        {MenuItems.map((item, index) => (
-          <NavbarItem
-            key={`${item}-${index}`}
-            isActive={pathname.includes(item.href)}
-          >
-            <Link href={item.href} color="foreground" className="gap-1">
-              {item.icon}
-              <span>{item.title}</span>
+        {MenuItems.map(({ icon, title, href }, index) => (
+          <NavbarItem key={index} isActive={pathname.includes(href)}>
+            <Link href={href} color="foreground" className="gap-1 flex">
+              {icon}
+              <span>{title}</span>
             </Link>
           </NavbarItem>
         ))}
@@ -104,16 +92,11 @@ export default function NavBar() {
         />
       </NavbarContent>
       <NavbarMenu>
-        {MenuItems.map((item, index) => (
+        {MenuItems.map(({ icon, title, href }, index) => (
           <NavbarMenuItem key={index}>
-            <Link
-              href={item.href}
-              onPress={() => setIsMenuOpen(false)}
-              color="foreground"
-              className="gap-1"
-            >
-              {item.icon}
-              <span>{item.title}</span>
+            <Link href={href} color="foreground" className="gap-1 flex">
+              {icon}
+              <span>{title}</span>
             </Link>
           </NavbarMenuItem>
         ))}

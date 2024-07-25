@@ -67,7 +67,7 @@ export function PhotoCardContainer({
                     country={country}
                     area={area}
                     priority={
-                      countryIndex < 2 && areaIndex === 0 ? true : false
+                      countryIndex < 1 && areaIndex === 0 ? true : false
                     }
                   />
                 ),

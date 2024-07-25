@@ -5,8 +5,6 @@ import {
   findPhotosForCountryAreaCached,
 } from '@/services/db/gallery';
 
-import { PhotoCardWithExif } from '@/components/gallery';
-
 export const dynamicParams = false;
 export let generateStaticParams:
   | (() => Promise<{ country: string; area: string }[]>)
@@ -41,27 +39,12 @@ export default async function AreaLayout({
   modal: React.ReactNode;
   params: { country: string; area: string };
 }) {
-  const photos = await findPhotosForCountryAreaCachedCached(
-    country.replace(/-/g, ' '),
-    area.replace(/-/g, ' '),
-  );
+  const photos = await findPhotosForCountryAreaCachedCached(country, area);
 
   if (!photos) return null;
 
   return (
     <>
-      {photos.map(({ id, url, thumbnailURL, blurDataURL, ...exif }, index) => (
-        <PhotoCardWithExif
-          key={index}
-          src={url}
-          thumbnailURL={thumbnailURL}
-          blurDataURL={blurDataURL}
-          country={country}
-          area={area}
-          id={id}
-          exif={exif}
-        />
-      ))}
       {children}
       {modal}
     </>

@@ -23,6 +23,10 @@ export function CountryTabs({
       selectedKey={params.country}
       variant="underlined"
       size="lg"
+      className="font-bold font-serif"
+      classNames={{
+        panel: 'w-full',
+      }}
     >
       {(country) => (
         <Tab key={country.id} title={country.label} href={country.href}>

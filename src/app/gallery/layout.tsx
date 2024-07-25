@@ -16,26 +16,17 @@ export const metadata: Metadata = {
   title: 'Gallery',
 };
 
-const findAreaPhotoCoversForEveryCountryCachedCached = cache(
-  findAreaPhotoCoversForEveryCountryCached,
-);
-
 export default async function GalleryLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const session = await authCached();
-  // const areaPhotoCovers =
-  //   await findAreaPhotoCoversForEveryCountryCachedCached();
   const countries = await findCountriesCached();
   if (!countries) return null;
 
   return (
-    <section className="flex flex-col gap-y-16 items-center min-w-full">
-      {/* <PhotoCardContainer areaPhotoCovers={areaPhotoCovers!}>
-        {children}
-      </PhotoCardContainer> */}
+    <section className="flex flex-col gap-y-4 items-center min-w-full">
       <CountryTabs
         countries={countries.map((country) => ({
           id: country.replace(/ /g, '-'),

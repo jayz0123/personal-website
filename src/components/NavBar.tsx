@@ -64,7 +64,7 @@ export default function NavBar() {
     >
       <NavbarContent justify="start">
         <NavbarItem>
-          <Link href="/" color="foreground">
+          <Link href="/" prefetch color="foreground">
             <HomeIcon />
           </Link>
         </NavbarItem>
@@ -72,7 +72,12 @@ export default function NavBar() {
       <NavbarContent className="hidden md:flex" justify="center">
         {MenuItems.map(({ icon, title, href }, index) => (
           <NavbarItem key={index} isActive={pathname.includes(href)}>
-            <Link href={href} color="foreground" className="gap-1 flex">
+            <Link
+              href={href}
+              prefetch
+              color="foreground"
+              className="gap-1 flex"
+            >
               {icon}
               <span>{title}</span>
             </Link>
@@ -94,7 +99,12 @@ export default function NavBar() {
       <NavbarMenu>
         {MenuItems.map(({ icon, title, href }, index) => (
           <NavbarMenuItem key={index}>
-            <Link href={href} color="foreground" className="gap-1 flex">
+            <Link
+              href={href}
+              prefetch
+              color="foreground"
+              className="gap-1 flex"
+            >
               {icon}
               <span>{title}</span>
             </Link>

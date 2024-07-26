@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import { Tab, Tabs } from '@nextui-org/tabs';
 
@@ -14,7 +14,15 @@ export function CountryTabs({
   countries: { id: string; label: string; href: string }[];
 }) {
   const params = useParams<{ countrySlug: string }>();
+  const router = useRouter();
   console.log(params);
+
+  // Prefetch routes for each country
+  useEffect(() => {
+    countries.forEach((country) => {
+      router.prefetch(country.href);
+    });
+  }, [countries, router]);
 
   return (
     <Tabs

@@ -10,7 +10,7 @@ import {
 import { PhotoModal } from '@/components/gallery';
 
 type GenerateStaticParamsProps = {
-  params: { country: string; area: string };
+  params: { countrySlug: string; areaSlug: string };
 };
 
 type GenerateStaticParams = (
@@ -23,8 +23,11 @@ export let generateStaticParams: GenerateStaticParams | undefined = undefined;
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 if (IS_PRODUCTION) {
-  generateStaticParams = async ({ params: { country, area } }) => {
-    const ids = await findPhotoIdsForCountryAreaCached(country, area);
+  generateStaticParams = async ({ params: { countrySlug, areaSlug } }) => {
+    const ids = await findPhotoIdsForCountryAreaCached(
+      countrySlug.replace(/-/g, ' '),
+      areaSlug.replace(/-/g, ' '),
+    );
 
     return ids!;
   };

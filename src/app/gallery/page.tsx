@@ -1,3 +1,3 @@
-export default async function Gallery() {
+export default async function GalleryPage() {
   return null;
 }

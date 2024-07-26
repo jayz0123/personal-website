@@ -57,7 +57,7 @@ export function PhotoCard({
         scroll: false,
       });
     } else {
-      router.push(`/gallery/${countrySlug}/${areaSlug}`, { scroll: false });
+      router.push(`/gallery/${countrySlug}/${areaSlug}`);
     }
   };
 

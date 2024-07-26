@@ -3,7 +3,8 @@ import { unstable_cache } from 'next/cache';
 import prisma, { Prisma } from '@/lib/prisma';
 
 // export Prisma.PhotoCreateWithoutPlaceInput for other usages
-export type PhotoCreateWithoutPlaceInput = Prisma.PhotoCreateWithoutPlaceInput;
+export type PhotoDatus = Prisma.PhotoCreateManyInput;
+export type PhotoData = Prisma.PhotoCreateManyInput[];
 
 export async function createPhoto(
   photoWithoutPlace: Prisma.PhotoCreateWithoutPlaceInput,
@@ -27,6 +28,24 @@ export async function createPhoto(
     console.log(e);
   }
 }
+
+const findPhotosForCountry = async (country: string) => {
+  try {
+    console.log('querying findPhotosForCountry');
+    const photosForCountry = await prisma.photo.findMany({
+      where: {
+        placeCountry: country,
+      },
+      orderBy: {
+        dateTime: 'asc',
+      },
+    });
+
+    return photosForCountry;
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const findAreaPhotoCoversForCountry = async (country: string) => {
   try {
@@ -252,6 +271,10 @@ const findPhotoForId = async (id: string) => {
     console.log(e);
   }
 };
+
+export const findPhotosForCountryCached = unstable_cache(findPhotosForCountry, [
+  'photos-for-country',
+]);
 
 export const findAreaPhotoCoversForCountryCached = unstable_cache(
   findAreaPhotoCoversForCountry,

@@ -1,11 +1,11 @@
 import { cache } from 'react';
 
 import {
-  findAreaPhotoCoversForCountryCached,
   findCountriesCached,
+  findPhotosForCountryCached,
 } from '@/services/db/gallery';
 
-import { PhotoCardGridWithArea } from '@/components/gallery';
+import { PhotoCardGrid } from '@/components/gallery';
 
 export const dynamicParams = false;
 
@@ -24,25 +24,18 @@ if (IS_PRODUCTION) {
   };
 }
 
-const findAreaPhotoCoversForCountryCachedCached = cache(
-  findAreaPhotoCoversForCountryCached,
-);
+const findPhotosForCountryCachedCached = cache(findPhotosForCountryCached);
 
 export default async function CountryPage({
   params: { countrySlug },
 }: {
   params: { countrySlug: string };
 }) {
-  const areaPhotoCovers = await findAreaPhotoCoversForCountryCachedCached(
+  const photoData = await findPhotosForCountryCachedCached(
     countrySlug.replace(/-/g, ' '),
   );
 
-  if (!areaPhotoCovers) return null;
+  if (!photoData) return null;
 
-  return (
-    <PhotoCardGridWithArea
-      areaPhotoCovers={areaPhotoCovers}
-      countrySlug={countrySlug}
-    />
-  );
+  return <PhotoCardGrid photoData={photoData} />;
 }

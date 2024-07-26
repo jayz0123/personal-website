@@ -3,9 +3,10 @@ import { cache } from 'react';
 import {
   findAreasForCountryCached,
   findPhotosForCountryAreaCached,
+  findPhotosForCountryCached,
 } from '@/services/db/gallery';
 
-import { PhotoCardGridWithExif } from '@/components/gallery';
+import { PhotoCardGrid } from '@/components/gallery';
 
 type GenerateStaticParamsProps = {
   params: { countrySlug: string };
@@ -30,27 +31,24 @@ if (IS_PRODUCTION) {
   };
 }
 
-const findPhotosForCountryAreaCachedCached = cache(
-  findPhotosForCountryAreaCached,
-);
+const findPhotosForCountryCachedCached = cache(findPhotosForCountryCached);
 
 export default async function AreaPage({
   params: { countrySlug, areaSlug },
 }: {
   params: { countrySlug: string; areaSlug: string };
 }) {
-  const photoDataWithExif = await findPhotosForCountryAreaCachedCached(
+  const photoData = await findPhotosForCountryCachedCached(
     countrySlug.replace(/-/g, ' '),
-    areaSlug.replace(/-/g, ' '),
   );
 
-  if (!photoDataWithExif) return null;
+  if (!photoData) return null;
 
   return (
-    <PhotoCardGridWithExif
-      countrySlug={countrySlug}
-      areaSlug={areaSlug}
-      photoDataWithExif={photoDataWithExif}
+    <PhotoCardGrid
+      variant="exif"
+      currentArea={areaSlug.replace(/-/g, ' ')}
+      photoData={photoData}
     />
   );
 }

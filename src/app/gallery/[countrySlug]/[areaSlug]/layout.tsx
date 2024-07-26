@@ -35,19 +35,12 @@ const findPhotosForCountryAreaCachedCached = cache(
 export default async function AreaLayout({
   children,
   modal,
-  params: { countrySlug, areaSlug },
+  // params: { countrySlug, areaSlug },
 }: {
   children: React.ReactNode;
   modal: React.ReactNode;
-  params: { countrySlug: string; areaSlug: string };
+  // params: { countrySlug: string; areaSlug: string };
 }) {
-  const photos = await findPhotosForCountryAreaCachedCached(
-    countrySlug.replace(/-/g, ' '),
-    areaSlug.replace(/-/g, ' '),
-  );
-
-  if (!photos) return null;
-
   return (
     <>
       {children}

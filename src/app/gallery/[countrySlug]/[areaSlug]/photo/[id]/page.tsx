@@ -29,7 +29,9 @@ if (IS_PRODUCTION) {
       areaSlug.replace(/-/g, ' '),
     );
 
-    return ids!;
+    if (!ids) return [];
+
+    return ids;
   };
 }
 

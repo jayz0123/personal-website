@@ -1,3 +1,3 @@
 export * from './CountryTabs';
 export * from './PhotoCardGrid';
-export * from './PhotoModal';
+export * from './PhotoModalPage';

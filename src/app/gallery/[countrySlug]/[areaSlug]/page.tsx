@@ -1,10 +1,6 @@
-import { cache } from 'react';
+import { Suspense } from 'react';
 
-import {
-  findAreasForCountryCached,
-  findPhotosForCountryAreaCached,
-  findPhotosForCountryCached,
-} from '@/services/db/gallery';
+import { findAreasForCountryCached } from '@/services/db/gallery';
 
 import { PhotoCardGrid } from '@/components/gallery';
 
@@ -31,24 +27,18 @@ if (IS_PRODUCTION) {
   };
 }
 
-const findPhotosForCountryCachedCached = cache(findPhotosForCountryCached);
-
 export default async function AreaPage({
   params: { countrySlug, areaSlug },
 }: {
   params: { countrySlug: string; areaSlug: string };
 }) {
-  const photoData = await findPhotosForCountryCachedCached(
-    countrySlug.replace(/-/g, ' '),
-  );
-
-  if (!photoData) return null;
-
   return (
-    <PhotoCardGrid
-      variant="exif"
-      currentArea={areaSlug.replace(/-/g, ' ')}
-      photoData={photoData}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <PhotoCardGrid
+        variant="exif"
+        currentCountry={countrySlug.replace(/-/g, ' ')}
+        currentArea={areaSlug.replace(/-/g, ' ')}
+      />
+    </Suspense>
   );
 }

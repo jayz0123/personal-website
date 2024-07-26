@@ -1,19 +1,29 @@
-import type { PhotoData } from '@/services/db/gallery';
+import { cache } from 'react';
+
+import { findPhotosForCountryCached } from '@/services/db/gallery';
 
 import { PhotoCard } from './PhotoCard';
 
 // Define a type for the grid props
 type PhotoCardGridProps = {
   variant?: 'area' | 'exif'; // Determine which variant to render
+  currentCountry: string;
   currentArea?: string;
-  photoData: PhotoData;
 };
 
-export function PhotoCardGrid({
-  photoData,
+const findPhotosForCountryCachedCached = cache(findPhotosForCountryCached);
+
+export async function PhotoCardGrid({
+  currentCountry,
   currentArea,
   variant = 'area',
 }: PhotoCardGridProps) {
+  const photoData = await findPhotosForCountryCachedCached(
+    currentCountry.replace(/-/g, ' '),
+  );
+
+  if (!photoData) return <div>No photos found for this country.</div>;
+
   const filteredPhotos = photoData.filter(({ isCover, placeArea }) => {
     if (variant === 'exif') {
       return currentArea === placeArea;

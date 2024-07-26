@@ -1,9 +1,6 @@
-import { cache } from 'react';
+import { Suspense } from 'react';
 
-import {
-  findCountriesCached,
-  findPhotosForCountryCached,
-} from '@/services/db/gallery';
+import { findCountriesCached } from '@/services/db/gallery';
 
 import { PhotoCardGrid } from '@/components/gallery';
 
@@ -24,18 +21,14 @@ if (IS_PRODUCTION) {
   };
 }
 
-const findPhotosForCountryCachedCached = cache(findPhotosForCountryCached);
-
 export default async function CountryPage({
   params: { countrySlug },
 }: {
   params: { countrySlug: string };
 }) {
-  const photoData = await findPhotosForCountryCachedCached(
-    countrySlug.replace(/-/g, ' '),
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PhotoCardGrid currentCountry={countrySlug} />
+    </Suspense>
   );
-
-  if (!photoData) return null;
-
-  return <PhotoCardGrid photoData={photoData} />;
 }

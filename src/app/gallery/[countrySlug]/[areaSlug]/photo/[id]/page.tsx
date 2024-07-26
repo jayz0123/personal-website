@@ -42,8 +42,8 @@ export default async function Photo({
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <PhotoModalPage
-        currentCountry={countrySlug}
-        currentArea={areaSlug}
+        currentCountry={countrySlug.replace(/-/g, ' ')}
+        currentArea={areaSlug.replace(/-/g, ' ')}
         id={id}
       />
     </Suspense>

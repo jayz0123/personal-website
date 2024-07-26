@@ -1,10 +1,13 @@
 import { cache } from 'react';
 
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
 import { findPhotosForCountryCached } from '@/services/db/gallery';
 
-import { PhotoModal } from './PhotoModal';
+const PhotoModal = dynamic(() => import('./PhotoModal'), { ssr: false });
+
+// import { PhotoModal } from './PhotoModal';
 
 const findPhotosForCountryCachedCached = cache(findPhotosForCountryCached);
 
@@ -36,7 +39,7 @@ export async function PhotoModalPage({
   }`;
 
   return (
-    <PhotoModal id={id}>
+    <PhotoModal>
       <div className={containerClassNames}>
         <Image
           src={photo.url}

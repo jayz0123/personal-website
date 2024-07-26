@@ -34,6 +34,7 @@ export default async function AreaLayout({
     <>
       {children}
       {modal}
+      <div id="modal-root" />
     </>
   );
 }

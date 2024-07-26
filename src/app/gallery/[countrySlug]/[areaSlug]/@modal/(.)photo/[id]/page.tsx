@@ -12,12 +12,10 @@ export default async function Photo({
   };
 }) {
   return (
-    <Suspense>
-      <PhotoModalPage
-        currentCountry={countrySlug.replace(/-/g, ' ')}
-        currentArea={areaSlug.replace(/-/g, ' ')}
-        id={id}
-      />
-    </Suspense>
+    <PhotoModalPage
+      currentCountry={countrySlug.replace(/-/g, ' ')}
+      currentArea={areaSlug.replace(/-/g, ' ')}
+      id={id}
+    />
   );
 }

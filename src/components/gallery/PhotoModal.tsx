@@ -1,49 +1,39 @@
 'use client';
 
-import React from 'react';
+import { type ElementRef, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  useDisclosure,
-} from '@nextui-org/modal';
-
-export function PhotoModal({
+export default function PhotoModal({
   children,
-  id,
 }: {
   children: React.ReactNode;
-  id: string;
 }) {
   const router = useRouter();
+  const dialogRef = useRef<ElementRef<'dialog'>>(null);
 
-  const { isOpen, onOpenChange } = useDisclosure({
-    defaultOpen: true,
-    onClose() {
-      // setTimeout(() => router.back(), 200);
-      // router.replace('/gallery', { scroll: false });
-      router.back();
-    },
-    id,
-  });
+  useEffect(() => {
+    if (!dialogRef.current?.open) {
+      dialogRef.current?.showModal();
+    }
+  }, []);
 
-  return (
-    <Modal
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
-      placement="center"
-      backdrop="blur"
-      classNames={{
-        body: 'p-0',
-        base: `items-center justify-center bg-transparent max-w-[90vw] max-h-[90vh] w-fit h-fit sm:my-auto`,
-      }}
+  const onDismiss = () => router.back();
+
+  return createPortal(
+    <dialog
+      ref={dialogRef}
+      className="modal backdrop-blur-lg"
+      onClose={onDismiss}
     >
-      <ModalContent>
-        {(onClose) => <ModalBody>{children}</ModalBody>}
-      </ModalContent>
-    </Modal>
+      <div className="modal-box p-0 min-w-min max-w-fit bg-transparent">
+        {children}
+      </div>
+      <form method="dialog" className="modal-backdrop">
+        <button className="cursor-default" />
+      </form>
+    </dialog>,
+    document.getElementById('modal-root')!,
   );
 }

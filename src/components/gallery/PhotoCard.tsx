@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -40,6 +42,14 @@ export function PhotoCard({
   exif,
 }: PhotoCardProps) {
   const router = useRouter();
+
+  useEffect(() => {
+    // Prefetch both potential routes to improve navigation speed
+    if (variant === 'exif' && id) {
+      router.prefetch(`/gallery/${countrySlug}/${areaSlug}/photo/${id}`);
+    }
+    router.prefetch(`/gallery/${countrySlug}/${areaSlug}`);
+  }, [countrySlug, areaSlug, id, router, variant]);
 
   const handlePress = () => {
     if (variant === 'exif' && id) {

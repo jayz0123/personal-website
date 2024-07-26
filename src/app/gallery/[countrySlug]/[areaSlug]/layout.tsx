@@ -1,9 +1,4 @@
-import { cache } from 'react';
-
-import {
-  findAreasForCountryCached,
-  findPhotosForCountryAreaCached,
-} from '@/services/db/gallery';
+import { findAreasForCountryCached } from '@/services/db/gallery';
 
 type GenerateStaticParamsProps = {
   params: { countrySlug: string };
@@ -28,18 +23,12 @@ if (IS_PRODUCTION) {
   };
 }
 
-const findPhotosForCountryAreaCachedCached = cache(
-  findPhotosForCountryAreaCached,
-);
-
 export default async function AreaLayout({
   children,
   modal,
-  // params: { countrySlug, areaSlug },
 }: {
   children: React.ReactNode;
   modal: React.ReactNode;
-  // params: { countrySlug: string; areaSlug: string };
 }) {
   return (
     <>

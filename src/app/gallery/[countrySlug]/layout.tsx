@@ -19,10 +19,8 @@ if (IS_PRODUCTION) {
 
 export default function CountryLayout({
   children,
-  // params: { countrySlug },
 }: {
   children: React.ReactNode;
-  // params: { countrySlug: string };
 }) {
   return (
     <section className="min-w-full gap-4 grid grid-cols-12">{children}</section>

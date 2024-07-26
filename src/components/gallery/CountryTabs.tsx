@@ -13,14 +13,14 @@ export function CountryTabs({
   children: React.ReactNode;
   countries: { id: string; label: string; href: string }[];
 }) {
-  const params = useParams<{ country: string }>();
+  const params = useParams<{ countrySlug: string }>();
   console.log(params);
 
   return (
     <Tabs
       items={countries}
       defaultSelectedKey={undefined}
-      selectedKey={params.country}
+      selectedKey={params.countrySlug}
       variant="underlined"
       size="lg"
       className="font-bold font-serif"

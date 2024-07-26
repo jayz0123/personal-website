@@ -5,11 +5,12 @@ import {
   findCountriesCached,
 } from '@/services/db/gallery';
 
-import { PhotoCardContainer } from '@/components/gallery';
+import { PhotoCardGridWithArea } from '@/components/gallery';
 
 export const dynamicParams = false;
+
 export let generateStaticParams:
-  | (() => Promise<{ country: string }[]>)
+  | (() => Promise<{ countrySlug: string }[]>)
   | undefined = undefined;
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
@@ -17,9 +18,9 @@ if (IS_PRODUCTION) {
   generateStaticParams = async () => {
     const countries = await findCountriesCached();
 
-    return countries!.map((country) => ({
-      country: country.replace(/ /g, '-'),
-    }));
+    if (!countries) return [];
+
+    return countries;
   };
 }
 
@@ -27,15 +28,21 @@ const findAreaPhotoCoversForCountryCachedCached = cache(
   findAreaPhotoCoversForCountryCached,
 );
 
-export default async function Page({
-  params: { country },
+export default async function CountryPage({
+  params: { countrySlug },
 }: {
-  params: { country: string };
+  params: { countrySlug: string };
 }) {
-  const areaPhotoCovers =
-    await findAreaPhotoCoversForCountryCachedCached(country);
+  const areaPhotoCovers = await findAreaPhotoCoversForCountryCachedCached(
+    countrySlug.replace(/-/g, ' '),
+  );
+
+  if (!areaPhotoCovers) return null;
 
   return (
-    <PhotoCardContainer areaPhotoCovers={areaPhotoCovers!} country={country} />
+    <PhotoCardGridWithArea
+      areaPhotoCovers={areaPhotoCovers}
+      countrySlug={countrySlug}
+    />
   );
 }

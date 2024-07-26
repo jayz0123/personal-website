@@ -1,5 +1,4 @@
-export * from './PhotoCardWithExif';
-export * from './PhotoCardWithArea';
-export * from './PhotoCardContainer';
+export * from './PhotoCardGridWithArea';
+export * from './PhotoCardGridWithExif';
 export * from './PhotoModal';
 export * from './CountryTabs';

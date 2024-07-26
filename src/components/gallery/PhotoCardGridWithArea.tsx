@@ -1,24 +1,24 @@
 import { PhotoCardWithArea } from './PhotoCardWithArea';
 
-export function PhotoCardContainer({
-  country,
+export function PhotoCardGridWithArea({
+  countrySlug,
   areaPhotoCovers,
 }: {
-  country: string;
+  countrySlug: string;
   areaPhotoCovers: {
-    area: string;
+    areaSlug: string;
     thumbnailURL: string;
     blurDataURL: string;
   }[];
 }) {
   return areaPhotoCovers.map(
-    ({ area, thumbnailURL, blurDataURL }, areaIndex) => (
-      <div key={areaIndex} className="col-span-12 xl:col-span-4 md:col-span-6">
+    ({ areaSlug, thumbnailURL, blurDataURL }, index) => (
+      <div key={index} className="col-span-12 xl:col-span-4 md:col-span-6">
         <PhotoCardWithArea
           src={thumbnailURL}
           blurDataURL={blurDataURL}
-          country={country}
-          area={area}
+          countrySlug={countrySlug}
+          areaSlug={areaSlug}
         />
       </div>
     ),

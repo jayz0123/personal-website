@@ -18,6 +18,7 @@ type GenerateStaticParams = (
 ) => Promise<{ id: string }[]>;
 
 export const dynamicParams = false;
+
 export let generateStaticParams: GenerateStaticParams | undefined = undefined;
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';

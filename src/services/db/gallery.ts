@@ -2,6 +2,9 @@ import { unstable_cache } from 'next/cache';
 
 import prisma, { Prisma } from '@/lib/prisma';
 
+// export Prisma.PhotoCreateWithoutPlaceInput for other usages
+export type PhotoCreateWithoutPlaceInput = Prisma.PhotoCreateWithoutPlaceInput;
+
 export async function createPhoto(
   photoWithoutPlace: Prisma.PhotoCreateWithoutPlaceInput,
   place: Prisma.PlaceCreateWithoutPhotosInput,
@@ -52,7 +55,7 @@ const findAreaPhotoCoversForCountry = async (country: string) => {
     });
 
     return areaPhotoCoversForCountry.map(({ area, photos }) => ({
-      area,
+      areaSlug: area.replace(/ /g, '-'),
       thumbnailURL: photos[0].thumbnailURL,
       blurDataURL: photos[0].blurDataURL,
     }));
@@ -97,7 +100,7 @@ const findAreaPhotoCoversForEveryCountry = async () => {
         }
 
         acc[country].push({
-          area,
+          areaSlug: area.replace(/ /g, '-'),
           thumbnailURL: photos[0].thumbnailURL,
           blurDataURL: photos[0].blurDataURL,
         });
@@ -106,7 +109,7 @@ const findAreaPhotoCoversForEveryCountry = async () => {
       },
       {} as Record<
         string,
-        { area: string; thumbnailURL: string; blurDataURL: string }[]
+        { areaSlug: string; thumbnailURL: string; blurDataURL: string }[]
       >,
     );
   } catch (e) {
@@ -127,7 +130,33 @@ const findCountries = async () => {
       },
     });
 
-    return countries.map(({ country }) => country);
+    return countries.map(({ country }) => {
+      return { countrySlug: country.replace(/ /g, '-') };
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const findAreasForCountry = async (country: string) => {
+  try {
+    console.log('querying findAreasForCountry');
+    const areas = await prisma.place.findMany({
+      where: {
+        country: country.replace(/-/g, ' '),
+      },
+      select: {
+        area: true,
+      },
+      distinct: ['area'],
+      orderBy: {
+        area: 'asc',
+      },
+    });
+
+    return areas.map(({ area }) => {
+      return { areaSlug: area.replace(/ /g, '-') };
+    });
   } catch (e) {
     console.log(e);
   }
@@ -233,6 +262,10 @@ export const findAreaPhotoCoversForEveryCountryCached = unstable_cache(
   findAreaPhotoCoversForEveryCountry,
   ['area-photo-covers-for-every-country'],
 );
+
+export const findAreasForCountryCached = unstable_cache(findAreasForCountry, [
+  'areas-for-country',
+]);
 
 export const findAreasForEveryCountryCached = unstable_cache(
   findAreasForEveryCountry,

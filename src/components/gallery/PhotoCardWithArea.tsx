@@ -2,27 +2,23 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Router } from 'next/router';
 
 import { Card, CardHeader } from '@nextui-org/card';
 
 export function PhotoCardWithArea({
   src,
   blurDataURL,
-  country,
-  area,
+  countrySlug,
+  areaSlug,
   priority = false,
 }: {
   src: string;
   blurDataURL: string;
-  country: string;
-  area: string;
+  countrySlug: string;
+  areaSlug: string;
   priority?: boolean;
 }) {
   const router = useRouter();
-
-  const countrySlug = country.replace(/ /g, '-');
-  const areaSlug = area.replace(/ /g, '-');
 
   return (
     <Card
@@ -35,14 +31,14 @@ export function PhotoCardWithArea({
     >
       <CardHeader className="w-fit justify-center overflow-hidden py-2 absolute bottom-1 left-1 ml-1 z-10">
         <p className="text-white text-md font-bold font-serif">
-          {area.replace('-', ' ')}
+          {areaSlug.replace(/-/g, ' ')}
         </p>
       </CardHeader>
       <Image
         src={src}
         placeholder="blur"
         blurDataURL={blurDataURL}
-        alt={area}
+        alt={areaSlug}
         priority={priority}
         width={640}
         height={480}

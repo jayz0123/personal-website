@@ -15,16 +15,23 @@ export const metadata: Metadata = {
     template: '%s | Jayz',
     default: 'Howie Jayz',
   },
+  authors: [
+    {
+      url: 'https://howiejayz.com',
+      name: 'Howie Jayz',
+    },
+  ],
+  generator: 'nextjs, react',
   description:
     "I'm a software engineer who loves to build things. I'm passionate about web development, design, and photography.",
   openGraph: {
-    images: [
-      {
-        url: 'https://api.howiejayz.com/dio.png?format=auto&quality=75&width=640',
-        width: 640,
-        alt: 'Howie Jayz',
-      },
-    ],
+    images: {
+      url: 'https://api.howiejayz.com/dio.png?format=auto&quality=75&width=640',
+      width: 640,
+      alt: 'Howie Jayz',
+    },
+    emails: ['howiejayzh@gmail.com'],
+    phoneNumbers: ['+447398126363'],
     locale: 'en_US',
     type: 'website',
   },

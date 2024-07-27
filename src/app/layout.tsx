@@ -16,7 +16,18 @@ export const metadata: Metadata = {
     default: 'Howie Jayz',
   },
   description:
-    "Howie Jayz's personal website. A place to share my thoughts and experiences. I'm a software engineer, photographer, and traveler.",
+    "I'm a software engineer who loves to build things. I'm passionate about web development, design, and photography.",
+  openGraph: {
+    images: [
+      {
+        url: 'https://api.howiejayz.com/dio.png?format=auto&quality=75&width=640',
+        width: 640,
+        alt: 'Howie Jayz',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({

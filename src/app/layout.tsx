@@ -15,7 +15,8 @@ export const metadata: Metadata = {
     template: '%s | Jayz',
     default: 'Howie Jayz',
   },
-  description: "Howie Jayz's Personal Website Built with Next.js",
+  description:
+    "Howie Jayz's personal website. A place to share my thoughts and experiences. I'm a software engineer, photographer, and traveler.",
 };
 
 export default function RootLayout({

@@ -1,21 +1,21 @@
 import { findCountriesCached } from '@/services/db/gallery';
 
-export const dynamicParams = false;
+// export const dynamicParams = false;
 
-export let generateStaticParams:
-  | (() => Promise<{ countrySlug: string }[]>)
-  | undefined = undefined;
+// export let generateStaticParams:
+//   | (() => Promise<{ countrySlug: string }[]>)
+//   | undefined = undefined;
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-if (IS_PRODUCTION) {
-  generateStaticParams = async () => {
-    const countries = await findCountriesCached();
+// const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+// if (IS_PRODUCTION) {
+//   generateStaticParams = async () => {
+//     const countries = await findCountriesCached();
 
-    if (!countries) return [];
+//     if (!countries) return [];
 
-    return countries;
-  };
-}
+//     return countries;
+//   };
+// }
 
 export default function CountryLayout({
   children,

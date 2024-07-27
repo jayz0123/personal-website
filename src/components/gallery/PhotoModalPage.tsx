@@ -1,13 +1,8 @@
 import { cache } from 'react';
 
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
 import { findPhotosForCountryCached } from '@/services/db/gallery';
-
-const PhotoModal = dynamic(() => import('./PhotoModal'), { ssr: false });
-
-// import { PhotoModal } from './PhotoModal';
 
 const findPhotosForCountryCachedCached = cache(findPhotosForCountryCached);
 
@@ -39,21 +34,19 @@ export async function PhotoModalPage({
   }`;
 
   return (
-    <PhotoModal>
-      <div className={containerClassNames}>
-        <Image
-          src={photo.url}
-          placeholder="blur"
-          blurDataURL={photo.blurDataURL}
-          alt={photo.title}
-          loading="eager"
-          priority
-          width={isPortrait ? photo.height! / 3 : photo.width! / 3}
-          height={isPortrait ? photo.width! / 3 : photo.height! / 3}
-          sizes={sizes}
-          className={imageClassNames}
-        />
-      </div>
-    </PhotoModal>
+    <div className={containerClassNames}>
+      <Image
+        src={photo.url}
+        placeholder="blur"
+        blurDataURL={photo.blurDataURL}
+        alt={photo.title}
+        loading="eager"
+        priority
+        width={isPortrait ? photo.height! / 3 : photo.width! / 3}
+        height={isPortrait ? photo.width! / 3 : photo.height! / 3}
+        sizes={sizes}
+        className={imageClassNames}
+      />
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
 import { PhotoModalPage } from '@/components/gallery';
+import { PhotoModal } from '@/components/gallery/PhotoModal';
 
 export default async function Photo({
   params: { countrySlug, areaSlug, id },
@@ -12,10 +13,12 @@ export default async function Photo({
   };
 }) {
   return (
-    <PhotoModalPage
-      currentCountry={countrySlug.replace(/-/g, ' ')}
-      currentArea={areaSlug.replace(/-/g, ' ')}
-      id={id}
-    />
+    <PhotoModal>
+      <PhotoModalPage
+        currentCountry={countrySlug.replace(/-/g, ' ')}
+        currentArea={areaSlug.replace(/-/g, ' ')}
+        id={id}
+      />
+    </PhotoModal>
   );
 }

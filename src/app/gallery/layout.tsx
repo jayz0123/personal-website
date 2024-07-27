@@ -24,7 +24,7 @@ export default async function GalleryLayout({
   const session = await authCachedCached();
   const countries = await findCountriesCachedCached();
 
-  if (!countries) return null;
+  if (!countries) return <div>No countries found</div>;
 
   return (
     <section className="flex flex-col gap-y-4 items-center min-w-full">

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   ],
   generator: 'nextjs, react',
   description:
-    "I'm a software engineer who loves to build things. I'm passionate about web development, design, and photography.",
+    "I'm a software engineer who loves to build things. I'm passionate about machine learning, photography, and hiking.",
   openGraph: {
     images: {
       url: 'https://api.howiejayz.com/dio.png?format=auto&quality=75&width=640',

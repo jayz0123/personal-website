@@ -13,9 +13,8 @@ export function CountryTabs({
   children: React.ReactNode;
   countries: { id: string; label: string; href: string }[];
 }) {
-  const params = useParams<{ countrySlug: string }>();
+  const { countrySlug } = useParams<{ countrySlug: string }>();
   const router = useRouter();
-  console.log(params);
 
   // Prefetch routes for each country
   useEffect(() => {
@@ -24,10 +23,14 @@ export function CountryTabs({
     });
   }, [countries, router]);
 
+  if (!countrySlug) {
+    router.push('/gallery/Japan');
+  }
+
   return (
     <Tabs
       items={countries}
-      selectedKey={params.countrySlug}
+      selectedKey={countrySlug}
       variant="underlined"
       size="lg"
       className="font-bold font-serif"

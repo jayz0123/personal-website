@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
 
 export default async function GalleryPage() {
-  return redirect('/gallery/China');
+  return redirect('/gallery/Japan');
 }

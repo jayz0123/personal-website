@@ -10,18 +10,18 @@ type GenerateStaticParams = (
 
 // export const dynamicParams = false;
 
-// export let generateStaticParams: GenerateStaticParams | undefined = undefined;
+export let generateStaticParams: GenerateStaticParams | undefined = undefined;
 
-// const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-// if (IS_PRODUCTION) {
-//   generateStaticParams = async ({ params: { countrySlug } }) => {
-//     const areas = await findAreasForCountryCached(countrySlug);
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+if (false) {
+  generateStaticParams = async ({ params: { countrySlug } }) => {
+    const areas = await findAreasForCountryCached(countrySlug);
 
-//     if (!areas) return [];
+    if (!areas) return [];
 
-//     return areas;
-//   };
-// }
+    return areas;
+  };
+}
 
 export default async function AreaLayout({
   children,

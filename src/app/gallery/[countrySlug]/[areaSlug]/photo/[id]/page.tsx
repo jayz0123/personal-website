@@ -15,21 +15,21 @@ type GenerateStaticParams = (
 
 // export const dynamicParams = false;
 
-// export let generateStaticParams: GenerateStaticParams | undefined = undefined;
+export let generateStaticParams: GenerateStaticParams | undefined = undefined;
 
-// const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-// if (IS_PRODUCTION) {
-//   generateStaticParams = async ({ params: { countrySlug, areaSlug } }) => {
-//     const ids = await findPhotoIdsForCountryAreaCached(
-//       countrySlug.replace(/-/g, ' '),
-//       areaSlug.replace(/-/g, ' '),
-//     );
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+if (false) {
+  generateStaticParams = async ({ params: { countrySlug, areaSlug } }) => {
+    const ids = await findPhotoIdsForCountryAreaCached(
+      countrySlug.replace(/-/g, ' '),
+      areaSlug.replace(/-/g, ' '),
+    );
 
-//     if (!ids) return [];
+    if (!ids) return [];
 
-//     return ids;
-//   };
-// }
+    return ids;
+  };
+}
 
 export default async function Photo({
   params: { countrySlug, areaSlug, id },

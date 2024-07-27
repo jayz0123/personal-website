@@ -88,7 +88,7 @@ export function PhotoCard({
         className="z-0 w-full h-full object-cover hover:scale-125 transition-transform transform-gpu duration-400 ease-in-out"
       />
       {variant === 'exif' && exif && (
-        <CardFooter className="absolute bg-white/30 bottom-0 z-10 justify-between p-2">
+        <CardFooter className="absolute bg-white/30 bottom-0 z-10 justify-center p-2">
           <div>
             <p className="text-white text-tiny flex space-x-3 justify-between font-serif">
               <span>{exif.make}</span>

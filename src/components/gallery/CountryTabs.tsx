@@ -27,7 +27,6 @@ export function CountryTabs({
   return (
     <Tabs
       items={countries}
-      defaultSelectedKey={undefined}
       selectedKey={params.countrySlug}
       variant="underlined"
       size="lg"

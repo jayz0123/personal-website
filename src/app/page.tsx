@@ -4,7 +4,7 @@ import { Timeline } from '@/components/home';
 export default function Home() {
   const textStyles = 'text-lg mb-4';
   return (
-    <div className="flex items-start">
+    <div className="flex items-center">
       <div className="flex flex-col overflow-hidden xl:max-h-min xl:flex-row-reverse items-center">
         <section className="flex-1 mb-8 xl:mb-0" aria-label="greetings">
           <Greetings />

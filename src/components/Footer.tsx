@@ -3,7 +3,6 @@ import { LoginButton } from './LoginButton';
 export default function Footer() {
   return (
     <div className="w-full flex flex-col relative">
-      <div className="divider divider-vertical mx-32 xl:opacity-0" />
       <footer className="footer footer-center pb-4">
         <div className="">
           <div className="absolute bottom-2 right-2">

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     "I'm a software engineer who loves to build things. I'm passionate about machine learning, photography, and hiking.",
   openGraph: {
     images: {
-      url: 'https://api.howiejayz.com/og.png?format=auto&quality=75&width=640',
+      url: 'https://api.howiejayz.com/opengraph-image.png?format=auto&quality=75&width=640',
       width: 768,
       height: 403,
       alt: 'Howie Jayz',

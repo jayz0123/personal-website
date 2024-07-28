@@ -17,6 +17,9 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    mdxRs: true,
+  },
   // experimental: {
   //   // reactCompiler: true,
   //   turbo: {

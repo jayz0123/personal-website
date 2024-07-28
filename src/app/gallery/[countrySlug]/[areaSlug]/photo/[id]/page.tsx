@@ -1,6 +1,11 @@
 import { Suspense } from 'react';
 
-import { findPhotoIdsForCountryAreaCached } from '@/services/db/gallery';
+import { Metadata } from 'next';
+
+import {
+  findPhotoIdsForCountryAreaCached,
+  findPhotosForCountryCached,
+} from '@/services/db/gallery';
 
 import { PhotoModalPage } from '@/components/gallery';
 import { PhotoModal } from '@/components/gallery/PhotoModal';
@@ -28,6 +33,33 @@ if (false) {
     if (!ids) return [];
 
     return ids;
+  };
+}
+
+export async function generateMetadata({
+  params: { countrySlug, areaSlug, id },
+}: {
+  params: {
+    countrySlug: string;
+    areaSlug: string;
+    id: string;
+  };
+}): Promise<Metadata | undefined> {
+  const photoData = await findPhotosForCountryCached(
+    countrySlug.replace(/-/g, ' '),
+  );
+  if (!photoData) return;
+
+  const photo = photoData.find(({ id: photoId }) => photoId === id);
+  if (!photo) return;
+
+  return {
+    openGraph: {
+      title: photo.title,
+      images: photo.thumbnailURL,
+      publishedTime: photo.createdAt.toString(),
+      modifiedTime: photo.updatedAt.toString(),
+    },
   };
 }
 

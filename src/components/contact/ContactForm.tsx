@@ -66,7 +66,7 @@ export function ContactForm() {
     <div className="w-full h-full flex-1">
       {/* react hook form component */}
       <Form
-        action="/api/send"
+        action="/api/contact/send"
         headers={{
           'Content-Type': 'application/json',
         }}

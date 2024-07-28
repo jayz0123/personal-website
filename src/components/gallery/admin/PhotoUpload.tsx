@@ -44,7 +44,7 @@ export function PhotoUpload() {
 
   return (
     <Form
-      action="/api/upload"
+      action="/api/gallery/upload"
       headers={{
         'Content-Type': 'application/json',
       }}

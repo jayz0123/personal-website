@@ -6,6 +6,8 @@ import { Skeleton } from '@nextui-org/skeleton';
 
 import getLocalTime from '@/utils/getLocalTime';
 
+import GlowingText from '../ui/GlowingText';
+
 export function Greetings() {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -30,18 +32,19 @@ export function Greetings() {
       <div className="mb-4">
         <Skeleton isLoaded={isMounted} className="rounded-lg">
           <h2>
-            <p className="text-3xl font-bold mb-2">
-              {`${
-                isMidnight
-                  ? 'Hey, late owl '
-                  : isEvening
-                    ? 'Good evening '
-                    : isAfternoon
-                      ? 'Hello, afternoon '
-                      : 'Good morning '
-              }`}
-            </p>
-            <p className="text-2xl">
+            <GlowingText
+              className="text-5xl sm:text-6xl font-extrabold mb-4"
+              isActive
+            >
+              {isMidnight
+                ? 'Hey, late owl '
+                : isEvening
+                  ? 'Good evening '
+                  : isAfternoon
+                    ? 'Hello, afternoon '
+                    : 'Good morning '}
+            </GlowingText>
+            <p className="text-xl">
               {`${
                 isMidnight
                   ? "— Let's pretend staying up late is totally a good idea!"

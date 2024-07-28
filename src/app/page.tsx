@@ -2,7 +2,7 @@ import { Greetings } from '@/components/home';
 import { Timeline } from '@/components/home';
 
 export default function Home() {
-  const textStyles = 'text-lg mb-4';
+  const textStyles = 'mb-4';
   return (
     <div className="flex items-center">
       <div className="flex flex-col overflow-hidden xl:max-h-min xl:flex-row-reverse items-center">

@@ -10,7 +10,7 @@ export default function ContactLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col grow xl:flex-row xl:space-x-16 items-center">
+    <section className="flex flex-col items-start xl:flex-row xl:space-x-16 xl:items-center mb-16">
       {children}
     </section>
   );

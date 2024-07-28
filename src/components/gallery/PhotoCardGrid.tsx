@@ -36,11 +36,11 @@ export async function PhotoCardGrid({
   });
 
   return (
-    <Glowing>
+    <Glowing variant="gallery">
       <ScrollShadow
         hideScrollBar
-        size={0}
-        className="min-w-fit h-[60dvh] rounded-large"
+        size={10}
+        className="min-w-full h-[65dvh] rounded-large"
       >
         <div className="min-w-full gap-4 grid grid-cols-12 p-4">
           {filteredPhotos.map((photo, index) => {

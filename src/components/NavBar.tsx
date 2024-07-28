@@ -17,6 +17,8 @@ import {
 import Social from '@/components/Social';
 import ThemeSwitch from '@/components/ThemeSwitch';
 
+import Glowing from './ui/Glowing';
+import GlowingText from './ui/GlowingText';
 import {
   ContactIcon,
   GalleryIcon,
@@ -70,7 +72,9 @@ export default function NavBar() {
             onClick={() => setIsMenuOpen(false)}
             color="foreground"
           >
-            <HomeIcon />
+            <GlowingText>
+              <HomeIcon />
+            </GlowingText>
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -82,10 +86,11 @@ export default function NavBar() {
               prefetch
               onClick={() => setIsMenuOpen(false)}
               color="foreground"
-              className="gap-1 flex"
             >
-              {icon}
-              <span>{title}</span>
+              <GlowingText isActive={pathname.includes(href)}>
+                {icon}
+                <span className="">{title}</span>
+              </GlowingText>
             </Link>
           </NavbarItem>
         ))}

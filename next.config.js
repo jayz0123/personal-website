@@ -9,13 +9,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'api.howiejayz.com',
         port: '',
-        // pathname: "/gallery/**",
       },
       {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
         port: '',
-        // pathname: "/gallery/**",
       },
     ],
   },

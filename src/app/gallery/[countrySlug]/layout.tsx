@@ -22,7 +22,5 @@ export default function CountryLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <section className="min-w-full gap-4 grid grid-cols-12">{children}</section>
-  );
+  return <section className="">{children}</section>;
 }

@@ -67,7 +67,7 @@ export function PhotoCard({
       disableRipple
       onPress={handlePress}
       isFooterBlurred={variant === 'exif'}
-      className="w-full h-[240px]"
+      className="w-full h-[240px] bg-transparent"
     >
       {variant === 'area' && (
         <CardHeader className="w-fit justify-center overflow-hidden py-2 absolute bottom-1 left-1 ml-1 z-10">

@@ -5,6 +5,7 @@ import { Input, Textarea } from '@nextui-org/input';
 
 import type { IContactForm } from '@/lib/definitions';
 
+import Glowing from '../ui/Glowing';
 import { ContactFormButton } from './ContactFormButton';
 
 export function ContactForm() {
@@ -83,49 +84,59 @@ export function ContactForm() {
         className="flex flex-col space-y-4 items-stretch w-full h-full"
       >
         {/* user's name */}
-        <Input
-          {...register('name')}
-          label="Name"
-          autoFocus
-          isClearable
-          isDisabled={isSubmitting}
-        />
+        <Glowing>
+          <Input
+            {...register('name')}
+            label="Name"
+            autoFocus
+            isClearable
+            isDisabled={isSubmitting}
+          />
+        </Glowing>
 
         {/* user's email */}
-        <Input
-          {...register('email', {
-            required: 'Please enter an email address',
-            pattern: {
-              value: regExp,
-              message: 'Invalid email address',
-            },
-          })}
-          label="Email"
-          isRequired
-          isClearable
-          isDisabled={isSubmitting}
-          isInvalid={getFieldState('email').invalid}
-          errorMessage={getFieldState('email').error?.message}
-        />
+        <Glowing>
+          <Input
+            {...register('email', {
+              required: 'Please enter an email address',
+              pattern: {
+                value: regExp,
+                message: 'Invalid email address',
+              },
+            })}
+            label="Email"
+            isRequired
+            isClearable
+            isDisabled={isSubmitting}
+            isInvalid={getFieldState('email').invalid}
+            errorMessage={getFieldState('email').error?.message}
+            classNames={{
+              helperWrapper: 'absolute right-[36px] bottom-[8px]',
+            }}
+          />
+        </Glowing>
 
         {/* user's message */}
-        <Textarea
-          {...register('message', {
-            required: 'Please enter a message',
-          })}
-          label="Message"
-          isRequired
-          isDisabled={isSubmitting}
-          isInvalid={getFieldState('message').invalid}
-          errorMessage={getFieldState('message').error?.message}
-          minRows={6}
-          cacheMeasurements
-          className="flex-1"
-          classNames={{
-            inputWrapper: 'grow',
-            input: 'min-h-full',
-          }}
-        />
+        <Glowing className="grow min-h-fit">
+          <Textarea
+            {...register('message', {
+              required: 'Please enter a message',
+            })}
+            label="Message"
+            isRequired
+            isDisabled={isSubmitting}
+            isInvalid={getFieldState('message').invalid}
+            errorMessage={getFieldState('message').error?.message}
+            minRows={6}
+            cacheMeasurements
+            classNames={{
+              base: 'min-h-full',
+              inputWrapper: 'align-start grow',
+              input: 'min-h-full grow min-h-full',
+              helperWrapper: 'absolute right-[36px] bottom-[8px]',
+            }}
+          />
+        </Glowing>
 
         {/* file dropdown and send button*/}
         <ContactFormButton

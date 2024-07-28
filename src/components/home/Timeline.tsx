@@ -4,11 +4,7 @@ import { AcademicCapIcon, BriefcaseIcon } from '@/components/ui/Icons';
 
 export function Timeline() {
   return (
-    <ScrollShadow
-      hideScrollBar
-      size={60}
-      className="min-w-fit min-h-full xl:h-[50svh]"
-    >
+    <ScrollShadow hideScrollBar className="min-w-fit min-h-full xl:h-[60svh]">
       <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
         <li>
           <div className="timeline-middle">

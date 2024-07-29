@@ -10,7 +10,7 @@ import { NextUIProvider } from '@nextui-org/system';
 export default function Providers({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   return (
-    <ThemeProvider enableSystem attribute="data-theme" defaultTheme="system">
+    <ThemeProvider enableSystem attribute="class" defaultTheme="system">
       <ParallaxProvider>
         <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
       </ParallaxProvider>

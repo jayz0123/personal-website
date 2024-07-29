@@ -12,6 +12,9 @@ const config: Config = {
       translate: {
         double: '200%',
       },
+      screens: {
+        betterhover: { raw: '(hover: hover)' },
+      },
     },
   },
   daisyui: {

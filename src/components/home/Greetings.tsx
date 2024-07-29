@@ -29,7 +29,7 @@ export function Greetings() {
 
   return (
     <Suspense key={isMounted ? 'local' : 'UTC'}>
-      <div className="mb-4">
+      <div className="mb-8">
         <Skeleton isLoaded={isMounted} className="rounded-lg">
           <h2>
             <GlowingText
@@ -44,15 +44,15 @@ export function Greetings() {
                     ? 'Hello, afternoon '
                     : 'Good morning '}
             </GlowingText>
-            <p className="text-xl">
+            <p className="text-xl font-semibold font-serif">
               {`${
                 isMidnight
-                  ? "— Let's pretend staying up late is totally a good idea!"
+                  ? "Let's pretend staying up late is totally a good idea!"
                   : isEvening
-                    ? "— Let's relax and do absolutely nothing—like the pros we are."
+                    ? "Let's relax and do absolutely nothing!"
                     : isAfternoon
-                      ? '— Keep calm and fake productivity for a few more hours!'
-                      : '— Early bird gets worms, but second mouse gets cheese!'
+                      ? 'Keep calm and fake productivity for a few more hours!'
+                      : 'Early bird gets worms, but second mouse gets cheese!'
               }`}
             </p>
           </h2>

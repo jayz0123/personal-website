@@ -27,7 +27,7 @@ export default async function GalleryLayout({
   if (!countries) return <div>No countries found</div>;
 
   return (
-    <section className="flex flex-col items-center min-w-full">
+    <section className="flex flex-col items-center min-w-full grow">
       <CountryTabs
         countries={countries.map(({ countrySlug }) => ({
           id: countrySlug,

@@ -10,7 +10,7 @@ export default function Contact() {
         message!
       </h2>
       <div className="divider divider-horizontal" />
-      <div className="w-full h-full flex-1">
+      <div className="w-full h-full xl:flex-1">
         <ContactForm />
       </div>
     </>

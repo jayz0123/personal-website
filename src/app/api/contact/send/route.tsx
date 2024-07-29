@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       name: string;
       email: string;
       message: string;
-      attachments: { filename: string; content: string }[];
+      attachments: { fileName: string; content: string }[];
     } = await request.json();
 
     const userSubject = name
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       attachments:
         attachments.map((attachment) => {
           return {
-            filename: attachment.filename,
+            filename: attachment.fileName,
             content: attachment.content.split(',')[1],
           };
         }) || undefined,

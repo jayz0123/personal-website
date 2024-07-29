@@ -56,19 +56,19 @@ export async function POST(request: NextRequest) {
       const thumbnailURL = generateThumbnailURL(url);
       const blurDataURL = await generateblurDataURL(url);
 
-      const _ = await createPhoto(
-        {
+      const _ = await createPhoto({
+        photoData: {
           title,
           url,
           thumbnailURL,
           blurDataURL,
           ...exif,
         },
-        {
+        place: {
           country,
           area,
         },
-      );
+      });
     }
 
     return NextResponse.json({ body: `Uploaded photos` }, { status: 200 });

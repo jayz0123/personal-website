@@ -1,12 +1,12 @@
 'use client';
 
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useRef } from 'react';
 import { Form, useFieldArray, useForm } from 'react-hook-form';
 
 import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 
-import type { GalleryPhotoUpload } from '@/lib/definitions';
+import type { GalleryPhotoUploadForm } from '@/lib/definitions';
 
 import readFiles from '@/utils/readFiles';
 
@@ -21,7 +21,7 @@ export function PhotoUploadForm() {
     control,
     reset,
     formState: { isSubmitting },
-  } = useForm<GalleryPhotoUpload>({
+  } = useForm<GalleryPhotoUploadForm>({
     defaultValues: {
       title: '',
       country: '',

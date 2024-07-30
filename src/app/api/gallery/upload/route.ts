@@ -6,7 +6,10 @@ import {
   uploadToRemote,
 } from '@/services';
 
-import type { GalleryPhotoExif, GalleryPhotoUpload } from '@/lib/definitions';
+import type {
+  GalleryPhotoExif,
+  GalleryPhotoUploadForm,
+} from '@/lib/definitions';
 
 import convertBase64ToBuffer from '@/utils/convertBase64ToBuffer';
 import extractExif from '@/utils/extractExif';
@@ -32,7 +35,7 @@ const generateThumbnailURL = (url: string) => {
 export async function POST(request: NextRequest) {
   try {
     const { title, country, area, photos } =
-      (await request.json()) as GalleryPhotoUpload;
+      (await request.json()) as GalleryPhotoUploadForm;
 
     for (const photo of photos) {
       const photoBuffer = convertBase64ToBuffer(photo.content);

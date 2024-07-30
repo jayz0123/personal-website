@@ -4,26 +4,19 @@ export type CustomFile = {
   content: string;
 };
 
-export type ContactFormSend = {
-  name?: string;
-  email: string;
-  message: string;
-  attachments?: CustomFile[];
-};
-
-export type GalleryPhotoUpload = {
-  title?: string;
-  country: string;
-  area: string;
-  photos: CustomFile[];
-};
-
-export type ThoughtsPostUpload = {
+export type ThoughtsPostUploadForm = {
   title: string;
   description?: string | null;
   published?: boolean;
   post: CustomFile;
   categories: string[];
+};
+
+export type GalleryPhotoUploadForm = {
+  title?: string;
+  country: string;
+  area: string;
+  photos: CustomFile[];
 };
 
 export type GalleryPhotoExif = {
@@ -46,4 +39,11 @@ export type GalleryPhotoExif = {
   lensModel?: string | null;
   dateTime?: Date | null;
   dateTimeOriginal?: Date | null;
+};
+
+export type ContactEmailSendForm = {
+  name?: string;
+  email: string;
+  message: string;
+  attachments?: CustomFile[];
 };

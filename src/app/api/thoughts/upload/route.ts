@@ -6,7 +6,7 @@ import {
   uploadToRemote,
 } from '@/services';
 
-import type { ThoughtsPostUpload } from '@/lib/definitions';
+import type { ThoughtsPostUploadForm } from '@/lib/definitions';
 
 import convertBase64ToBuffer from '@/utils/convertBase64ToBuffer';
 
@@ -15,7 +15,7 @@ import { createPost } from '@/services/db/thoughts';
 export async function POST(request: NextRequest) {
   try {
     const { title, description, published, post, categories } =
-      (await request.json()) as ThoughtsPostUpload;
+      (await request.json()) as ThoughtsPostUploadForm;
 
     const postBuffer = convertBase64ToBuffer(post.content);
     const remoteDir = generateRemoteDirForPrefix(

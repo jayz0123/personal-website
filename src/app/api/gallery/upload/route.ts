@@ -8,6 +8,7 @@ import {
 
 import type { GalleryPhotoExif, GalleryPhotoUpload } from '@/lib/definitions';
 
+import convertBase64ToBuffer from '@/utils/convertBase64ToBuffer';
 import extractExif from '@/utils/extractExif';
 
 import { createPhoto } from '@/services/db/gallery';
@@ -34,11 +35,8 @@ export async function POST(request: NextRequest) {
       (await request.json()) as GalleryPhotoUpload;
 
     for (const photo of photos) {
-      const photoContentBuffer = Buffer.from(
-        photo.content.split(',')[1],
-        'base64',
-      );
-      const exif: GalleryPhotoExif = extractExif(photoContentBuffer);
+      const photoBuffer = convertBase64ToBuffer(photo.content);
+      const exif: GalleryPhotoExif = extractExif(photoBuffer);
 
       const remoteDir = generateRemoteDirForPrefix(
         GALLERY_REMOTE_PREFIX,
@@ -47,16 +45,12 @@ export async function POST(request: NextRequest) {
         photo.fileName.replace(/ /g, '-'),
       );
 
-      const url = await uploadToRemote(
-        photoContentBuffer,
-        remoteDir,
-        photo.fileType,
-      );
+      const url = await uploadToRemote(photoBuffer, remoteDir, photo.fileType);
 
       const thumbnailURL = generateThumbnailURL(url);
       const blurDataURL = await generateblurDataURL(url);
 
-      const _ = await createPhoto({
+      await createPhoto({
         photoData: {
           title,
           url,

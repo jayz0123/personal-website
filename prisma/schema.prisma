@@ -29,6 +29,7 @@ model Post {
   id          String     @id @default(cuid())
   title       String
   description String?
+  url         String     @unique
   published   Boolean    @default(true)
   categories  Category[]
 

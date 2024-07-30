@@ -3,16 +3,16 @@ import { unstable_cache } from 'next/cache';
 import prisma, { Prisma } from '@/lib/prisma';
 
 export async function createPost({
-  post,
+  postData,
   categories,
 }: {
-  post: Prisma.PostCreateWithoutCategoriesInput;
+  postData: Prisma.PostCreateWithoutCategoriesInput;
   categories: string[];
 }) {
   try {
     await prisma.post.create({
       data: {
-        ...post,
+        ...postData,
         categories: {
           connectOrCreate: categories.map((category) => ({
             where: { id: category },

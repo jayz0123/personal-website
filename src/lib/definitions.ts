@@ -1,11 +1,11 @@
-export interface IContactForm {
+export type IContactForm = {
   name?: string;
   email: string;
   message: string;
   attachments?: { fileName: string; content: string }[];
-}
+};
 
-export interface IGalleryPhotoUpload {
+export type IGalleryPhotoUpload = {
   title?: string;
   country: string;
   area: string;
@@ -14,9 +14,16 @@ export interface IGalleryPhotoUpload {
     fileType: string;
     content: string;
   }[];
-}
+};
 
-export interface IGalleryPhotoExif {
+export type IThoughtsPostUpload = {
+  title: string;
+  description?: string | null;
+  published?: boolean;
+  categories: string[];
+};
+
+export type IGalleryPhotoExif = {
   fileType?: string | null;
   make?: string | null;
   model?: string | null;
@@ -36,4 +43,4 @@ export interface IGalleryPhotoExif {
   lensModel?: string | null;
   dateTime?: Date | null;
   dateTimeOriginal?: Date | null;
-}
+};

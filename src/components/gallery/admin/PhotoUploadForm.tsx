@@ -12,7 +12,7 @@ import readFiles from '@/utils/readFiles';
 
 import { FileAddIcon } from '@/components/ui/Icons';
 
-export function PhotoUpload() {
+export function PhotoUploadForm() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const {

@@ -7,7 +7,7 @@ import { authCached } from '@/auth';
 import { findCountriesCached } from '@/services/db/gallery';
 
 import { CountryTabs } from '@/components/gallery';
-import { PhotoUpload } from '@/components/gallery/admin/PhotoUpload';
+import { PhotoUploadForm } from '@/components/gallery/admin/PhotoUploadForm';
 
 export const metadata: Metadata = {
   title: 'Gallery',
@@ -38,7 +38,7 @@ export default async function GalleryLayout({
         {children}
       </CountryTabs>
 
-      {session?.user?.role === 'admin' && <PhotoUpload />}
+      {session?.user?.role === 'admin' && <PhotoUploadForm />}
     </section>
   );
 }

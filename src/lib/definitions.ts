@@ -1,29 +1,32 @@
-export type IContactForm = {
+export type CustomFile = {
+  fileName: string;
+  fileType: string;
+  content: string;
+};
+
+export type ContactFormSend = {
   name?: string;
   email: string;
   message: string;
-  attachments?: { fileName: string; content: string }[];
+  attachments?: CustomFile[];
 };
 
-export type IGalleryPhotoUpload = {
+export type GalleryPhotoUpload = {
   title?: string;
   country: string;
   area: string;
-  photos: {
-    fileName: string;
-    fileType: string;
-    content: string;
-  }[];
+  photos: CustomFile[];
 };
 
-export type IThoughtsPostUpload = {
+export type ThoughtsPostUpload = {
   title: string;
   description?: string | null;
   published?: boolean;
+  post: CustomFile;
   categories: string[];
 };
 
-export type IGalleryPhotoExif = {
+export type GalleryPhotoExif = {
   fileType?: string | null;
   make?: string | null;
   model?: string | null;

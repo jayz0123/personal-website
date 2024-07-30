@@ -4,7 +4,7 @@ import { Sen } from 'next/font/google';
 
 import { Button, ButtonGroup } from '@nextui-org/button';
 
-import { IContactForm } from '@/lib/definitions';
+import type { ContactFormSend } from '@/lib/definitions';
 
 import { CheckIcon, ExclamationIcon, SendIcon } from '../ui/Icons';
 import { FileDropdown } from './FileDropdown';
@@ -17,7 +17,7 @@ export function ContactFormButton({
   isSubmitSuccessful,
   response,
 }: {
-  control: Control<IContactForm, any>;
+  control: Control<ContactFormSend, any>;
   isSubmitting: boolean;
   isDirty: boolean;
   isValid: boolean;

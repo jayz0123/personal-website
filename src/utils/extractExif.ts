@@ -1,6 +1,6 @@
 import ExifReader from 'exifreader';
 
-import type { IGalleryPhotoExif } from '@/lib/definitions';
+import type { GalleryPhotoExif } from '@/lib/definitions';
 
 const formattedDateTime = (dateTime: String | undefined) => {
   if (!dateTime) return undefined;
@@ -10,7 +10,7 @@ const formattedDateTime = (dateTime: String | undefined) => {
   return new Date(`${date.replace(/:/g, '-')}T${time}`);
 };
 
-export default function extractExif(file: Buffer): IGalleryPhotoExif {
+export default function extractExif(file: Buffer): GalleryPhotoExif {
   const {
     FileType,
     Make,

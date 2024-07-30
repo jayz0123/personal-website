@@ -18,7 +18,7 @@ export default function EmailToUser({
   userName,
   userMessage,
 }: {
-  userName: string;
+  userName?: string;
   userMessage: string;
 }) {
   const paragraphs = userMessage.split(/\r?\n|\r|\n/g);

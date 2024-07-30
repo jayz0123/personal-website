@@ -1,18 +1,14 @@
-interface IFile {
-  fileName: string;
-  fileType: string;
-  content: string;
-}
+import type { CustomFile } from '@/lib/definitions';
 
 export default function readFiles(fileList: FileList, append?: any) {
   const files = Array.from(fileList);
-  const handledFiles: IFile[] = [];
+  const handledFiles: CustomFile[] = [];
 
-  files.forEach((file: File) => {
+  for (const file of files) {
     const reader = new FileReader();
     reader.onload = (r: ProgressEvent<FileReader>) => {
       if (r.target && r.target.result) {
-        const handledFile: IFile = {
+        const handledFile: CustomFile = {
           fileName: file.name,
           fileType: file.type,
           content: r.target.result.toString(),
@@ -26,7 +22,7 @@ export default function readFiles(fileList: FileList, append?: any) {
     };
 
     reader.readAsDataURL(file);
-  });
+  }
 
   return handledFiles;
 }

@@ -3,7 +3,7 @@ import { Form, useForm } from 'react-hook-form';
 
 import { Input, Textarea } from '@nextui-org/input';
 
-import type { IContactForm } from '@/lib/definitions';
+import type { ContactFormSend } from '@/lib/definitions';
 
 import Glowing from '../ui/Glowing';
 import { ContactFormButton } from './ContactFormButton';
@@ -15,7 +15,7 @@ export function ContactForm() {
     control,
     reset,
     formState: { isSubmitting, isValid, isDirty, isSubmitSuccessful },
-  } = useForm<IContactForm>({
+  } = useForm<ContactFormSend>({
     defaultValues: {
       name: '',
       email: '',

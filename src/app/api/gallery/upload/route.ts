@@ -6,7 +6,7 @@ import {
   uploadToRemote,
 } from '@/services';
 
-import { IGalleryPhotoExif, IGalleryPhotoUpload } from '@/lib/definitions';
+import type { GalleryPhotoExif, GalleryPhotoUpload } from '@/lib/definitions';
 
 import extractExif from '@/utils/extractExif';
 
@@ -31,14 +31,14 @@ const generateThumbnailURL = (url: string) => {
 export async function POST(request: NextRequest) {
   try {
     const { title, country, area, photos } =
-      (await request.json()) as IGalleryPhotoUpload;
+      (await request.json()) as GalleryPhotoUpload;
 
     for (const photo of photos) {
       const photoContentBuffer = Buffer.from(
         photo.content.split(',')[1],
         'base64',
       );
-      const exif: IGalleryPhotoExif = extractExif(photoContentBuffer);
+      const exif: GalleryPhotoExif = extractExif(photoContentBuffer);
 
       const remoteDir = generateRemoteDirForPrefix(
         GALLERY_REMOTE_PREFIX,

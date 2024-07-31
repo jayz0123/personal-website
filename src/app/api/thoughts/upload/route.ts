@@ -17,16 +17,16 @@ export async function POST(request: NextRequest) {
     const { title, description, published, post, categories } =
       (await request.json()) as ThoughtsPostUploadForm;
 
-    const postBuffer = convertBase64ToBuffer(post.content);
+    const postBuffer = convertBase64ToBuffer(post[0].content);
     const remoteDir = generateRemoteDirForPrefix(
       THOUGHTS_REMOTE_PREFIX,
       'posts',
-      post.fileName.replace(/ /g, '-'),
+      post[0].fileName.replace(/ /g, '-'),
     );
 
-    const url = await uploadToRemote(postBuffer, remoteDir, post.fileType);
+    const url = await uploadToRemote(postBuffer, remoteDir, post[0].fileType);
 
-    await createPost({
+    const id = await createPost({
       postData: {
         title,
         description,
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       categories,
     });
 
-    return NextResponse.json({ body: `Uploaded post` }, { status: 200 });
+    return NextResponse.json({ body: `Post Uploaded` }, { status: 200 });
   } catch {
     return NextResponse.error();
   }

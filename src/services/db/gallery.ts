@@ -32,6 +32,22 @@ export async function createPhoto({
   }
 }
 
+const findPlaces = async () => {
+  try {
+    console.log('querying findPlaces');
+    const places = await prisma.place.findMany({
+      select: {
+        country: true,
+        area: true,
+      },
+    });
+
+    return places;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const findCountries = async () => {
   try {
     console.log('querying findCountries');
@@ -117,6 +133,7 @@ const findPhotosForCountry = async (country: string) => {
   }
 };
 
+export const findPlacesCached = unstable_cache(findPlaces, ['places']);
 export const findCountriesCached = unstable_cache(findCountries, ['countries']);
 export const findAreasForCountryCached = unstable_cache(findAreasForCountry, [
   'areas-for-country',

@@ -1,32 +1,17 @@
-import { cache } from 'react';
-
-import { ScrollShadow } from '@nextui-org/scroll-shadow';
-
-import { findPhotosForCountryCached } from '@/services/db/gallery';
-
-import Glowing from '../ui/Glowing';
 import { PhotoCard } from './PhotoCard';
 
 // Define a type for the grid props
 type PhotoCardGridProps = {
   variant?: 'area' | 'exif'; // Determine which variant to render
-  currentCountry: string;
   currentArea?: string;
+  photoData: any[];
 };
 
-const findPhotosForCountryCachedCached = cache(findPhotosForCountryCached);
-
 export async function PhotoCardGrid({
-  currentCountry,
-  currentArea,
   variant = 'area',
+  currentArea,
+  photoData,
 }: PhotoCardGridProps) {
-  const photoData = await findPhotosForCountryCachedCached(
-    currentCountry.replace(/-/g, ' '),
-  );
-
-  if (!photoData) return <div>No photos found for this country.</div>;
-
   const filteredPhotos = photoData.filter(({ isCover, placeArea }) => {
     if (variant === 'exif') {
       return currentArea === placeArea;
@@ -36,42 +21,33 @@ export async function PhotoCardGrid({
   });
 
   return (
-    <Glowing variant="gallery">
-      <ScrollShadow
-        hideScrollBar
-        size={10}
-        className="min-w-full h-[65dvh] rounded-large"
-      >
-        <div className="min-w-full gap-4 grid grid-cols-12 p-4">
-          {filteredPhotos.map((photo, index) => {
-            const {
-              thumbnailURL,
-              blurDataURL,
-              placeCountry,
-              placeArea,
-              id,
-              ...exif
-            } = photo;
+    <div className="min-w-full gap-4 grid grid-cols-12 p-4">
+      {filteredPhotos.map((photo, index) => {
+        const {
+          thumbnailURL,
+          blurDataURL,
+          placeCountry,
+          placeArea,
+          id,
+          ...exif
+        } = photo;
 
-            return (
-              <div
-                key={index}
-                className="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3"
-              >
-                <PhotoCard
-                  variant={variant}
-                  url={thumbnailURL}
-                  blurDataURL={blurDataURL}
-                  countrySlug={placeCountry.replace(/ /g, '-')}
-                  areaSlug={placeArea.replace(/ /g, '-')}
-                  id={variant === 'exif' ? id : undefined}
-                  exif={variant === 'exif' ? exif : undefined}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </ScrollShadow>
-    </Glowing>
+        return (
+          <div
+            key={index}
+            className="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3"
+          >
+            <PhotoCard
+              variant={variant}
+              url={thumbnailURL}
+              blurDataURL={blurDataURL}
+              areaSlug={placeArea.replace(/ /g, '-')}
+              id={variant === 'exif' ? id : undefined}
+              exif={variant === 'exif' ? exif : undefined}
+            />
+          </div>
+        );
+      })}
+    </div>
   );
 }

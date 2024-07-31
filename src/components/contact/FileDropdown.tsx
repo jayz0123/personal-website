@@ -10,7 +10,7 @@ import {
   DropdownTrigger,
 } from '@nextui-org/dropdown';
 
-import type { ContactFormSend } from '@/lib/definitions';
+import type { ContactEmailSendForm } from '@/lib/definitions';
 
 import readFiles from '@/utils/readFiles';
 
@@ -20,7 +20,7 @@ export function FileDropdown({
   control,
   isDisabled,
 }: {
-  control: Control<ContactFormSend, any>;
+  control: Control<ContactEmailSendForm, any>;
   isDisabled: boolean;
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);

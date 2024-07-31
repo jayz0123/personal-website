@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const authCachedCached = cache(authCached);
 const findCountriesCachedCached = cache(findCountriesCached);
 
-export default async function GalleryLayout({
+export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
@@ -37,7 +37,6 @@ export default async function GalleryLayout({
       >
         {children}
       </CountryTabs>
-
       {session?.user?.role === 'admin' && <PhotoUploadForm />}
     </section>
   );

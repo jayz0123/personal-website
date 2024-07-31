@@ -8,8 +8,8 @@ export type ThoughtsPostUploadForm = {
   title: string;
   description?: string | null;
   published?: boolean;
-  post: CustomFile;
-  categories: string[];
+  post: CustomFile[];
+  categories: { name: string }[];
 };
 
 export type GalleryPhotoUploadForm = {

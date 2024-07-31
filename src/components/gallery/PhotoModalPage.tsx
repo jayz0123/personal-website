@@ -1,23 +1,12 @@
-import { cache } from 'react';
-
 import Image from 'next/image';
 
-import { findPhotosForCountryCached } from '@/services/db/gallery';
-
-const findPhotosForCountryCachedCached = cache(findPhotosForCountryCached);
-
 export async function PhotoModalPage({
-  currentCountry,
-  currentArea,
   id,
+  photoData,
 }: {
-  currentCountry: string;
-  currentArea: string;
   id: string;
+  photoData: any[];
 }) {
-  const photoData = await findPhotosForCountryCachedCached(currentCountry);
-  if (!photoData) return <div>No photos found for this country.</div>;
-
   const photo = photoData.find(({ id: photoId }) => photoId === id);
   if (!photo) return <div>No photo found for this ID.</div>;
 

@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Card, CardFooter, CardHeader } from '@nextui-org/card';
 
@@ -15,7 +15,6 @@ type PhotoCardProps = {
   priority?: boolean;
   url: string;
   blurDataURL: string;
-  countrySlug: string;
   areaSlug: string;
   id?: string; // Only needed if variant is 'exif'
   exif?: Omit<
@@ -36,28 +35,41 @@ export function PhotoCard({
   priority = false,
   url,
   blurDataURL,
-  countrySlug,
   areaSlug,
   id,
   exif,
 }: PhotoCardProps) {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Get a new searchParams string by merging the current
+  // searchParams with a provided key/value pair
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
 
   useEffect(() => {
     // Prefetch both potential routes to improve navigation speed
     if (variant === 'exif' && id) {
-      router.prefetch(`/gallery/${countrySlug}/${areaSlug}/photo/${id}`);
+      router.prefetch(pathname + '?' + createQueryString('id', id));
     }
-    router.prefetch(`/gallery/${countrySlug}/${areaSlug}`);
-  }, [countrySlug, areaSlug, id, router, variant]);
+    router.prefetch(pathname + '/' + areaSlug);
+  }, [areaSlug, createQueryString, id, pathname, router, variant]);
 
   const handlePress = () => {
     if (variant === 'exif' && id) {
-      router.push(`/gallery/${countrySlug}/${areaSlug}/photo/${id}`, {
+      router.push(pathname + '?' + createQueryString('id', id), {
         scroll: false,
       });
     } else {
-      router.push(`/gallery/${countrySlug}/${areaSlug}`);
+      router.push(pathname + '/' + areaSlug);
     }
   };
 

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { Resend } from 'resend';
 
-import type { ContactFormSend } from '@/lib/definitions';
+import type { ContactEmailSendForm } from '@/lib/definitions';
 
 import EmailToMe from './EmailToMe';
 import EmailToUser from './EmailToUser';
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const { name, email, message, attachments } =
-      (await request.json()) as ContactFormSend;
+      (await request.json()) as ContactEmailSendForm;
 
     const userSubject = name
       ? `Thanks for your message, ${name}!`

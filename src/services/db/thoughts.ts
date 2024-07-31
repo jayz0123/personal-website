@@ -7,30 +7,33 @@ export async function createPost({
   categories,
 }: {
   postData: Prisma.PostCreateWithoutCategoriesInput;
-  categories: string[];
+  categories: { name: string }[];
 }) {
   try {
-    await prisma.post.create({
+    const { id } = await prisma.post.create({
       data: {
         ...postData,
         categories: {
           connectOrCreate: categories.map((category) => ({
-            where: { id: category },
-            create: { id: category },
+            where: { id: category.name },
+            create: { id: category.name },
           })),
         },
       },
     });
+
+    return id;
   } catch (e) {
     console.log(e);
   }
 }
 
 const findPosts = async () => {
+  console.log('querying findPosts');
   try {
     const posts = await prisma.post.findMany({
       where: {
-        published: false,
+        published: true,
       },
       include: {
         categories: {

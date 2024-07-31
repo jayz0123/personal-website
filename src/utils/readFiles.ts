@@ -13,7 +13,8 @@ export default function readFiles(fileList: FileList, append?: any) {
           fileType: file.type,
           content: r.target.result.toString(),
         };
-        append(handledFile);
+
+        if (append) append(handledFile);
       }
     };
 

@@ -15,7 +15,7 @@ export default async function Page({
   params: { placeSlug: string[] };
 }) {
   const { id } = searchParams;
-  const [countrySlug, areaSlug] = placeSlug || [];
+  const [countrySlug] = placeSlug || [];
 
   const photoData = await findPhotosForCountryCachedCached(
     countrySlug.replace(/-/g, ' '),

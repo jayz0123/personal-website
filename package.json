@@ -34,6 +34,7 @@
     "@nextui-org/tabs": "^2.0.35",
     "@nextui-org/theme": "^2.2.9",
     "@prisma/client": "^5.17.0",
+    "@prisma/extension-accelerate": "^1.1.0",
     "@react-email/components": "0.0.19",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.4",

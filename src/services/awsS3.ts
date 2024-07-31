@@ -43,7 +43,7 @@ export const awsS3List = async (Prefix: string) => {
 export const awsS3Put = async (
   Key: string,
   Body: Buffer,
-  ContentType: string,
+  ContentType?: string,
 ) => {
   try {
     const upload = new Upload({

@@ -93,7 +93,7 @@ export function PhotoUploadForm() {
         }}
         startContent={<FileAddIcon />}
       >
-        <span>Attach new files</span>
+        <span>Add new photos</span>
         <input
           type="file"
           multiple

@@ -125,6 +125,7 @@ const findPhotosForCountry = async (country: string) => {
       orderBy: {
         dateTime: 'asc',
       },
+      cacheStrategy: { ttl: 6000 },
     });
 
     return photosForCountry;

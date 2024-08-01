@@ -23,7 +23,7 @@ export function CountryTabs({
   return (
     <Tabs
       items={countries}
-      selectedKey={placeSlug?.[0] ?? 'Japan'}
+      selectedKey={placeSlug?.[0]}
       variant="underlined"
       size="lg"
       className="font-bold font-serif"

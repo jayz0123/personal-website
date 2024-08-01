@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   title: 'Gallery',
 };
 
-const authCachedCached = cache(authCached);
 const findCountriesCachedCached = cache(findCountriesCached);
 
 export default async function Layout({
@@ -21,7 +20,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await authCachedCached();
+  const session = await authCached();
   const countries = await findCountriesCachedCached();
 
   if (!countries) return <div>No countries found</div>;

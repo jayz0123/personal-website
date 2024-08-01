@@ -1,17 +1,13 @@
-import { cache } from 'react';
-
 import { authCached } from '@/auth';
 
 import { PostUploadForm } from '@/components/thoughts/admin/PostUploadForm';
-
-const authCachedCached = cache(authCached);
 
 export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await authCachedCached();
+  const session = await authCached();
 
   return (
     <section>

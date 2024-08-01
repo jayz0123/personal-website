@@ -16,6 +16,7 @@ export async function PhotoModalPage({
   // Dynamic Size & Classnames for Different Orientations
   const containerClassNames = `flex justify-center items-center`;
 
+  // Tailwind CSS class names without dynamic parts
   const imageClassNames = `object-contain rounded-lg ${
     isPortrait
       ? 'h-auto max-h-[90vh] w-full'

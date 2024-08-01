@@ -45,6 +45,7 @@
     "@vercel/speed-insights": "^1.0.12",
     "babel-plugin-react-compiler": "^0.0.0-experimental-696af53-20240625",
     "bcrypt": "^5.1.1",
+    "clsx": "^2.1.1",
     "eslint-plugin-react-compiler": "^0.0.0-experimental-0998c1e-20240625",
     "exifreader": "^4.23.3",
     "framer-motion": "^11.3.19",

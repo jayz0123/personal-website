@@ -6,10 +6,11 @@ export type CustomFile = {
 
 export type ThoughtsPostUploadForm = {
   title: string;
-  description?: string | null;
-  published?: boolean;
-  post: CustomFile[];
+  subtitle: string;
   categories: { name: string }[];
+  coverImage: CustomFile;
+  post: CustomFile;
+  published: boolean;
 };
 
 export type GalleryPhotoUploadForm = {

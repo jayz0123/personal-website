@@ -6,30 +6,56 @@ import {
   uploadToRemote,
 } from '@/services';
 
-import type { ThoughtsPostUploadForm } from '@/lib/definitions';
-
 import convertBase64ToBuffer from '@/utils/convertBase64ToBuffer';
 
 import { createPost } from '@/services/db/thoughts';
 
+const generateThumbnailURL = (url: string) => {
+  return `${url}?format=auto&quality=75&width=640`;
+};
+
 export async function POST(request: NextRequest) {
   try {
-    const { title, description, published, post, categories } =
-      (await request.json()) as ThoughtsPostUploadForm;
+    const { title, subtitle, categories, coverImages, posts, published } =
+      await request.json();
 
-    const postBuffer = convertBase64ToBuffer(post[0].content);
+    const extractExtensionRe = /(?:\.([^.]+))?$/;
+
+    const coverImage = coverImages[0];
+    const post = posts[0];
+
+    const slug = title.replace(/ /g, '-').toLowerCase();
+
+    const coverImageBuffer = convertBase64ToBuffer(coverImage.content);
+    const postBuffer = convertBase64ToBuffer(post.content);
+
+    const coverImageRemoteDir = generateRemoteDirForPrefix(
+      THOUGHTS_REMOTE_PREFIX,
+      'posts',
+      slug,
+      'cover.' + extractExtensionRe.exec(coverImage.fileName)?.[1],
+    );
     const remoteDir = generateRemoteDirForPrefix(
       THOUGHTS_REMOTE_PREFIX,
       'posts',
-      post[0].fileName.replace(/ /g, '-'),
+      slug,
+      'post.' + extractExtensionRe.exec(post.fileName)?.[1],
     );
 
-    const url = await uploadToRemote(postBuffer, remoteDir, post[0].fileType);
+    const coverImageURL = await uploadToRemote(
+      coverImageBuffer,
+      coverImageRemoteDir,
+      coverImage.fileType,
+    ).then((url) => generateThumbnailURL(url));
+
+    const url = await uploadToRemote(postBuffer, remoteDir, post.fileType);
 
     const id = await createPost({
       postData: {
+        slug,
         title,
-        description,
+        subtitle,
+        coverImageURL,
         url,
         published,
       },

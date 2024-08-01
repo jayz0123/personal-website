@@ -7,7 +7,7 @@
     "build": "prisma generate --no-engine & next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma generate": "prisma generate",
+    "prisma generate": "prisma generate --no-engine",
     "prisma migrate": "prisma migrate dev",
     "prisma studio": "prisma studio"
   },

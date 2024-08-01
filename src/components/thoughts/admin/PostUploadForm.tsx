@@ -1,23 +1,16 @@
 'use client';
 
-import { ChangeEvent, useRef } from 'react';
+import { ChangeEvent } from 'react';
 import { Form, useFieldArray, useForm } from 'react-hook-form';
 
 import { Button } from '@nextui-org/button';
 import { Checkbox } from '@nextui-org/checkbox';
 import { Input } from '@nextui-org/input';
 
-import type { ThoughtsPostUploadForm } from '@/lib/definitions';
-
 import readFiles from '@/utils/readFiles';
 
-import { FileAddIcon } from '@/components/ui/Icons';
-
 export function PostUploadForm() {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
   const {
-    setValue,
     register,
     getFieldState,
     control,
@@ -26,17 +19,24 @@ export function PostUploadForm() {
   } = useForm({
     defaultValues: {
       title: '',
-      description: '',
-      published: false,
-      post: [{ fileName: '', fileType: '', content: '' }],
+      subtitle: '',
       categories: [{ name: '' }],
+      coverImages: [{ fileName: '', fileType: '', content: '' }],
+      posts: [{ fileName: '', fileType: '', content: '' }],
+      published: true,
     },
     progressive: true,
   });
 
-  const { fields: postFields, replace: postReplace } = useFieldArray({
+  const { fields: coverImagesFields, replace: coverImagesReplace } =
+    useFieldArray({
+      control,
+      name: 'coverImages',
+    });
+
+  const { fields: postsFields, replace: postsReplace } = useFieldArray({
     control,
-    name: 'post',
+    name: 'posts',
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -44,10 +44,16 @@ export function PostUploadForm() {
     name: 'categories',
   });
 
-  const handleAddFiles = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleAddCoverImages = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || event.target.files.length === 0) return;
 
-    readFiles(event.target.files, postReplace);
+    readFiles(event.target.files, coverImagesReplace);
+  };
+
+  const handleAddPosts = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files || event.target.files.length === 0) return;
+
+    readFiles(event.target.files, postsReplace);
   };
 
   return (
@@ -78,16 +84,19 @@ export function PostUploadForm() {
       />
 
       <Input
-        {...register('description')}
-        label="Description"
+        {...register('subtitle', {
+          required: 'Please enter the subtitle',
+        })}
+        label="Subtitle"
+        isRequired
         isClearable
         isDisabled={isSubmitting}
-        isInvalid={getFieldState('description').invalid}
-        errorMessage={getFieldState('description').error?.message}
+        isInvalid={getFieldState('subtitle').invalid}
+        errorMessage={getFieldState('subtitle').error?.message}
       />
 
-      {postFields.map((postFields, index) => (
-        <div key={postFields.id} className="flex items-center gap-2">
+      {fields.map((fields, index) => (
+        <div key={fields.id} className="flex items-center gap-2">
           <Input
             {...register(`categories.${index}.name` as const, {
               required: 'Please enter the category',
@@ -109,24 +118,17 @@ export function PostUploadForm() {
 
       <Button onClick={() => append({ name: '' })}>Append</Button>
 
-      <div className="flex justify-between gap-2 self-stretch">
-        <Button
-          onPress={() => {
-            fileInputRef.current?.click();
-          }}
-          startContent={<FileAddIcon />}
-          className="grow"
-        >
-          <span>Add a new post</span>
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleAddFiles}
-            className="hidden"
-          />
-        </Button>
-        <Checkbox {...register('published')} />
+      <div className="flex flex-col justify-center gap-2 self-stretch">
+        <label className="self-center">Cover Image</label>
+        <Input type="file" onChange={handleAddCoverImages} accept="image/*" />
       </div>
+
+      <div className="flex flex-col justify-center gap-2 self-stretch">
+        <label className="self-center">Post</label>
+        <Input type="file" onChange={handleAddPosts} accept=".md,.mdx" />
+      </div>
+
+      <Checkbox {...register('published')} defaultChecked />
 
       <Button type="submit" isDisabled={isSubmitting || fields.length === 0}>
         Submit

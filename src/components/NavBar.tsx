@@ -17,7 +17,6 @@ import {
 import Social from '@/components/Social';
 import ThemeSwitch from '@/components/ThemeSwitch';
 
-import Glowing from './ui/Glowing';
 import GlowingText from './ui/GlowingText';
 import {
   ContactIcon,
@@ -42,7 +41,7 @@ export default function NavBar() {
     {
       icon: <GalleryIcon />,
       title: 'Gallery',
-      href: '/gallery',
+      href: '/gallery/United-Kingdom',
     },
     {
       icon: <ContactIcon />,

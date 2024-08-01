@@ -12,7 +12,7 @@ export default function Glowing({
   return (
     <div className={`relative group ${className}`}>
       <div
-        className={`-z-10 absolute -inset-1 bg-gradient-to-br from-cyan-200 to-blue-500 opacity-0 ${isActive && 'opacity-75'} ${variant === 'nav' && isActive && 'opacity-75'} ${variant === 'gallery' && 'blur rounded-large opacity-25 betterhover:group-hover:opacity-75'} ${variant === 'input' && ' rounded-large opacity-0 group-focus-within:opacity-75 group-focus-within:blur'} transition-all duration-300 ease-in-out`}
+        className={`-z-10 absolute -inset-1 bg-gradient-to-br from-cyan-200 to-blue-500 opacity-0 ${isActive && 'opacity-75'} ${variant === 'nav' && isActive && 'opacity-75'} ${variant === 'gallery' && 'blur rounded-large opacity-45 betterhover:group-hover:opacity-90'} ${variant === 'input' && ' rounded-large opacity-0 group-focus-within:opacity-75 group-focus-within:blur'} transition-all duration-300 ease-in-out`}
       />
       <div
         autoFocus

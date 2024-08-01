@@ -14,7 +14,7 @@ export async function LoginButton() {
         'use server';
         if (loggedIn) await signOut();
 
-        await signIn('github');
+        await signIn();
       }}
       className="flex"
     >

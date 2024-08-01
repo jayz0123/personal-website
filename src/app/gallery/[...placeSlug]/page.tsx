@@ -23,12 +23,10 @@ export default async function Page({
   if (!photoData) return <div>No photos found for this country.</div>;
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      {id && (
-        <PhotoModal>
-          <PhotoModalPage id={id} photoData={photoData} />
-        </PhotoModal>
-      )}
-    </Suspense>
+    id && (
+      <PhotoModal>
+        <PhotoModalPage id={id} photoData={photoData} />
+      </PhotoModal>
+    )
   );
 }

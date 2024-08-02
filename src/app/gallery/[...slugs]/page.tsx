@@ -1,5 +1,34 @@
+import { Metadata } from 'next';
+
+import { findPhotosCached } from '@/services/db/gallery';
+
 import { PhotoModalPage } from '@/components/gallery';
 import { PhotoModal } from '@/components/gallery/PhotoModal';
+
+export async function generateMetadata({
+  params: { slugs },
+}: {
+  params: {
+    slugs: string[];
+  };
+}): Promise<Metadata | undefined> {
+  const currentSlug = slugs[2];
+
+  const photos = await findPhotosCached();
+  if (!photos) return;
+
+  const photo = photos.find(({ slug }) => slug === currentSlug);
+  if (!photo) return;
+
+  return {
+    openGraph: {
+      title: photo.title,
+      images: photo.thumbnailURL,
+      publishedTime: photo.createdAt.toString(),
+      modifiedTime: photo.updatedAt.toString(),
+    },
+  };
+}
 
 export default async function Page({
   params: { slugs },

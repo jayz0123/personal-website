@@ -37,8 +37,6 @@ export default async function Layout({
   children: React.ReactNode;
   params: { slugs: string[] };
 }) {
-  console.log('slugs', slugs);
-
   const photos = await findPhotosCachedCached();
   if (!photos) return <div>No photos found</div>;
 

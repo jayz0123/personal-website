@@ -5,7 +5,7 @@ import { ScrollShadow } from '@nextui-org/scroll-shadow';
 import { findPhotosCached } from '@/services/db/gallery';
 
 import { PhotoCardGrid } from '@/components/gallery';
-import Glowing from '@/components/ui/Glowing';
+import { Glowing } from '@/components/ui/';
 
 type GenerateStaticParams = () => Promise<{ slugs: string[] }[]>;
 

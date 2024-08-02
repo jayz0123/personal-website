@@ -2,6 +2,7 @@
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
   images: {
+    minimumCacheTTL: 31536000,
     dangerouslyAllowSVG: true,
     remotePatterns: [
       {

@@ -21,13 +21,13 @@ export async function generateMetadata({
   const photos = await findPhotosCached();
   if (!photos) return;
 
-  const photo = photos.find(({ countrySlug, areaSlug, slug }) => {
+  const photo = photos.find(({ countrySlug, areaSlug, slug, isCover }) => {
     if (currentSlug) {
       return currentSlug === slug;
     } else if (currentAreaSlug) {
       return currentAreaSlug === areaSlug;
     } else {
-      return currentCountrySlug === countrySlug;
+      return currentCountrySlug === countrySlug && isCover;
     }
   });
   if (!photo) return;

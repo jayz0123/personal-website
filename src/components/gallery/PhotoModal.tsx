@@ -37,7 +37,7 @@ export function PhotoModal({ children }: { children: React.ReactNode }) {
           base: clsx(
             'items-center justify-center',
             'max-w-[90vw] max-h-[90vh] w-fit h-fit sm:my-auto',
-            'bg-gradient-to-br bg-transparent from-cyan-200/25 to-blue-500/25',
+            'bg-gradient-to-br bg-transparent from-cyan-200/10 to-blue-500/10',
           ),
         }}
       >

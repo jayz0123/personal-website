@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 export default function Glowing({
   children,
   variant = 'input',
@@ -5,18 +7,33 @@ export default function Glowing({
   className = '',
 }: {
   children: React.ReactNode;
-  variant?: 'input' | 'nav' | 'gallery';
+  variant?: 'input' | 'gallery';
   isActive?: boolean;
   className?: string;
 }) {
   return (
-    <div className={`relative group ${className}`}>
+    <div className={clsx('relative group', className)}>
       <div
-        className={`-z-10 absolute -inset-1 bg-gradient-to-br from-cyan-200 to-blue-500 opacity-0 ${isActive && 'opacity-75'} ${variant === 'nav' && isActive && 'opacity-75'} ${variant === 'gallery' && 'blur rounded-large opacity-45 betterhover:group-hover:opacity-90'} ${variant === 'input' && ' rounded-large opacity-0 group-focus-within:opacity-75 group-focus-within:blur'} transition-all duration-300 ease-in-out`}
+        className={clsx(
+          '-z-10 absolute -inset-1 bg-gradient-to-br from-cyan-200 to-blue-500 opacity-0 transition-all duration-300 ease-in-out',
+          {
+            'opacity-75': isActive,
+            'blur rounded-large opacity-45 betterhover:group-hover:opacity-90':
+              variant === 'gallery',
+            'rounded-large opacity-0 group-focus-within:opacity-75 group-focus-within:blur':
+              variant === 'input',
+          },
+        )}
       />
       <div
         autoFocus
-        className={`${variant === 'gallery' ? 'bg-background' : 'bg-none'} rounded-large min-h-full min-w-full flex justify-center`}
+        className={clsx(
+          'rounded-large min-h-full min-w-full flex justify-center',
+          {
+            'bg-background': variant === 'gallery',
+            'bg-none': variant !== 'gallery',
+          },
+        )}
       >
         {children}
       </div>

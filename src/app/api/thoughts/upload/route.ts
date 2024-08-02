@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
       categories,
     });
 
-    return NextResponse.json({ body: `Post Uploaded` }, { status: 200 });
+    return NextResponse.json({ body: `Post ${id} Uploaded` }, { status: 200 });
   } catch {
     return NextResponse.error();
   }

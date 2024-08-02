@@ -1,8 +1,6 @@
-const withMDX = require('@next/mdx')();
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
@@ -15,10 +13,6 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
         port: '',
-      },
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
       },
     ],
   },
@@ -41,4 +35,4 @@ const nextConfig = {
   // },
 };
 
-module.exports = withMDX(nextConfig);
+module.exports = nextConfig;

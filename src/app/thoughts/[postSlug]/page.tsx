@@ -1,4 +1,4 @@
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import Markdown from 'react-markdown';
 
 import matter from 'gray-matter';
 
@@ -42,7 +42,7 @@ export default async function RemoteMdxPage({
         <label>{data.author}</label>
         <time>{data.date}</time>
       </div>
-      <MDXRemote source={content} />
+      <Markdown>{content}</Markdown>
     </div>
   );
 }

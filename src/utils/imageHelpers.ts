@@ -2,6 +2,22 @@ import ExifReader from 'exifreader';
 
 import type { GalleryPhotoExif } from '@/lib/definitions';
 
+export function generateThumbnailURL(url: string) {
+  return `${url}?format=auto&quality=75&width=640`;
+}
+
+export async function generateblurDataURL(url: string) {
+  const response = await fetch(`${url}?format=auto&quality=75&width=10`);
+  let type = response.headers.get('Content-Type');
+
+  if (!type) type = 'image/svg+xml';
+
+  const arrayBuffer = await response.arrayBuffer();
+  const base64Data = Buffer.from(arrayBuffer).toString('base64');
+
+  return `data:${type};base64,${base64Data}`;
+}
+
 const formattedDateTime = (dateTime: String | undefined) => {
   if (!dateTime) return undefined;
 
@@ -10,7 +26,7 @@ const formattedDateTime = (dateTime: String | undefined) => {
   return new Date(`${date.replace(/:/g, '-')}T${time}`);
 };
 
-export default function extractExif(file: Buffer): GalleryPhotoExif {
+export function extractExif(file: Buffer): GalleryPhotoExif {
   const {
     FileType,
     Make,

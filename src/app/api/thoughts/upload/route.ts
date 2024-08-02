@@ -6,7 +6,7 @@ import {
   uploadToRemote,
 } from '@/services';
 
-import convertBase64ToBuffer from '@/utils/convertBase64ToBuffer';
+import { convertBase64ToBuffer } from '@/utils/fileHelpers';
 
 import { createPost } from '@/services/db/thoughts';
 
@@ -33,13 +33,14 @@ export async function POST(request: NextRequest) {
       THOUGHTS_REMOTE_PREFIX,
       'posts',
       slug,
-      'cover.' + extractExtensionRe.exec(coverImage.fileName)?.[1],
+      'cover.' +
+        extractExtensionRe.exec(coverImage.fileName)?.[1].toLowerCase(),
     );
     const remoteDir = generateRemoteDirForPrefix(
       THOUGHTS_REMOTE_PREFIX,
       'posts',
       slug,
-      'post.' + extractExtensionRe.exec(post.fileName)?.[1],
+      'post.' + extractExtensionRe.exec(post.fileName)?.[1].toLowerCase(),
     );
 
     const coverImageURL = await uploadToRemote(

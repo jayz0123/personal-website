@@ -11,26 +11,14 @@ import type {
   GalleryPhotoUploadForm,
 } from '@/lib/definitions';
 
-import convertBase64ToBuffer from '@/utils/convertBase64ToBuffer';
-import extractExif from '@/utils/extractExif';
+import { convertBase64ToBuffer } from '@/utils/fileHelpers';
+import {
+  extractExif,
+  generateThumbnailURL,
+  generateblurDataURL,
+} from '@/utils/imageHelpers';
 
 import { createPhoto } from '@/services/db/gallery';
-
-const generateblurDataURL = async (url: string) => {
-  const response = await fetch(`${url}?format=auto&quality=75&width=10`);
-  let type = response.headers.get('Content-Type');
-
-  if (!type) type = 'image/svg+xml';
-
-  const arrayBuffer = await response.arrayBuffer();
-  const base64Data = Buffer.from(arrayBuffer).toString('base64');
-
-  return `data:${type};base64,${base64Data}`;
-};
-
-const generateThumbnailURL = (url: string) => {
-  return `${url}?format=auto&quality=75&width=640`;
-};
 
 export async function POST(request: NextRequest) {
   try {

@@ -1,6 +1,10 @@
 import type { CustomFile } from '@/lib/definitions';
 
-export default function readFiles(fileList: FileList, append?: any) {
+export function convertBase64ToBuffer(content: string): Buffer {
+  return Buffer.from(content.split(',')[1], 'base64');
+}
+
+export function readFiles(fileList: FileList, append?: any) {
   const files = Array.from(fileList);
   const handledFiles: CustomFile[] = [];
 

@@ -41,7 +41,7 @@ export default function NavBar() {
     {
       icon: <GalleryIcon />,
       title: 'Gallery',
-      href: '/gallery/United-Kingdom',
+      href: '/gallery/Japan',
     },
     {
       icon: <ContactIcon />,

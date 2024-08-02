@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 
 import { authCached } from '@/auth';
 
-import { findCountriesCached } from '@/services/db/gallery';
+import { findPhotosCached } from '@/services/db/gallery';
 
 import { CountryTabs } from '@/components/gallery';
 import { PhotoUploadForm } from '@/components/gallery/admin/PhotoUploadForm';
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Gallery',
 };
 
-const findCountriesCachedCached = cache(findCountriesCached);
+const findPhotosCachedCached = cache(findPhotosCached);
 
 export default async function Layout({
   children,
@@ -21,17 +21,20 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const session = await authCached();
-  const countries = await findCountriesCachedCached();
+  const photos = await findPhotosCachedCached();
 
-  if (!countries) return <div>No countries found</div>;
+  if (!photos) return <div>No photos fonund</div>;
+
+  const countries = photos.map(({ countrySlug }) => countrySlug);
+  const uniqueCountrySlugs = [...new Set(countries)];
 
   return (
     <section className="flex flex-col items-center min-w-full grow">
       <CountryTabs
-        countries={countries.map(({ countrySlug }) => ({
-          id: countrySlug,
-          label: countrySlug.replace(/-/g, ' '),
-          href: `/gallery/${countrySlug}`,
+        countries={uniqueCountrySlugs.map((uniqueCountrySlug) => ({
+          id: uniqueCountrySlug,
+          label: uniqueCountrySlug.replace(/-/g, ' '),
+          href: `/gallery/${uniqueCountrySlug}`,
         }))}
       >
         {children}

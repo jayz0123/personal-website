@@ -54,10 +54,13 @@ model Place {
 
 model Photo {
   id           String  @id @default(cuid())
-  title        String  @default("untitled")
   url          String  @unique
   thumbnailURL String
   blurDataURL  String
+  countrySlug  String
+  areaSlug     String
+  slug         String  @unique
+  title        String  @default("untitled")
   isCover      Boolean @default(false)
 
   // Place info

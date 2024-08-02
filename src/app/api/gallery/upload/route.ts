@@ -22,41 +22,52 @@ import { createPhoto } from '@/services/db/gallery';
 
 export async function POST(request: NextRequest) {
   try {
-    const { title, country, area, photos } =
+    const { title, country, area, photos, isCover } =
       (await request.json()) as GalleryPhotoUploadForm;
 
-    for (const photo of photos) {
-      const photoBuffer = convertBase64ToBuffer(photo.content);
-      const exif: GalleryPhotoExif = extractExif(photoBuffer);
+    const photo = photos[0];
 
-      const remoteDir = generateRemoteDirForPrefix(
-        GALLERY_REMOTE_PREFIX,
-        country.replace(/ /g, '-'),
-        area.replace(/ /g, '-'),
-        photo.fileName.replace(/ /g, '-'),
-      );
+    const photoBuffer = convertBase64ToBuffer(photo.content);
+    const exif: GalleryPhotoExif = extractExif(photoBuffer);
 
-      const url = await uploadToRemote(photoBuffer, remoteDir, photo.fileType);
+    const countrySlug = country.replace(/ /g, '-');
+    const areaSlug = area.replace(/ /g, '-');
+    const slug = title.replace(/ /g, '-').toLowerCase();
 
-      const thumbnailURL = generateThumbnailURL(url);
-      const blurDataURL = await generateblurDataURL(url);
+    const remoteDir = generateRemoteDirForPrefix(
+      GALLERY_REMOTE_PREFIX,
+      country.replace(/ /g, '-'),
+      area.replace(/ /g, '-'),
+      slug,
+    );
 
-      await createPhoto({
-        photoData: {
-          title,
-          url,
-          thumbnailURL,
-          blurDataURL,
-          ...exif,
-        },
-        place: {
-          country,
-          area,
-        },
-      });
-    }
+    const url = await uploadToRemote(photoBuffer, remoteDir, photo.fileType);
 
-    return NextResponse.json({ body: `Photos Uploaded` }, { status: 200 });
+    const thumbnailURL = generateThumbnailURL(url);
+    const blurDataURL = await generateblurDataURL(url);
+
+    const id = await createPhoto({
+      photoData: {
+        url,
+        thumbnailURL,
+        blurDataURL,
+        countrySlug,
+        areaSlug,
+        slug,
+        title,
+        isCover,
+        ...exif,
+      },
+      place: {
+        country,
+        area,
+      },
+    });
+
+    return NextResponse.json(
+      { body: `Photos Uploaded ${id}` },
+      { status: 200 },
+    );
   } catch {
     return NextResponse.error();
   }

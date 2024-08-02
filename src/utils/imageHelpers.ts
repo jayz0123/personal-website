@@ -2,6 +2,8 @@ import ExifReader from 'exifreader';
 
 import type { GalleryPhotoExif } from '@/lib/definitions';
 
+import { PhotoDatus } from '@/services/db/gallery';
+
 export function generateThumbnailURL(url: string) {
   return `${url}?format=auto&quality=75&width=640`;
 }
@@ -70,4 +72,30 @@ export function extractExif(file: Buffer): GalleryPhotoExif {
     dateTime: formattedDateTime(DateTime?.description),
     dateTimeOriginal: formattedDateTime(DateTimeOriginal?.description),
   };
+}
+
+export function getExif(photo: PhotoDatus): GalleryPhotoExif {
+  const galleryPhotoExif: GalleryPhotoExif = {
+    fileType: photo.fileType,
+    make: photo.make,
+    model: photo.model,
+    orientation: photo.orientation,
+    height: photo.height,
+    width: photo.width,
+    brightness: photo.brightness,
+    exposureBias: photo.exposureBias,
+    exposureTime: photo.exposureTime,
+    exposureMode: photo.exposureMode,
+    exposureProgram: photo.exposureProgram,
+    fNumber: photo.fNumber,
+    focalLength: photo.focalLength,
+    focalLengthIn35mmFilm: photo.focalLengthIn35mmFilm,
+    iso: photo.iso,
+    lensMake: photo.lensMake,
+    lensModel: photo.lensModel,
+    dateTime: photo.dateTime,
+    dateTimeOriginal: photo.dateTimeOriginal,
+  };
+
+  return galleryPhotoExif;
 }

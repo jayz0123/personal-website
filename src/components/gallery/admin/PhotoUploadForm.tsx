@@ -1,20 +1,17 @@
 'use client';
 
-import { ChangeEvent, useRef } from 'react';
+import { ChangeEvent } from 'react';
 import { Form, useFieldArray, useForm } from 'react-hook-form';
 
 import { Button } from '@nextui-org/button';
+import { Checkbox } from '@nextui-org/checkbox';
 import { Input } from '@nextui-org/input';
 
 import type { GalleryPhotoUploadForm } from '@/lib/definitions';
 
 import { readFiles } from '@/utils/fileHelpers';
 
-import { FileAddIcon } from '@/components/ui/Icons';
-
 export function PhotoUploadForm() {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
   const {
     register,
     getFieldState,
@@ -26,20 +23,21 @@ export function PhotoUploadForm() {
       title: '',
       country: '',
       area: '',
-      photos: [],
+      photos: [{ fileName: '', fileType: '', content: '' }],
+      isCover: false,
     },
     progressive: true,
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, replace, remove } = useFieldArray({
     control,
     name: 'photos',
   });
 
-  const handleAddFiles = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleAddPhoto = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || event.target.files.length === 0) return;
 
-    readFiles(event.target.files, append);
+    readFiles(event.target.files, replace);
   };
 
   return (
@@ -48,9 +46,9 @@ export function PhotoUploadForm() {
       headers={{
         'Content-Type': 'application/json',
       }}
-      // onSubmit={({ data }) => {
-      //   console.log(data);
-      // }}
+      onSubmit={({ data }) => {
+        console.log(data);
+      }}
       onSuccess={() => {
         reset();
       }}
@@ -58,13 +56,17 @@ export function PhotoUploadForm() {
       className="flex flex-col space-y-2"
     >
       <Input
-        {...register('title')}
+        {...register('title', {
+          required: 'Please enter the title',
+        })}
         label="Title"
+        isRequired
         isClearable
         isDisabled={isSubmitting}
         isInvalid={getFieldState('title').invalid}
         errorMessage={getFieldState('title').error?.message}
       />
+
       <Input
         {...register('country', {
           required: 'Please enter the country',
@@ -76,6 +78,7 @@ export function PhotoUploadForm() {
         isInvalid={getFieldState('country').invalid}
         errorMessage={getFieldState('country').error?.message}
       />
+
       <Input
         {...register('area', {
           required: 'Please enter the area',
@@ -87,21 +90,14 @@ export function PhotoUploadForm() {
         isInvalid={getFieldState('area').invalid}
         errorMessage={getFieldState('area').error?.message}
       />
-      <Button
-        onPress={() => {
-          fileInputRef.current?.click();
-        }}
-        startContent={<FileAddIcon />}
-      >
-        <span>Add new photos</span>
-        <input
-          type="file"
-          multiple
-          ref={fileInputRef}
-          onChange={handleAddFiles}
-          className="hidden"
-        />
-      </Button>
+
+      <div className="flex flex-col justify-center gap-2 self-stretch">
+        <label className="self-center">Photo</label>
+        <Input type="file" onChange={handleAddPhoto} accept="image/*" />
+      </div>
+
+      <Checkbox {...register('isCover')} />
+
       <Button type="submit" isDisabled={isSubmitting || fields.length === 0}>
         Submit
       </Button>

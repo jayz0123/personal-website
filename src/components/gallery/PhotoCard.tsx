@@ -7,44 +7,35 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Card, CardFooter, CardHeader } from '@nextui-org/card';
 
-import type { PhotoDatus } from '@/services/db/gallery';
+import { GalleryPhotoExif } from '@/lib/definitions';
 
 // Define a type that contains the common properties between the two components
 type PhotoCardProps = {
-  variant?: 'area' | 'exif'; // Determine which variant to render
-  priority?: boolean;
-  url: string;
+  slugs: string[];
+  photoSlug: string;
+  thumbnailURL: string;
   blurDataURL: string;
-  areaSlug: string;
-  id?: string; // Only needed if variant is 'exif'
-  exif?: Omit<
-    PhotoDatus,
-    | 'placeCountry'
-    | 'placeArea'
-    | 'id'
-    | 'url'
-    | 'thumbnailURL'
-    | 'blurDataURL'
-    | 'updatedAt'
-    | 'createdAt'
-  >;
+  photoArea: string;
+  photoAreaSlug: string;
+  orientation?: string | null;
+  exif?: GalleryPhotoExif;
 };
 
 export function PhotoCard({
-  variant = 'area',
-  priority = false,
-  url,
+  slugs,
+  photoSlug,
+  thumbnailURL,
   blurDataURL,
-  areaSlug,
-  id,
+  photoArea,
+  photoAreaSlug,
+  orientation,
   exif,
 }: PhotoCardProps) {
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
+  const currentAreaSlug = slugs?.[1];
+
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -55,22 +46,24 @@ export function PhotoCard({
     [searchParams],
   );
 
+  const orientationQuery = createQueryString(
+    'orientation',
+    orientation || 'top-left',
+  );
+
+  const nextPathname =
+    currentAreaSlug && photoSlug
+      ? `/gallery/${slugs.join('/')}/${photoSlug}?${orientationQuery}`
+      : `/gallery/${slugs.join('/')}/${photoAreaSlug}`;
+
   useEffect(() => {
-    // Prefetch both potential routes to improve navigation speed
-    if (variant === 'exif' && id) {
-      router.prefetch(pathname + '?' + createQueryString('id', id));
-    }
-    router.prefetch(pathname + '/' + areaSlug);
-  }, [areaSlug, createQueryString, id, pathname, router, variant]);
+    router.prefetch(nextPathname);
+  }, [nextPathname, router]);
 
   const handlePress = () => {
-    if (variant === 'exif' && id) {
-      router.push(pathname + '?' + createQueryString('id', id), {
-        scroll: false,
-      });
-    } else {
-      router.push(pathname + '/' + areaSlug);
-    }
+    router.push(nextPathname, {
+      scroll: currentAreaSlug && photoSlug ? false : true,
+    });
   };
 
   return (
@@ -78,37 +71,35 @@ export function PhotoCard({
       isPressable
       disableRipple
       onPress={handlePress}
-      isFooterBlurred={variant === 'exif'}
+      isFooterBlurred={currentAreaSlug ? true : false}
       className="w-full h-[240px] shadow-none"
     >
-      {variant === 'area' && (
+      {!currentAreaSlug && (
         <CardHeader className="w-fit justify-center overflow-hidden py-2 absolute bottom-1 left-1 ml-1 z-10">
-          <p className="text-white text-md font-bold font-serif">
-            {areaSlug.replace(/-/g, ' ')}
-          </p>
+          <p className="text-white text-md font-bold font-serif">{photoArea}</p>
         </CardHeader>
       )}
       <Image
-        src={url}
+        src={thumbnailURL}
         placeholder="blur"
         blurDataURL={blurDataURL}
-        alt={url}
-        priority={priority}
+        alt={thumbnailURL}
+        priority={true}
         width={640}
         height={480}
         sizes="(max-width: 768px) 84vw, (max-width: 1280px) 42vw, 28vw"
         className="z-0 w-full h-full object-cover hover:scale-125 transition-transform transform-gpu duration-400 ease-in-out"
       />
-      {variant === 'exif' && exif && (
+      {currentAreaSlug && (
         <CardFooter className="absolute bg-white/30 bottom-0 z-10 justify-center p-2">
           <div>
             <p className="text-white text-tiny flex space-x-3 justify-between font-serif">
-              <span>{exif.make}</span>
-              <span>{exif.model}</span>
-              <span>{exif.lensModel}</span>
-              <span>{exif.exposureTime}</span>
-              <span>{exif.fNumber}</span>
-              <span>{exif.iso}</span>
+              <span>{exif?.make}</span>
+              <span>{exif?.model}</span>
+              <span>{exif?.lensModel}</span>
+              <span>{exif?.exposureTime}</span>
+              <span>{exif?.fNumber}</span>
+              <span>{exif?.iso}</span>
             </p>
           </div>
         </CardFooter>

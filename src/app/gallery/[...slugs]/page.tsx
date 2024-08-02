@@ -1,9 +1,12 @@
+import { Suspense } from 'react';
+
 import { Metadata } from 'next';
 
 import { findPhotosCached } from '@/services/db/gallery';
 
 import { PhotoModalPage } from '@/components/gallery';
 import { PhotoModal } from '@/components/gallery/PhotoModal';
+import { NavProgress } from '@/components/ui';
 
 export async function generateMetadata({
   params: { slugs },
@@ -55,8 +58,10 @@ export default async function Page({
   const { orientation } = searchParams;
 
   return (
-    <PhotoModal>
-      <PhotoModalPage pathname={pathname} orientation={orientation} />
-    </PhotoModal>
+    <Suspense fallback={<NavProgress />}>
+      <PhotoModal>
+        <PhotoModalPage pathname={pathname} orientation={orientation} />
+      </PhotoModal>
+    </Suspense>
   );
 }

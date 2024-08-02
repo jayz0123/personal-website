@@ -25,12 +25,13 @@ export async function PhotoModalPage({
   return (
     <div className={containerClassNames}>
       <Image
+        unoptimized
         src={`${AWS_CLOUDFRONT_RESIZER_URL}/gallery/${pathname}`}
         alt={pathname}
         loading="eager"
         priority
-        width={isPortrait ? 400 : 600}
-        height={isPortrait ? 600 : 400}
+        width={isPortrait ? 480 : 640}
+        height={isPortrait ? 640 : 480}
         sizes={sizes}
         className={imageClassNames}
       />

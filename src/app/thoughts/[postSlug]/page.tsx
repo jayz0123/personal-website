@@ -1,5 +1,7 @@
 import Markdown from 'react-markdown';
 
+import Image from 'next/image';
+
 import matter from 'gray-matter';
 
 import { findPostsCached } from '@/services/db/thoughts';
@@ -35,7 +37,14 @@ export default async function RemoteMdxPage({
   const { data, content } = matter(markdownWithFrontMatter);
 
   return (
-    <div className="min-w-full prose sm:prose-sm md:prose-md lg:prose-xl xl:prose-xl 2xl:prose-2xl">
+    <article>
+      <Image
+        src={`https://resizer.howiejayz.com/thoughts/posts/${postSlug}/cover.JPG`}
+        alt={postSlug}
+        width={800}
+        height={400}
+        className="w-[800px] h-[400px] object-cover aspect-video"
+      />
       <h1>{data.title}</h1>
       <h2>{data.subtitle}</h2>
       <div className="flex space-x-2">
@@ -43,6 +52,6 @@ export default async function RemoteMdxPage({
         <time>{data.date}</time>
       </div>
       <Markdown>{content}</Markdown>
-    </div>
+    </article>
   );
 }

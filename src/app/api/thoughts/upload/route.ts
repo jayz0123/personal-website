@@ -50,11 +50,11 @@ export async function POST(request: NextRequest) {
 
     const id = await createPost({
       postData: {
+        url,
+        coverImageURL,
         slug,
         title,
         subtitle,
-        coverImageURL,
-        url,
         published,
       },
       categories,

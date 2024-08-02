@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    return NextResponse.json({ body: `Uploaded photos` }, { status: 200 });
+    return NextResponse.json({ body: `Photos Uploaded` }, { status: 200 });
   } catch {
     return NextResponse.error();
   }

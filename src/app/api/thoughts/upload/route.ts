@@ -19,8 +19,6 @@ export async function POST(request: NextRequest) {
     const { title, subtitle, categories, coverImages, posts, published } =
       await request.json();
 
-    const extractExtensionRe = /(?:\.([^.]+))?$/;
-
     const coverImage = coverImages[0];
     const post = posts[0];
 
@@ -33,14 +31,13 @@ export async function POST(request: NextRequest) {
       THOUGHTS_REMOTE_PREFIX,
       'posts',
       slug,
-      'cover.' +
-        extractExtensionRe.exec(coverImage.fileName)?.[1].toLowerCase(),
+      'cover-image',
     );
     const remoteDir = generateRemoteDirForPrefix(
       THOUGHTS_REMOTE_PREFIX,
       'posts',
       slug,
-      'post.' + extractExtensionRe.exec(post.fileName)?.[1].toLowerCase(),
+      'markdown',
     );
 
     const coverImageURL = await uploadToRemote(

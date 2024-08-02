@@ -1,4 +1,4 @@
-export default function GlowingText({
+export function GlowingText({
   children,
   isActive = false,
   className = '',

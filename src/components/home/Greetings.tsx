@@ -6,7 +6,7 @@ import { Skeleton } from '@nextui-org/skeleton';
 
 import getLocalTime from '@/utils/getLocalTime';
 
-import GlowingText from '../ui/GlowingText';
+import { GlowingText } from '../ui/';
 
 export function Greetings() {
   const [isMounted, setIsMounted] = useState(false);

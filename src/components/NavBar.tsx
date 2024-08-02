@@ -17,14 +17,14 @@ import {
 import Social from '@/components/Social';
 import ThemeSwitch from '@/components/ThemeSwitch';
 
-import GlowingText from './ui/GlowingText';
+import { GlowingText } from './ui';
 import {
   ContactIcon,
   GalleryIcon,
   HomeIcon,
   ProjectsIcon,
   ThoughtsIcon,
-} from './ui/Icons';
+} from './ui/';
 
 export default function NavBar() {
   const MenuItems = [

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export default function Glowing({
+export function Glowing({
   children,
   variant = 'input',
   isActive = false,

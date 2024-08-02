@@ -5,7 +5,7 @@ import { Input, Textarea } from '@nextui-org/input';
 
 import type { ContactEmailSendForm } from '@/lib/definitions';
 
-import Glowing from '../ui/Glowing';
+import { Glowing } from '../ui';
 import { ContactFormButton } from './ContactFormButton';
 
 export function ContactForm() {

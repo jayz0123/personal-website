@@ -25,7 +25,7 @@ export async function PhotoModalPage({
   return (
     <div className={containerClassNames}>
       <Image
-        src={AWS_CLOUDFRONT_RESIZER_URL + '/gallery/' + pathname}
+        src={`${AWS_CLOUDFRONT_RESIZER_URL}/gallery/${pathname}`}
         alt={pathname}
         loading="eager"
         priority

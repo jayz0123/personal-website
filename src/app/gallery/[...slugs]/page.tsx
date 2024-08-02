@@ -12,12 +12,24 @@ export async function generateMetadata({
     slugs: string[];
   };
 }): Promise<Metadata | undefined> {
+  if (slugs.length === 0) return;
+
+  const currentCountrySlug = slugs[0];
+  const currentAreaSlug = slugs[1];
   const currentSlug = slugs[2];
 
   const photos = await findPhotosCached();
   if (!photos) return;
 
-  const photo = photos.find(({ slug }) => slug === currentSlug);
+  const photo = photos.find(({ countrySlug, areaSlug, slug }) => {
+    if (currentSlug) {
+      return currentSlug === slug;
+    } else if (currentAreaSlug) {
+      return currentAreaSlug === areaSlug;
+    } else {
+      return currentCountrySlug === countrySlug;
+    }
+  });
   if (!photo) return;
 
   return {

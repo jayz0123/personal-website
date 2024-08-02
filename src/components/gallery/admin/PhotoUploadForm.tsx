@@ -8,7 +8,7 @@ import { Input } from '@nextui-org/input';
 
 import type { GalleryPhotoUploadForm } from '@/lib/definitions';
 
-import readFiles from '@/utils/readFiles';
+import { readFiles } from '@/utils/fileHelpers';
 
 import { FileAddIcon } from '@/components/ui/Icons';
 

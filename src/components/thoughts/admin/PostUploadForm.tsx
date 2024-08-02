@@ -7,7 +7,7 @@ import { Button } from '@nextui-org/button';
 import { Checkbox } from '@nextui-org/checkbox';
 import { Input } from '@nextui-org/input';
 
-import readFiles from '@/utils/readFiles';
+import { readFiles } from '@/utils/fileHelpers';
 
 export function PostUploadForm() {
   const {

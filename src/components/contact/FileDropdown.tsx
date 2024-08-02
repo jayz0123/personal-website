@@ -12,7 +12,7 @@ import {
 
 import type { ContactEmailSendForm } from '@/lib/definitions';
 
-import readFiles from '@/utils/readFiles';
+import { readFiles } from '@/utils/fileHelpers';
 
 import { AttachmentIcon, FileAddIcon, XMarkIcon } from '../ui/Icons';
 

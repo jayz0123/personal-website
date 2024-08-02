@@ -4,9 +4,11 @@ import { AWS_CLOUDFRONT_RESIZER_URL } from '@/services/awsCloudfront';
 
 export async function PhotoModalPage({
   pathname,
+  photo,
   orientation,
 }: {
   pathname: string;
+  photo?: string;
   orientation?: string;
 }) {
   const isPortrait = orientation === 'left-bottom';
@@ -26,7 +28,7 @@ export async function PhotoModalPage({
     <div className={containerClassNames}>
       <Image
         unoptimized
-        src={`${AWS_CLOUDFRONT_RESIZER_URL}/gallery/${pathname}`}
+        src={`${AWS_CLOUDFRONT_RESIZER_URL}/gallery/${pathname}/${photo}`}
         alt={pathname}
         loading="eager"
         priority

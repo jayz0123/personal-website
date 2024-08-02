@@ -52,16 +52,22 @@ export default async function Page({
   params: { slugs: string[] };
   searchParams: { [key: string]: string | undefined };
 }) {
-  if (slugs.length < 3) return null;
+  if (slugs.length < 2) return null;
 
   const pathname = slugs.join('/');
-  const { orientation } = searchParams;
+  const { photo, orientation } = searchParams;
 
   return (
-    <Suspense fallback={<NavProgress />}>
-      <PhotoModal>
-        <PhotoModalPage pathname={pathname} orientation={orientation} />
-      </PhotoModal>
-    </Suspense>
+    photo && (
+      <Suspense fallback={<NavProgress />}>
+        <PhotoModal>
+          <PhotoModalPage
+            pathname={pathname}
+            photo={photo}
+            orientation={orientation}
+          />
+        </PhotoModal>
+      </Suspense>
+    )
   );
 }

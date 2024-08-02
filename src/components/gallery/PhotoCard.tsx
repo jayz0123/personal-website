@@ -46,6 +46,7 @@ export function PhotoCard({
     [searchParams],
   );
 
+  const photoQuery = createQueryString('photo', photoSlug);
   const orientationQuery = createQueryString(
     'orientation',
     orientation || 'top-left',
@@ -53,7 +54,7 @@ export function PhotoCard({
 
   const nextPathname =
     currentAreaSlug && photoSlug
-      ? `/gallery/${slugs.join('/')}/${photoSlug}?${orientationQuery}`
+      ? `/gallery/${slugs.join('/')}?${photoQuery}&${orientationQuery}`
       : `/gallery/${slugs.join('/')}/${photoAreaSlug}`;
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export function PhotoCard({
 
   const handlePress = () => {
     router.push(nextPathname, {
-      scroll: currentAreaSlug && photoSlug ? false : true,
+      scroll: false,
     });
   };
 

@@ -31,11 +31,8 @@ export function Greetings() {
     <Suspense key={isMounted ? 'local' : 'UTC'}>
       <div className="mb-8">
         <Skeleton isLoaded={isMounted} className="rounded-lg">
-          <h2>
-            <GlowingText
-              className="text-5xl sm:text-6xl font-extrabold mb-4"
-              isActive
-            >
+          <h2 className="text-5xl sm:text-6xl font-extrabold mb-4">
+            <GlowingText isActive>
               {isMidnight
                 ? 'Hey, late owl '
                 : isEvening

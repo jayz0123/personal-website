@@ -49,7 +49,7 @@ export default function RootLayout({
         <Providers>
           <div className="flex flex-col items-center justify-between min-h-[100dvh]">
             <NavBar />
-            <main className="flex flex-col justify-center items-center min-w-full max-w-screen-xl grow my-8 px-8 sm:px-16 xl:px-32 m-auto">
+            <main className="flex justify-center items-center min-w-full max-w-screen-xl grow my-8 px-8 sm:px-16 xl:px-32 m-auto">
               {children}
             </main>
             <Footer />

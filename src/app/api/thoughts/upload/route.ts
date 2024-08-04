@@ -7,12 +7,9 @@ import {
 } from '@/services';
 
 import { convertBase64ToBuffer } from '@/utils/fileHelpers';
+import { generateblurDataURL } from '@/utils/imageHelpers';
 
 import { createPost } from '@/services/db/thoughts';
-
-const generateThumbnailURL = (url: string) => {
-  return `${url}?format=auto&quality=75&width=640`;
-};
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,18 +37,19 @@ export async function POST(request: NextRequest) {
       'markdown',
     );
 
+    const url = await uploadToRemote(postBuffer, remoteDir, post.fileType);
     const coverImageURL = await uploadToRemote(
       coverImageBuffer,
       coverImageRemoteDir,
       coverImage.fileType,
-    ).then((url) => generateThumbnailURL(url));
-
-    const url = await uploadToRemote(postBuffer, remoteDir, post.fileType);
+    );
+    const coverImageBlurDataURL = await generateblurDataURL(coverImageURL);
 
     const id = await createPost({
       postData: {
         url,
         coverImageURL,
+        coverImageBlurDataURL,
         slug,
         title,
         subtitle,

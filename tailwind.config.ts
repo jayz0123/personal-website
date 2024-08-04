@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      content: {
+        link: 'url("/link.svg")',
+      },
       translate: {
         double: '200%',
       },
@@ -25,6 +28,7 @@ const config: Config = {
     require('daisyui'),
     require('@tailwindcss/typography'),
     nextui({
+      addCommonColors: true,
       themes: {
         light: {
           colors: {

@@ -37,12 +37,11 @@ export default async function Layout({
   children: React.ReactNode;
   params: { countrySlug: string };
 }) {
-  const currentCountrySlug = countrySlug;
   const photos = await findPhotosCachedCached();
   if (!photos) return <div>No photos found</div>;
 
-  const countryPhotos = photos.filter(({ countrySlug }) => {
-    return currentCountrySlug === countrySlug;
+  const countryPhotos = photos.filter((photo) => {
+    return countrySlug === photo.countrySlug;
   });
 
   return (

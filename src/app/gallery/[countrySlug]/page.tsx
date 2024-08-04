@@ -38,7 +38,7 @@ export async function generateMetadata({
   const title = photoQuerySlug
     ? photo.title
     : areaQuerySlug
-      ? photo.placeArea
+      ? photo.placeArea + ' - ' + photo.placeCountry
       : photo.placeCountry;
 
   return {

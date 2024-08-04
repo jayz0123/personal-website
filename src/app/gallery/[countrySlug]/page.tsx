@@ -24,7 +24,7 @@ export async function generateMetadata({
   const photos = await findPhotosCachedCached();
   if (!photos) return;
 
-  const selectedPhoto = photos.find((photo) => {
+  const photo = photos.find((photo) => {
     if (photoQuerySlug) {
       return photoQuerySlug === photo.slug;
     } else if (areaQuerySlug) {
@@ -33,14 +33,20 @@ export async function generateMetadata({
       return countrySlug === photo.countrySlug && photo.isCover;
     }
   });
-  if (!selectedPhoto) return;
+  if (!photo) return;
+
+  const title = photoQuerySlug
+    ? photo.title
+    : areaQuerySlug
+      ? photo.placeArea
+      : photo.placeCountry;
 
   return {
     openGraph: {
-      title: selectedPhoto.title,
-      images: selectedPhoto.thumbnailURL,
-      publishedTime: selectedPhoto.createdAt.toString(),
-      modifiedTime: selectedPhoto.updatedAt.toString(),
+      title: title,
+      images: photo.thumbnailURL,
+      publishedTime: photo.createdAt.toString(),
+      modifiedTime: photo.updatedAt.toString(),
     },
   };
 }

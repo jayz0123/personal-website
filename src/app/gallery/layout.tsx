@@ -10,7 +10,10 @@ import { CountryTabs } from '@/components/gallery';
 import { PhotoUploadForm } from '@/components/gallery/admin/PhotoUploadForm';
 
 export const metadata: Metadata = {
-  title: 'Gallery',
+  title: {
+    template: '%s | Gallery',
+    default: 'Gallery',
+  },
 };
 
 const findPhotosCachedCached = cache(findPhotosCached);

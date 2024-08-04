@@ -12,7 +12,7 @@ import Providers from '@/components/Providers';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Jayz',
+    template: '%s',
     default: 'Howie Jayz',
   },
   authors: [

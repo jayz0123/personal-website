@@ -42,8 +42,8 @@ export async function generateMetadata({
       : photo.placeCountry;
 
   return {
+    title: title,
     openGraph: {
-      title: title,
       images: photo.thumbnailURL,
       publishedTime: photo.createdAt.toString(),
       modifiedTime: photo.updatedAt.toString(),

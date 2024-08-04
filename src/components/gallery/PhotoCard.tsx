@@ -7,62 +7,37 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Card, CardFooter, CardHeader } from '@nextui-org/card';
 
-import { GalleryPhotoExif } from '@/lib/definitions';
+import { Photo } from '@/services/db/gallery';
 
-// Define a type that contains the common properties between the two components
-type PhotoCardProps = {
-  slugs: string[];
-  photoSlug: string;
-  thumbnailURL: string;
-  blurDataURL: string;
-  photoArea: string;
-  photoAreaSlug: string;
-  orientation?: string | null;
-  exif?: GalleryPhotoExif;
-};
-
-export function PhotoCard({
-  slugs,
-  photoSlug,
-  thumbnailURL,
-  blurDataURL,
-  photoArea,
-  photoAreaSlug,
-  orientation,
-  exif,
-}: PhotoCardProps) {
+export function PhotoCard({ photo }: { photo: Photo }) {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const hasAreaQuery = searchParams.has('area');
 
-  const currentAreaSlug = slugs?.[1];
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
+  const setQueryStrings = useCallback(
+    (queryStrings: { name: string; slug: string }[]) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+
+      for (const { name, slug } of queryStrings) {
+        params.set(name, slug);
+      }
 
       return params.toString();
     },
     [searchParams],
   );
 
-  const photoQuery = createQueryString('photo', photoSlug);
-  const orientationQuery = createQueryString(
-    'orientation',
-    orientation || 'top-left',
-  );
-
-  const nextPathname =
-    currentAreaSlug && photoSlug
-      ? `/gallery/${slugs.join('/')}?${photoQuery}&${orientationQuery}`
-      : `/gallery/${slugs.join('/')}/${photoAreaSlug}`;
+  const queryString = hasAreaQuery
+    ? setQueryStrings([{ name: 'photo', slug: photo.slug }])
+    : setQueryStrings([{ name: 'area', slug: photo.areaSlug }]);
 
   useEffect(() => {
-    router.prefetch(nextPathname);
-  }, [nextPathname, router]);
+    router.prefetch(pathname + '?' + queryString);
+  }, [pathname, queryString, router]);
 
   const handlePress = () => {
-    router.push(nextPathname, {
+    router.push(pathname + '?' + queryString, {
       scroll: false,
     });
   };
@@ -72,35 +47,37 @@ export function PhotoCard({
       isPressable
       disableRipple
       onPress={handlePress}
-      isFooterBlurred={currentAreaSlug ? true : false}
+      isFooterBlurred={hasAreaQuery}
       className="w-full h-[240px] shadow-none"
     >
-      {!currentAreaSlug && (
+      {!hasAreaQuery && (
         <CardHeader className="w-fit justify-center overflow-hidden py-2 absolute bottom-1 left-1 ml-1 z-10">
-          <p className="text-white text-md font-bold font-serif">{photoArea}</p>
+          <p className="text-white text-md font-bold font-serif">
+            {photo.placeArea}
+          </p>
         </CardHeader>
       )}
       <Image
-        src={thumbnailURL}
+        src={photo.thumbnailURL}
         placeholder="blur"
-        blurDataURL={blurDataURL}
-        alt={thumbnailURL}
+        blurDataURL={photo.blurDataURL}
+        alt={photo.title || 'untitled'}
         priority={true}
         width={640}
         height={480}
         sizes="(max-width: 768px) 84vw, (max-width: 1280px) 42vw, 28vw"
         className="z-0 w-full h-full object-cover hover:scale-125 transition-transform transform-gpu duration-400 ease-in-out"
       />
-      {currentAreaSlug && (
+      {hasAreaQuery && (
         <CardFooter className="absolute bg-white/30 bottom-0 z-10 justify-center p-2">
           <div>
             <p className="text-white text-tiny flex space-x-3 justify-between font-serif">
-              <span>{exif?.make}</span>
-              <span>{exif?.model}</span>
-              <span>{exif?.lensModel}</span>
-              <span>{exif?.exposureTime}</span>
-              <span>{exif?.fNumber}</span>
-              <span>{exif?.iso}</span>
+              <span>{photo.make}</span>
+              <span>{photo.model}</span>
+              <span>{photo.lensModel}</span>
+              <span>{photo.exposureTime}</span>
+              <span>{photo.fNumber}</span>
+              <span>{photo.iso}</span>
             </p>
           </div>
         </CardFooter>

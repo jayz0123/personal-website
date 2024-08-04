@@ -1,4 +1,4 @@
-import { PhotoDatus } from '@/services/db/gallery';
+import { Photo } from '@/services/db/gallery';
 
 export type CustomFile = {
   fileName: string;
@@ -24,7 +24,7 @@ export type GalleryPhotoUploadForm = {
 };
 
 export type GalleryPhotoExif = Pick<
-  PhotoDatus,
+  Photo,
   | 'fileType'
   | 'make'
   | 'model'

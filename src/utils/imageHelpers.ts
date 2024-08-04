@@ -2,7 +2,7 @@ import ExifReader from 'exifreader';
 
 import type { GalleryPhotoExif } from '@/lib/definitions';
 
-import { PhotoDatus } from '@/services/db/gallery';
+import { Photo } from '@/services/db/gallery';
 
 export function generateThumbnailURL(url: string) {
   return `${url}?format=auto&quality=75&width=640`;
@@ -74,7 +74,7 @@ export function extractExif(file: Buffer): GalleryPhotoExif {
   };
 }
 
-export function getExif(photo: PhotoDatus): GalleryPhotoExif {
+export function getExif(photo: Photo): GalleryPhotoExif {
   const galleryPhotoExif: GalleryPhotoExif = {
     fileType: photo.fileType,
     make: photo.make,

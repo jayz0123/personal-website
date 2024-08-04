@@ -1,17 +1,9 @@
 import Image from 'next/image';
 
-import { AWS_CLOUDFRONT_RESIZER_URL } from '@/services/awsCloudfront';
+import { Photo } from '@/services/db/gallery';
 
-export async function PhotoModalPage({
-  pathname,
-  photo,
-  orientation,
-}: {
-  pathname: string;
-  photo?: string;
-  orientation?: string;
-}) {
-  const isPortrait = orientation === 'left-bottom';
+export async function PhotoModalPage({ photo }: { photo: Photo }) {
+  const isPortrait = photo.orientation === 'left-bottom';
   const sizes = isPortrait ? '90vh auto' : '90vw auto';
 
   // Dynamic Size & Classnames for Different Orientations
@@ -28,8 +20,10 @@ export async function PhotoModalPage({
     <div className={containerClassNames}>
       <Image
         unoptimized
-        src={`${AWS_CLOUDFRONT_RESIZER_URL}/gallery/${pathname}/${photo}`}
-        alt={pathname}
+        src={photo.url}
+        alt={photo.title || 'untitled'}
+        placeholder="blur"
+        blurDataURL={photo.blurDataURL}
         loading="eager"
         priority
         width={isPortrait ? 480 : 640}

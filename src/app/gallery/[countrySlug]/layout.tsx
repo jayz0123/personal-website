@@ -7,7 +7,7 @@ import { findPhotosCached } from '@/services/db/gallery';
 import { PhotoCardGrid } from '@/components/gallery';
 import { Glowing } from '@/components/ui/';
 
-type GenerateStaticParams = () => Promise<{ slugs: string[] }[]>;
+type GenerateStaticParams = () => Promise<{ countrySlug: string }[]>;
 
 export const dynamicParams = false;
 
@@ -22,9 +22,9 @@ if (IS_PRODUCTION) {
 
     if (!photos) return [];
 
-    return photos.map(({ countrySlug, areaSlug, slug }) => {
+    return photos.map(({ countrySlug }) => {
       return {
-        slugs: [countrySlug, areaSlug, slug],
+        countrySlug,
       };
     });
   };
@@ -32,13 +32,18 @@ if (IS_PRODUCTION) {
 
 export default async function Layout({
   children,
-  params: { slugs },
+  params: { countrySlug },
 }: {
   children: React.ReactNode;
-  params: { slugs: string[] };
+  params: { countrySlug: string };
 }) {
+  const currentCountrySlug = countrySlug;
   const photos = await findPhotosCachedCached();
   if (!photos) return <div>No photos found</div>;
+
+  const countryPhotos = photos.filter(({ countrySlug }) => {
+    return currentCountrySlug === countrySlug;
+  });
 
   return (
     <section className="flex flex-col items-center min-w-full grow">
@@ -48,7 +53,7 @@ export default async function Layout({
           size={10}
           className="min-w-full h-[65dvh] rounded-large"
         >
-          <PhotoCardGrid slugs={slugs} photos={photos} />
+          <PhotoCardGrid countryPhotos={countryPhotos} />
         </ScrollShadow>
       </Glowing>
       {children}

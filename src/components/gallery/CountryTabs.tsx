@@ -14,7 +14,7 @@ export function CountryTabs({
   countries: { id: string; label: string; href: string }[];
 }) {
   const router = useRouter();
-  const { slugs } = useParams<{ slugs: string[] }>();
+  const selectedCountry = useParams<{ countrySlug: string }>().countrySlug;
 
   useEffect(() => {
     for (const country of countries) router.prefetch(country.href);
@@ -23,7 +23,7 @@ export function CountryTabs({
   return (
     <Tabs
       items={countries}
-      selectedKey={slugs?.[0]}
+      selectedKey={selectedCountry}
       variant="underlined"
       size="lg"
       className="font-bold font-serif"

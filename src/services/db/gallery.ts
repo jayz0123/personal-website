@@ -150,9 +150,12 @@ const findPhotosForCountry = async (country: string) => {
   }
 };
 
+export const findPhotosCached = unstable_cache(findPhotos, ['photos'], {
+  tags: ['photos'],
+});
+
 export const findPlacesCached = unstable_cache(findPlaces, ['places']);
 export const findCountriesCached = unstable_cache(findCountries, ['countries']);
-export const findPhotosCached = unstable_cache(findPhotos, ['photos']);
 export const findAreasForCountryCached = unstable_cache(findAreasForCountry, [
   'areas-for-country',
 ]);

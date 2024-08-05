@@ -53,4 +53,6 @@ const findPosts = async () => {
   }
 };
 
-export const findPostsCached = unstable_cache(findPosts, ['posts']);
+export const findPostsCached = unstable_cache(findPosts, ['posts'], {
+  tags: ['posts'],
+});

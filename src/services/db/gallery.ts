@@ -2,9 +2,6 @@ import { unstable_cache } from 'next/cache';
 
 import prisma, { Prisma } from '@/lib/prisma';
 
-// export Prisma.PhotoCreateWithoutPlaceInput for other usages
-export type Photo = Prisma.PhotoCreateManyInput;
-
 export async function createPhoto({
   photoData,
   place,

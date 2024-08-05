@@ -7,9 +7,9 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Card, CardFooter, CardHeader } from '@nextui-org/card';
 
-import { Photo } from '@/services/db/gallery';
+import { GalleryPhoto } from '@/lib/definitions';
 
-export function PhotoCard({ photo }: { photo: Photo }) {
+export function PhotoCard({ photo }: { photo: GalleryPhoto }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

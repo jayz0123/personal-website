@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
-import { Photo } from '@/services/db/gallery';
+import { GalleryPhoto } from '@/lib/definitions';
 
-export async function PhotoModalPage({ photo }: { photo: Photo }) {
+export async function PhotoModalPage({ photo }: { photo: GalleryPhoto }) {
   const isPortrait = photo.orientation === 'left-bottom';
   const sizes = isPortrait ? '90vh auto' : '90vw auto';
 

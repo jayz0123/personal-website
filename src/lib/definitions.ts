@@ -1,4 +1,5 @@
-import { Photo } from '@/services/db/gallery';
+import { findPhotosCached } from '@/services/db/gallery';
+import { findPostsCached } from '@/services/db/thoughts';
 
 export type CustomFile = {
   fileName: string;
@@ -15,6 +16,11 @@ export type ThoughtsPostUploadForm = {
   published: boolean;
 };
 
+export type ThoughtsPost = Exclude<
+  Awaited<ReturnType<typeof findPostsCached>>,
+  undefined
+>[0];
+
 export type GalleryPhotoUploadForm = {
   title: string;
   country: string;
@@ -23,8 +29,13 @@ export type GalleryPhotoUploadForm = {
   isCover: boolean;
 };
 
+export type GalleryPhoto = Exclude<
+  Awaited<ReturnType<typeof findPhotosCached>>,
+  undefined
+>[0];
+
 export type GalleryPhotoExif = Pick<
-  Photo,
+  GalleryPhoto,
   | 'fileType'
   | 'make'
   | 'model'

@@ -4,14 +4,14 @@ import { useMemo } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
-import { Photo } from '@/services/db/gallery';
+import { GalleryPhoto } from '@/lib/definitions';
 
 import { PhotoCard } from './PhotoCard';
 
 export async function PhotoCardGrid({
   countryPhotos,
 }: {
-  countryPhotos: Photo[];
+  countryPhotos: GalleryPhoto[];
 }) {
   const searchParams = useSearchParams();
   const areaQuerySlug = searchParams.get('area');

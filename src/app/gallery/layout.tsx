@@ -6,6 +6,7 @@ import { authCached } from '@/auth';
 
 import { findPhotosCached } from '@/services/db/gallery';
 
+import RevalidateButton from '@/components/admin/RevalidateButton';
 import { CountryTabs } from '@/components/gallery';
 import { PhotoUploadForm } from '@/components/gallery/admin/PhotoUploadForm';
 
@@ -42,7 +43,12 @@ export default async function Layout({
       >
         {children}
       </CountryTabs>
-      {session?.user?.role === 'admin' && <PhotoUploadForm />}
+      {session?.user?.role === 'admin' && (
+        <div className="flex flex-col mt-16 min-w-full gap-y-4">
+          <RevalidateButton tag="photos">Revalidate Photos</RevalidateButton>
+          <PhotoUploadForm />
+        </div>
+      )}
     </section>
   );
 }

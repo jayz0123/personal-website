@@ -1,3 +1,4 @@
+import { revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 import {
@@ -63,6 +64,8 @@ export async function POST(request: NextRequest) {
         area,
       },
     });
+
+    revalidateTag('posts');
 
     return NextResponse.json(
       { body: `Photos Uploaded ${id}` },

@@ -1,3 +1,4 @@
+import { revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 import {
@@ -57,6 +58,8 @@ export async function POST(request: NextRequest) {
       },
       categories,
     });
+
+    revalidateTag('posts');
 
     return NextResponse.json({ body: `Post ${id} Uploaded` }, { status: 200 });
   } catch {

@@ -61,10 +61,9 @@ export const Timeline = memo(function Timeline() {
   return (
     <Glowing variant="container">
       <ScrollShadow hideScrollBar className="min-w-fit h-[60svh]">
-        <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+        <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical m-4">
           {timelineData.map((item, index) => (
             <li key={index}>
-              <hr />
               <div className="timeline-middle">
                 {item.icon === 'academic' ? (
                   <AcademicCapIcon />

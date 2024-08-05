@@ -3,8 +3,6 @@ import { cache } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import clsx from 'clsx';
-
 import { findPostsCached } from '@/services/db/thoughts';
 
 import { GlowingText } from '@/components/ui';

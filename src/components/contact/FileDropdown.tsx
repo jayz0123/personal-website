@@ -1,5 +1,7 @@
+'use client';
+
 import { ChangeEvent, useRef } from 'react';
-import { Control, useFieldArray } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { Button } from '@nextui-org/button';
 import {
@@ -16,19 +18,15 @@ import { readFiles } from '@/utils/fileHelpers';
 
 import { AttachmentIcon, FileAddIcon, XMarkIcon } from '../ui/Icons';
 
-export function FileDropdown({
-  control,
-  isDisabled,
-}: {
-  control: Control<ContactEmailSendForm, any>;
-  isDisabled: boolean;
-}) {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const { fields, append, remove } = useFieldArray({
-    control,
+export function FileDropdown() {
+  const {
+    formState: { isSubmitting },
+  } = useFormContext<ContactEmailSendForm>();
+  const { fields, append, remove } = useFieldArray<ContactEmailSendForm>({
     name: 'attachments',
   });
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleAddFiles = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || event.target.files.length === 0) return;
@@ -45,7 +43,7 @@ export function FileDropdown({
     >
       <DropdownTrigger>
         <Button
-          isDisabled={isDisabled}
+          isDisabled={isSubmitting}
           isIconOnly
           variant="shadow"
           color={`${fields.length ? 'success' : 'default'}`}

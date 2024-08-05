@@ -1,6 +1,6 @@
-import { Control } from 'react-hook-form';
+'use client';
 
-import { Sen } from 'next/font/google';
+import { useFormContext } from 'react-hook-form';
 
 import { Button, ButtonGroup } from '@nextui-org/button';
 
@@ -9,21 +9,11 @@ import type { ContactEmailSendForm } from '@/lib/definitions';
 import { CheckIcon, ExclamationIcon, SendIcon } from '../ui/Icons';
 import { FileDropdown } from './FileDropdown';
 
-export function ContactFormButton({
-  control,
-  isSubmitting,
-  isDirty,
-  isValid,
-  isSubmitSuccessful,
-  response,
-}: {
-  control: Control<ContactEmailSendForm, any>;
-  isSubmitting: boolean;
-  isDirty: boolean;
-  isValid: boolean;
-  isSubmitSuccessful: boolean;
-  response: string | null;
-}) {
+export function ContactFormButton({ response }: { response: string | null }) {
+  const {
+    formState: { isSubmitting, isSubmitSuccessful, isValid, isDirty },
+  } = useFormContext<ContactEmailSendForm>();
+
   const determineButtonColor = () => {
     if (isSubmitting) return 'default';
     if (response) {
@@ -37,7 +27,7 @@ export function ContactFormButton({
 
   return (
     <ButtonGroup className="w-full">
-      <FileDropdown control={control} isDisabled={isSubmitting} />
+      <FileDropdown />
       <Button
         type="submit"
         variant={'shadow'}

@@ -111,7 +111,7 @@ export function ContactForm() {
           isInvalid={getFieldState('email').invalid}
           errorMessage={getFieldState('email').error?.message}
           classNames={{
-            helperWrapper: 'absolute right-[36px] bottom-[8px]',
+            helperWrapper: 'absolute right-[36px] top-[17px]',
           }}
         />
       </Glowing>
@@ -137,7 +137,7 @@ export function ContactForm() {
             base: 'min-h-[25dvh] grow',
             inputWrapper: 'min-h-max align-start grow',
             input: 'min-h-max grow min-h-full',
-            helperWrapper: 'absolute right-[36px] bottom-[8px]',
+            helperWrapper: 'absolute right-[36px] top-[8px]',
           }}
         />
       </Glowing>

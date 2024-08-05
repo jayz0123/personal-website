@@ -11,10 +11,7 @@ export function GlowingText({
   isHoverable?: boolean;
   className?: string;
 }) {
-  if (!isActive)
-    return (
-      <div className={`${className} flex gap-1 items-center`}>{children}</div>
-    );
+  if (!isActive) return <>{children}</>;
 
   return (
     <div className={`${className} flex gap-1 items-center relative`}>

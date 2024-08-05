@@ -7,12 +7,16 @@ export type CustomFile = {
   content: string;
 };
 
-export type ThoughtsPostUploadForm = {
+export type ThoughtsPostMetadata = {
   title: string;
-  subtitle: string;
-  categories: { name: string }[];
-  coverImage: CustomFile;
-  post: CustomFile;
+  abstract: string;
+  date: string;
+  categories: string;
+};
+
+export type ThoughtsPostUploadForm = {
+  coverImages: CustomFile[];
+  posts: CustomFile[];
   published: boolean;
 };
 

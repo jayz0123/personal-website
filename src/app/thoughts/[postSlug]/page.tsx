@@ -1,15 +1,14 @@
 import { cache } from 'react';
-import Markdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 import { Metadata } from 'next';
-import Image from 'next/image';
 
 import clsx from 'clsx';
 import matter from 'gray-matter';
 
 import { findPostsCached } from '@/services/db/thoughts';
+
+import { PostCoverImage } from '@/components/thoughts';
+import { PostContent } from '@/components/thoughts/post/PostContent';
 
 const findPostsCachedCached = cache(findPostsCached);
 
@@ -48,7 +47,7 @@ if (IS_PRODUCTION) {
   };
 }
 
-export default async function RemoteMdxPage({
+export default async function Page({
   params: { postSlug },
 }: {
   params: { postSlug: string };
@@ -75,53 +74,24 @@ export default async function RemoteMdxPage({
         'md:prose-lg lg:prose-xl',
         'prose-img:rounded-lg prose-pre:p-0',
         'prose-headings:text-foreground prose-headings:font-bold',
-        'prose-p: text-foreground',
+        'prose-p:text-foreground',
         'prose-strong:text-foreground prose-strong:font-semibold',
-        'prose-a:relative prose-a:after:content-link',
+        'prose-a:relative prose-a:after:content-link prose-pre:rounded-2xl',
       )}
     >
       <h1 className="font-serif font-extrabold">{data.title}</h1>
 
       <div className="flex space-x-4">
-        <address>{data.author}</address>
         <time dateTime={data.date}>{data.date}</time>
       </div>
 
-      <Image
+      <PostCoverImage
         src={post.coverImageURL}
-        alt={postSlug}
-        placeholder="blur"
+        alt={post.title}
         blurDataURL={post.coverImageBlurDataURL}
-        width={800}
-        height={400}
-        className="aspect-[16/9] object-cover"
       />
 
-      <Markdown
-        components={{
-          code({ node, inline, className, children, ...props }: any) {
-            const match = /language-(\w+)/.exec(className || '');
-
-            return !inline && match ? (
-              <SyntaxHighlighter
-                style={oneDark}
-                customStyle={{ margin: 0 }}
-                PreTag="div"
-                language={match[1]}
-                {...props}
-              >
-                {String(children).replace(/\n$/, '')}
-              </SyntaxHighlighter>
-            ) : (
-              <code className={className} {...props}>
-                {children}
-              </code>
-            );
-          },
-        }}
-      >
-        {content}
-      </Markdown>
+      <PostContent content={content} />
     </article>
   );
 }

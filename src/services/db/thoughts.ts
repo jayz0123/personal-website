@@ -7,7 +7,7 @@ export async function createPost({
   categories,
 }: {
   postData: Prisma.PostCreateWithoutCategoriesInput;
-  categories: { name: string }[];
+  categories: { slug: string; name: string }[];
 }) {
   try {
     const { id } = await prisma.post.create({
@@ -15,8 +15,8 @@ export async function createPost({
         ...postData,
         categories: {
           connectOrCreate: categories.map((category) => ({
-            where: { id: category.name },
-            create: { id: category.name },
+            where: { slug: category.slug },
+            create: { slug: category.slug, name: category.name },
           })),
         },
       },
@@ -38,7 +38,7 @@ const findPosts = async () => {
       include: {
         categories: {
           select: {
-            id: true,
+            name: true,
           },
         },
       },

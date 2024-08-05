@@ -1,8 +1,6 @@
 import ExifReader from 'exifreader';
 
-import type { GalleryPhotoExif } from '@/lib/definitions';
-
-import { Photo } from '@/services/db/gallery';
+import type { GalleryPhoto, GalleryPhotoExif } from '@/lib/definitions';
 
 export function generateThumbnailURL(url: string) {
   return `${url}?format=auto&quality=75&width=640`;
@@ -52,29 +50,29 @@ export function extractExif(file: Buffer): GalleryPhotoExif {
   } = ExifReader.load(file);
 
   return {
-    fileType: FileType?.description,
-    make: Make?.description,
-    model: Model?.description,
-    orientation: Orientation?.description,
-    height: ImageHeight?.value,
-    width: ImageWidth?.value,
-    brightness: BrightnessValue?.description,
-    exposureBias: ExposureBiasValue?.description,
-    exposureTime: ExposureTime?.description,
-    exposureMode: ExposureMode?.description,
-    exposureProgram: ExposureProgram?.description,
-    fNumber: FNumber?.description,
-    focalLength: FocalLength?.description,
-    focalLengthIn35mmFilm: String(FocalLengthIn35mmFilm?.description),
-    iso: String(ISOSpeedRatings?.description),
-    lensMake: LensMake?.description,
-    lensModel: LensModel?.description,
-    dateTime: formattedDateTime(DateTime?.description),
-    dateTimeOriginal: formattedDateTime(DateTimeOriginal?.description),
+    fileType: FileType?.description ?? null,
+    make: Make?.description ?? null,
+    model: Model?.description ?? null,
+    orientation: Orientation?.description ?? null,
+    height: ImageHeight?.value ?? null,
+    width: ImageWidth?.value ?? null,
+    brightness: BrightnessValue?.description ?? null,
+    exposureBias: ExposureBiasValue?.description ?? null,
+    exposureTime: ExposureTime?.description ?? null,
+    exposureMode: ExposureMode?.description ?? null,
+    exposureProgram: ExposureProgram?.description ?? null,
+    fNumber: FNumber?.description ?? null,
+    focalLength: FocalLength?.description ?? null,
+    focalLengthIn35mmFilm: String(FocalLengthIn35mmFilm?.description) ?? null,
+    iso: String(ISOSpeedRatings?.description) ?? null,
+    lensMake: LensMake?.description ?? null,
+    lensModel: LensModel?.description ?? null,
+    dateTime: formattedDateTime(DateTime?.description) ?? null,
+    dateTimeOriginal: formattedDateTime(DateTimeOriginal?.description) ?? null,
   };
 }
 
-export function getExif(photo: Photo): GalleryPhotoExif {
+export function getExif(photo: GalleryPhoto): GalleryPhotoExif {
   const galleryPhotoExif: GalleryPhotoExif = {
     fileType: photo.fileType,
     make: photo.make,

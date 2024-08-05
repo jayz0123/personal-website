@@ -16,7 +16,8 @@ datasource db {
 }
 
 model Category {
-  id    String @id
+  slug  String @id
+  name  String
   posts Post[]
 
   createdAt DateTime @default(now())
@@ -27,14 +28,15 @@ model Category {
 
 model Post {
   id                    Int        @id @default(autoincrement())
+  slug                  String     @unique
   url                   String     @unique
   coverImageURL         String
   coverImageBlurDataURL String
-  slug                  String     @unique
   title                 String
-  subtitle              String
-  published             Boolean    @default(true)
+  abstract              String
+  date                  DateTime   @default(now())
   categories            Category[]
+  published             Boolean    @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -55,12 +57,12 @@ model Place {
 
 model Photo {
   id           String  @id @default(cuid())
+  slug         String  @unique
   url          String  @unique
   thumbnailURL String
   blurDataURL  String
   countrySlug  String
   areaSlug     String
-  slug         String  @unique
   title        String  @default("untitled")
   isCover      Boolean @default(false)
 

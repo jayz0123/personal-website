@@ -1,5 +1,9 @@
 import type { CustomFile } from '@/lib/definitions';
 
+export function converBase64ToText(content: string): string {
+  return atob(content.split(',')[1]);
+}
+
 export function convertBase64ToBuffer(content: string): Buffer {
   return Buffer.from(content.split(',')[1], 'base64');
 }

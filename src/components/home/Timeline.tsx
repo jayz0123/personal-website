@@ -14,7 +14,7 @@ export const Timeline = memo(function Timeline() {
         title: "BEng at Xi'an Jiaotong-Liverpool University",
         description:
           'Conquered the fundamentals of engineering, mastering complex calculations and innovative problem-solving. Graduated with top marks and an impressive collection of late-night study hacks.',
-        icon: 'academic',
+        icon: <AcademicCapIcon />,
         alignment: 'start',
       },
       {
@@ -22,7 +22,7 @@ export const Timeline = memo(function Timeline() {
         title: 'BEng at University of Liverpool',
         description:
           'Delved into advanced engineering concepts, leading group projects and acing exams. Engineered brilliant solutions and survived on a strict diet of fish and chips. Left with honors and an impressive Beatles playlist.',
-        icon: 'academic',
+        icon: <AcademicCapIcon />,
         alignment: 'end',
       },
       {
@@ -30,7 +30,7 @@ export const Timeline = memo(function Timeline() {
         title: 'MSc at Imperial College London',
         description:
           'Mastered machine learning and discovered the secret coffee spots of London. Walked away with a degree and a habit of speaking in algorithms.',
-        icon: 'academic',
+        icon: <AcademicCapIcon />,
         alignment: 'start',
       },
       {
@@ -38,7 +38,7 @@ export const Timeline = memo(function Timeline() {
         title: 'Software Engineer at AMD',
         description:
           'Enhanced GPU performance and optimized code, ensuring smooth graphics for gamers worldwide. Became a debugging ninja and a master of efficient code.',
-        icon: 'briefcase',
+        icon: <BriefcaseIcon />,
         alignment: 'end',
       },
       {
@@ -46,12 +46,12 @@ export const Timeline = memo(function Timeline() {
         title: 'PhD at University of Oxford',
         description:
           "Currently decoding the universe's secrets and occasionally rowing on the Thames. Mixing groundbreaking research with tea breaks and punting adventures.",
-        icon: 'academic',
+        icon: <AcademicCapIcon />,
         alignment: 'start',
       },
       {
         year: 'Present',
-        icon: 'academic',
+        icon: <AcademicCapIcon />,
         alignment: 'start',
       },
     ],
@@ -64,13 +64,7 @@ export const Timeline = memo(function Timeline() {
         <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical p-4">
           {timelineData.map((item, index) => (
             <li key={index}>
-              <div className="timeline-middle">
-                {item.icon === 'academic' ? (
-                  <AcademicCapIcon />
-                ) : (
-                  <BriefcaseIcon />
-                )}
-              </div>
+              <div className="timeline-middle">{item.icon}</div>
               <div
                 className={`timeline-${item.alignment} ${item.alignment === 'start' ? 'md:text-end' : ''} mb-auto`}
               >

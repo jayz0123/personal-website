@@ -87,8 +87,10 @@ export default function NavBar() {
               color="foreground"
             >
               <GlowingText isActive={pathname.includes(href)}>
-                {icon}
-                <span className="">{title}</span>
+                <div className="flex gap-1">
+                  <span>{icon}</span>
+                  <span>{title}</span>
+                </div>
               </GlowingText>
             </Link>
           </NavbarItem>

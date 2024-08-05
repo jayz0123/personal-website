@@ -1,5 +1,7 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import { useSearchParams } from 'next/navigation';
 
 import { Photo } from '@/services/db/gallery';
@@ -14,13 +16,15 @@ export async function PhotoCardGrid({
   const searchParams = useSearchParams();
   const areaQuerySlug = searchParams.get('area');
 
-  const filteredPhotos = countryPhotos.filter((photo) => {
-    if (areaQuerySlug) {
-      return photo.areaSlug === areaQuerySlug;
-    } else {
-      return photo.isCover;
-    }
-  });
+  const filteredPhotos = useMemo(() => {
+    return countryPhotos.filter((photo) => {
+      if (areaQuerySlug) {
+        return photo.areaSlug === areaQuerySlug;
+      } else {
+        return photo.isCover;
+      }
+    });
+  }, [countryPhotos, areaQuerySlug]);
 
   return (
     <div className="min-w-full gap-4 grid grid-cols-12 p-4">

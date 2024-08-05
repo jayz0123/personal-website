@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect, useMemo, useState } from 'react';
+import { Suspense, memo, useEffect, useMemo, useState } from 'react';
 
 import { Skeleton } from '@nextui-org/skeleton';
 
@@ -17,7 +17,11 @@ function getTimePeriod(date: Date) {
   return 'evening';
 }
 
-export function Greetings() {
+export const Greetings = memo(function Greeting({
+  className = '',
+}: {
+  className?: string;
+}) {
   const [isMounted, setIsMounted] = useState(false);
 
   // Use useMemo to avoid unnecessary calculations
@@ -45,7 +49,7 @@ export function Greetings() {
 
   return (
     <Suspense key={isMounted ? 'local' : 'UTC'}>
-      <div className="mb-8">
+      <div className={className}>
         <Skeleton isLoaded={isMounted} className="rounded-lg">
           <h2 className="text-5xl sm:text-6xl font-extrabold">
             <GlowingText isActive className="mb-4">
@@ -57,4 +61,4 @@ export function Greetings() {
       </div>
     </Suspense>
   );
-}
+});

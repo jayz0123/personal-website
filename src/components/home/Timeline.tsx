@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { ScrollShadow } from '@nextui-org/scroll-shadow';
 
 import { AcademicCapIcon, BriefcaseIcon } from '@/components/ui/Icons';
@@ -52,7 +54,7 @@ const timelineData = [
   },
 ];
 
-export function Timeline() {
+export const Timeline = memo(function Timeline() {
   return (
     <Glowing variant="container">
       <ScrollShadow hideScrollBar className="min-w-fit h-[60svh]">
@@ -83,4 +85,4 @@ export function Timeline() {
       </ScrollShadow>
     </Glowing>
   );
-}
+});

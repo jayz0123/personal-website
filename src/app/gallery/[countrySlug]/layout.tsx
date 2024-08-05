@@ -46,7 +46,7 @@ export default async function Layout({
 
   return (
     <section className="flex flex-col items-center min-w-full grow">
-      <Glowing variant="gallery" className="min-w-full">
+      <Glowing variant="container" className="min-w-full">
         <ScrollShadow
           hideScrollBar
           size={10}

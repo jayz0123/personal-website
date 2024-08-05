@@ -7,7 +7,7 @@ export function Glowing({
   className = '',
 }: {
   children: React.ReactNode;
-  variant?: 'input' | 'gallery';
+  variant?: 'input' | 'container';
   isActive?: boolean;
   className?: string;
 }) {
@@ -19,7 +19,7 @@ export function Glowing({
           {
             'opacity-75': isActive,
             'blur rounded-large opacity-45 betterhover:group-hover:opacity-90':
-              variant === 'gallery',
+              variant === 'container',
             'rounded-large opacity-0 group-focus-within:opacity-75 group-focus-within:blur':
               variant === 'input',
           },
@@ -30,8 +30,8 @@ export function Glowing({
         className={clsx(
           'rounded-large min-h-full min-w-full flex justify-center',
           {
-            'bg-background': variant === 'gallery',
-            'bg-none': variant !== 'gallery',
+            'bg-background': variant === 'container',
+            'bg-none': variant !== 'container',
           },
         )}
       >

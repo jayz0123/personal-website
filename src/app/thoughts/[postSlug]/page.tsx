@@ -3,6 +3,7 @@ import Markdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
+import { Metadata } from 'next';
 import Image from 'next/image';
 
 import clsx from 'clsx';
@@ -12,16 +13,34 @@ import { findPostsCached } from '@/services/db/thoughts';
 
 const findPostsCachedCached = cache(findPostsCached);
 
+export async function generateMetadata({
+  params: { postSlug },
+}: {
+  params: { postSlug: string };
+}): Promise<Metadata | undefined> {
+  const posts = await findPostsCachedCached();
+  if (!posts) return;
+
+  const post = posts.find((post) => post.slug === postSlug);
+  if (!post) return;
+
+  return {
+    title: post.title,
+    openGraph: {
+      images: post.coverImageURL,
+      publishedTime: post.createdAt.toString(),
+      modifiedTime: post.updatedAt.toString(),
+    },
+  };
+}
+
 type GenerateStaticParams = () => Promise<{ postSlug: string }[]>;
-
 export const dynamicParams = false;
-
 export let generateStaticParams: GenerateStaticParams;
-
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 if (IS_PRODUCTION) {
   generateStaticParams = async () => {
-    const posts = await findPostsCached();
+    const posts = await findPostsCachedCached();
 
     if (!posts) return [];
 

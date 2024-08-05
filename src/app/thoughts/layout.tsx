@@ -1,7 +1,16 @@
+import { Metadata } from 'next';
+
 import { authCached } from '@/auth';
 
 import RevalidateButton from '@/components/admin/RevalidateButton';
 import { PostUploadForm } from '@/components/thoughts/admin/PostUploadForm';
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Thoughts',
+    default: 'Thoughts',
+  },
+};
 
 export default async function Layout({
   children,

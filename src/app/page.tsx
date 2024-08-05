@@ -1,13 +1,15 @@
-import { Greetings } from '@/components/home';
-import { Timeline } from '@/components/home';
+import { Greetings, Timeline } from '@/components/home';
 
 export default function Home() {
   const textStyles = 'mb-4';
   return (
     <div className="flex items-center py-8">
       <div className="flex flex-col xl:max-h-min xl:flex-row-reverse items-center">
-        <section className="flex-1 mb-8 xl:mb-0" aria-label="greetings">
-          <Greetings />
+        <section
+          className="flex-1 mb-8 xl:mb-0 leading-8"
+          aria-label="greetings"
+        >
+          <Greetings className="mb-8" />
           <p className={textStyles}>
             I&apos;m Junhao Zhang (张俊豪), but you can call me Jayz because it
             sounds cooler and it&apos;s easier to remember. I&apos;m a Machine

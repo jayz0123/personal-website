@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Form, useForm } from 'react-hook-form';
 
@@ -119,6 +121,11 @@ export function ContactForm() {
         <Textarea
           {...register('message', {
             required: 'Please enter a message',
+            validate: {
+              notEmpty: (value) =>
+                value.trim() !== '' ||
+                'Message cannot be empty or whitespace only',
+            },
           })}
           label="Message"
           isRequired

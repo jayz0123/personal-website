@@ -17,7 +17,7 @@ export async function generateMetadata({
   params: {
     countrySlug: string;
   };
-  searchParams: { [key: string]: string | undefined };
+  searchParams: { area: string; photo: string };
 }): Promise<Metadata | undefined> {
   const { area: areaQuerySlug, photo: photoQuerySlug } = searchParams;
 
@@ -54,7 +54,7 @@ export async function generateMetadata({
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | undefined };
+  searchParams: { photo: string };
 }) {
   const { photo: photoQuerySlug } = searchParams;
   const photos = await findPhotosCachedCached();

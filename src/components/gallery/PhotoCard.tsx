@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -9,29 +9,19 @@ import { Card, CardFooter, CardHeader } from '@nextui-org/card';
 
 import { GalleryPhoto } from '@/lib/definitions';
 
+import { useSetQueryString } from '@/utils/hooks';
+
 export function PhotoCard({ photo }: { photo: GalleryPhoto }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const hasAreaQuery = searchParams.has('area');
 
-  const setQueryStrings = useCallback(
-    (queryStrings: { name: string; slug: string }[]) => {
-      const params = new URLSearchParams(searchParams.toString());
-
-      for (const { name, slug } of queryStrings) {
-        params.set(name, slug);
-      }
-
-      return params.toString();
-    },
-    [searchParams],
-  );
+  const setQueryString = useSetQueryString();
 
   const queryString = hasAreaQuery
-    ? setQueryStrings([{ name: 'photo', slug: photo.slug }])
-    : setQueryStrings([{ name: 'area', slug: photo.areaSlug }]);
-
+    ? setQueryString({ name: 'photo', slug: photo.slug })
+    : setQueryString({ name: 'area', slug: photo.areaSlug });
   useEffect(() => {
     router.prefetch(pathname + '?' + queryString);
   }, [pathname, queryString, router]);

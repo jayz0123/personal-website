@@ -27,7 +27,7 @@ export function PostCard({ post }: { post: ThoughtsPost }) {
         <PostTitle title={post.title} />
       </Link>
 
-      <p className="line-clamp-4">{post.abstract}</p>
+      <p className="line-clamp-3">{post.abstract}</p>
 
       <PostCategories categories={post.categories} />
     </div>

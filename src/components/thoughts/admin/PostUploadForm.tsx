@@ -11,7 +11,7 @@ import { ThoughtsPostUploadForm } from '@/lib/definitions';
 
 import { readFiles } from '@/utils/fileHelpers';
 
-export function PostUploadForm() {
+export default function PostUploadForm() {
   const {
     register,
     control,

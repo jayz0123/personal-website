@@ -19,11 +19,11 @@ export default async function Page({
     return <div>No Posts</div>;
   }
 
-  const postsPerPage = 3;
+  const postsPerPage = 1;
   const total = Math.ceil(posts.length / postsPerPage);
 
   return (
-    <PostPagination total={total} page={page}>
+    <PostPagination total={total}>
       <PostCardGrid posts={posts} page={page} postsPerPage={postsPerPage} />
     </PostPagination>
   );

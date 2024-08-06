@@ -22,11 +22,11 @@ export default function PostPagination({
   const pathname = usePathname();
   const setQueryString = useSetQueryString();
 
-  const handlePageChange = (page: Number) => {
-    setCurrentPage(Number(page));
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
     const queryString = setQueryString({
       name: 'page',
-      slug: page.toString(),
+      slug: page,
     });
 
     router.push(pathname + '?' + queryString);

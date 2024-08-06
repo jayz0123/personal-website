@@ -10,7 +10,7 @@ const PostCardGrid = memo(function PostCardGrid({
   posts: ThoughtsPost[];
 }) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-x-24 lg:gap-y-16">
       {posts.map((post, index) => (
         <PostCard key={index} post={post} />
       ))}

@@ -11,8 +11,8 @@ export function PostCard({ post }: { post: ThoughtsPost }) {
     <div
       className={clsx(
         'prose lg:prose-lg dark:prose-invert',
-        'prose-h1:text-foreground',
-        'prose-a:no-underline',
+        'prose-h1:text-foreground prose-h1:my-4',
+        'prose-a:no-underline prose-img:my-4 prose-p:my-4',
       )}
     >
       <Link href={`/thoughts/${post.slug}`}>
@@ -23,15 +23,13 @@ export function PostCard({ post }: { post: ThoughtsPost }) {
         />
       </Link>
 
-      <div className="flex flex-col space-y-4 mb-4">
-        <Link href={`/thoughts/${post.slug}`}>
-          <PostTitle title={post.title} />
-        </Link>
+      <Link href={`/thoughts/${post.slug}`}>
+        <PostTitle title={post.title} />
+      </Link>
 
-        <p className="line-clamp-4">{post.abstract}</p>
+      <p className="line-clamp-4">{post.abstract}</p>
 
-        <PostCategories categories={post.categories} />
-      </div>
+      <PostCategories categories={post.categories} />
     </div>
   );
 }

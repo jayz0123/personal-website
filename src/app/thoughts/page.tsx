@@ -18,7 +18,7 @@ export default async function Page({
   }
 
   const { page } = searchParams;
-  const postsPerPage = 1;
+  const postsPerPage = 4;
   const total = Math.ceil(posts.length / postsPerPage);
 
   return (

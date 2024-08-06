@@ -12,13 +12,12 @@ export default async function Page({
 }: {
   searchParams: { page: number };
 }) {
-  const { page } = searchParams;
-
   const posts = await findPostsCachedCached();
   if (!posts) {
     return <div>No Posts</div>;
   }
 
+  const { page } = searchParams;
   const postsPerPage = 1;
   const total = Math.ceil(posts.length / postsPerPage);
 

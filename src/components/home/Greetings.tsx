@@ -8,20 +8,20 @@ import getLocalTime from '@/utils/getLocalTime';
 
 import { GlowingText } from '../ui/';
 
-function getTimePeriod(date: Date) {
-  const hour = Number(getLocalTime(date).split(':')[0]);
-
-  if (hour >= 0 && hour < 5) return 'midnight';
-  if (hour >= 5 && hour < 12) return 'morning';
-  if (hour >= 12 && hour < 19) return 'afternoon';
-  return 'evening';
-}
-
 export const Greetings = memo(function Greeting({
   className = '',
 }: {
   className?: string;
 }) {
+  const getTimePeriod = (date: Date) => {
+    const hour = Number(getLocalTime(date).split(':')[0]);
+
+    if (hour >= 0 && hour < 5) return 'midnight';
+    if (hour >= 5 && hour < 12) return 'morning';
+    if (hour >= 12 && hour < 19) return 'afternoon';
+    return 'evening';
+  };
+
   const [isMounted, setIsMounted] = useState(false);
 
   // Use useMemo to avoid unnecessary calculations

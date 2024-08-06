@@ -1,4 +1,8 @@
+'use client';
+
 import { memo, useMemo } from 'react';
+
+import { useSearchParams } from 'next/navigation';
 
 import { ThoughtsPost } from '@/lib/definitions';
 
@@ -6,13 +10,14 @@ import { PostCard } from './';
 
 const PostCardGrid = memo(function PostCardGrid({
   posts,
-  page = 1,
   postsPerPage,
 }: {
   posts: ThoughtsPost[];
-  page?: number;
   postsPerPage: number;
 }) {
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get('page') || '1');
+
   const paginatedPosts = useMemo(() => {
     const startIndex = (page - 1) * postsPerPage;
     const endIndex = startIndex + postsPerPage;

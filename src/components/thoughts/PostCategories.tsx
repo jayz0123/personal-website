@@ -9,7 +9,7 @@ import { useQueryString } from '@/utils/hooks';
 export function PostCategories({
   categories,
 }: {
-  categories: { slug: string }[];
+  categories: { name: string; slug: string }[];
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -25,10 +25,10 @@ export function PostCategories({
       return;
     }
 
-    const queryString = deleteQueryString('page');
-    router.push(pathname + '?' + queryString);
-    // const queryStringA = appendQueryString('category', category);
-    // router.push(pathname + '?' + queryStringA);
+    // const queryString = deleteQueryString('page');
+    // router.push(pathname + '?' + queryString);
+    const queryStringA = appendQueryString('category', category);
+    router.push(pathname + '?' + queryStringA);
   };
 
   return (
@@ -41,7 +41,7 @@ export function PostCategories({
             onPress={() => addCategory(category.slug)}
             className="max-w-fit min-w-min bg-gradient-to-br from-sky-500 to-cyan-500 opacity-80"
           >
-            {'#' + category.slug}
+            {'#' + category.name}
           </Button>
         </div>
       ))}

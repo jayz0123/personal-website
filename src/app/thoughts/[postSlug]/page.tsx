@@ -3,7 +3,6 @@ import { cache } from 'react';
 import { Metadata } from 'next';
 
 import clsx from 'clsx';
-import matter from 'gray-matter';
 
 import { findPostsCached } from '@/services/db/thoughts';
 
@@ -59,26 +58,26 @@ export default async function Page({
   if (!post) return <h1>{`Post ${postSlug} Not Found`}</h1>;
 
   const res = await fetch(post.url);
-  const markdownWithFrontMatter = await res.text();
+  const markdown = await res.text();
 
-  const { data, content } = matter(markdownWithFrontMatter);
+  const dateTime = new Date(post.date);
 
   return (
     <article
       className={clsx(
         'prose dark:prose-invert',
         'md:prose-lg lg:prose-xl',
-        'prose-img:rounded-lg prose-pre:p-0',
+        'prose-img:rounded-lg prose-img:w-full prose-img:max-w-1 prose-pre:p-0',
         'prose-headings:text-foreground prose-headings:font-bold',
         'prose-p:text-foreground',
         'prose-strong:text-foreground prose-strong:font-semibold',
         'prose-a:relative prose-a:after:content-link prose-pre:rounded-2xl',
       )}
     >
-      <h1 className="font-serif font-extrabold">{data.title}</h1>
+      <h1 className="font-serif font-extrabold text-pretty">{post.title}</h1>
 
       <div className="flex space-x-4">
-        <time dateTime={data.date}>{data.date}</time>
+        <time dateTime={dateTime.toISOString()}>{post.date}</time>
       </div>
 
       <PostCoverImage
@@ -87,7 +86,7 @@ export default async function Page({
         blurDataURL={post.coverImageBlurDataURL}
       />
 
-      <PostContent content={content} />
+      <PostContent content={markdown} />
     </article>
   );
 }

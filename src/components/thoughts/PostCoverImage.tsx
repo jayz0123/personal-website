@@ -17,10 +17,10 @@ export const PostCoverImage = memo(function PostCoverImage({
       alt={alt}
       placeholder="blur"
       blurDataURL={blurDataURL}
-      width={1280}
-      height={720}
+      width={1200}
+      height={628}
       sizes="100vw"
-      className="object-cover rounded-lg aspect-[16/9] max-w-"
+      className="object-cover rounded-lg max-w-full w-full"
     />
   );
 });

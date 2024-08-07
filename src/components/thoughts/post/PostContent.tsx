@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import Markdown from 'react-markdown';
 
+import remarkGfm from 'remark-gfm';
+
 import { CodeBlock } from './CodeBlock';
 
 export const PostContent = memo(function PostContent({
@@ -10,6 +12,7 @@ export const PostContent = memo(function PostContent({
 }) {
   return (
     <Markdown
+      remarkPlugins={[remarkGfm]}
       components={{
         code({ node, inline, className, children, ...props }: any) {
           const match = /language-(\w+)/.exec(className || '');

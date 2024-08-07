@@ -34,7 +34,7 @@ model Post {
   coverImageBlurDataURL String
   title                 String
   abstract              String
-  date                  DateTime   @default(now())
+  date                  String
   wordCount             Int
   readingTime           Int
   categories            Category[]

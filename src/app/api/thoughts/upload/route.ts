@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       const {
         title,
         abstract,
-        date: dateString,
+        date: rawDate,
         categories: rawCategories,
       } = postMetaData as ThoughtsPostMetadata;
 
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       const slug = title.replace(/ /g, '-').toLowerCase().trim();
 
       // parse date
-      const date = new Date(dateString);
+      const date = new Date(rawDate).toDateString();
 
       // create post categories array
       const categories = rawCategories.split(', ').map((rawCategory) => {

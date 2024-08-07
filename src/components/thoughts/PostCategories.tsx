@@ -1,17 +1,49 @@
-import Link from 'next/link';
+'use client';
+
+import { usePathname, useRouter } from 'next/navigation';
+
+import { Button } from '@nextui-org/button';
+
+import { useQueryString } from '@/utils/hooks';
 
 export function PostCategories({
   categories,
 }: {
-  categories: { name: string }[];
+  categories: { slug: string }[];
 }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const getQueryString = useQueryString('get');
+  const getAllQueryString = useQueryString('getAll');
+  const appendQueryString = useQueryString('append');
+  const deleteQueryString = useQueryString('delete');
+
+  const categoryQueries = getAllQueryString('category');
+
+  const addCategory = (category: string) => {
+    if (categoryQueries.includes(category)) {
+      return;
+    }
+
+    const queryString = deleteQueryString('page');
+    router.push(pathname + '?' + queryString);
+    // const queryStringA = appendQueryString('category', category);
+    // router.push(pathname + '?' + queryStringA);
+  };
+
   return (
-    <div className="flex space-x-4 text-sm font-mono">
+    <div className="flex flex-wrap gap-1 text-sm font-mono">
       {categories.map((category, index) => (
-        <Link key={index} href={`/categories/${category.name}`}>
-          <span>#</span>
-          {category.name}
-        </Link>
+        <div key={index} className="flex-grow-0 flex-shrink-0">
+          <Button
+            size="sm"
+            variant="shadow"
+            onPress={() => addCategory(category.slug)}
+            className="max-w-fit min-w-min bg-gradient-to-br from-sky-500 to-cyan-500 opacity-80"
+          >
+            {'#' + category.slug}
+          </Button>
+        </div>
       ))}
     </div>
   );

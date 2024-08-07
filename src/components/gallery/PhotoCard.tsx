@@ -9,19 +9,20 @@ import { Card, CardFooter, CardHeader } from '@nextui-org/card';
 
 import { GalleryPhoto } from '@/lib/definitions';
 
-import { useSetQueryString } from '@/utils/hooks';
+import { useQueryString } from '@/utils/hooks';
 
 export function PhotoCard({ photo }: { photo: GalleryPhoto }) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const hasAreaQuery = searchParams.has('area');
+  const hasQueryString = useQueryString('has');
+  const setQueryString = useQueryString('set');
 
-  const setQueryString = useSetQueryString();
+  const hasAreaQuery = hasQueryString('area');
 
   const queryString = hasAreaQuery
-    ? setQueryString({ name: 'photo', slug: photo.slug })
-    : setQueryString({ name: 'area', slug: photo.areaSlug });
+    ? setQueryString('photo', photo.slug)
+    : setQueryString('area', photo.areaSlug);
+
   useEffect(() => {
     router.prefetch(pathname + '?' + queryString);
   }, [pathname, queryString, router]);

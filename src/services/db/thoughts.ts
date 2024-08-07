@@ -38,7 +38,7 @@ const findPosts = async () => {
       include: {
         categories: {
           select: {
-            name: true,
+            slug: true,
           },
         },
       },

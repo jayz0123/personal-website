@@ -4,9 +4,9 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Pagination, PaginationProps } from '@nextui-org/pagination';
 
-import { useSetQueryString } from '@/utils/hooks';
+import { useQueryString } from '@/utils/hooks';
 
-export default function PostPagination({
+export function PostPagination({
   children,
   total,
 }: {
@@ -19,13 +19,10 @@ export default function PostPagination({
   const router = useRouter();
   const pathname = usePathname();
 
-  const setQueryString = useSetQueryString();
+  const setQueryString = useQueryString('set');
 
   const handlePageChange = (page: number) => {
-    const queryString = setQueryString({
-      name: 'page',
-      slug: page,
-    });
+    const queryString = setQueryString('page', page);
 
     router.push(pathname + '?' + queryString);
   };

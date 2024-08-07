@@ -18,11 +18,11 @@ export const getResizerURLsForRemoteDir = (remoteDir: string) =>
   `${AWS_CLOUDFRONT_RESIZER_URL}/${remoteDir}`;
 
 export const uploadToRemote = async (
-  fileBuffer: Buffer,
+  fileBody: Buffer | string,
   remoteDir: string,
   fileType?: string,
 ) => {
-  await awsS3Put(remoteDir, fileBuffer, fileType);
+  await awsS3Put(remoteDir, fileBody, fileType);
 
   return fileType?.includes('image')
     ? getResizerURLsForRemoteDir(remoteDir)

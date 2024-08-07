@@ -67,7 +67,7 @@ export default async function Page({
       className={clsx(
         'prose dark:prose-invert',
         'md:prose-lg lg:prose-xl',
-        'prose-img:rounded-lg prose-img:w-full prose-img:max-w-1 prose-pre:p-0',
+        'prose-img:rounded-lg prose-pre:p-0',
         'prose-headings:text-foreground prose-headings:font-bold',
         'prose-p:text-foreground',
         'prose-strong:text-foreground prose-strong:font-semibold',

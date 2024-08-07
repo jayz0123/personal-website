@@ -47,9 +47,9 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={`${LusitanaFont.className} text-pretty antialiased`}>
         <Providers>
-          <div className="flex flex-col items-center justify-between min-h-[100dvh]">
+          <div className="flex flex-col items-center justify-between min-h-[100dvh] w-full">
             <NavBar />
-            <main className="flex justify-center items-center min-w-full max-w-screen-xl grow my-8 px-8 sm:px-16 lg:px-32 m-auto">
+            <main className="flex flex-col justify-center items-center min-w-full max-w-screen-xl my-8 px-8 sm:px-16 lg:px-32 m-auto">
               {children}
             </main>
             <Footer />

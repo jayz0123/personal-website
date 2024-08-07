@@ -32,8 +32,9 @@ export async function POST(request: NextRequest) {
       const { data: postMetaData, content: postContent } = matter(
         value.content,
       );
-      const { minutes: readingTime, words: wordCount } =
-        getReadingTime(postContent);
+
+      const { minutes, words: wordCount } = getReadingTime(postContent);
+      const readingTime = Math.ceil(minutes);
 
       const {
         title,

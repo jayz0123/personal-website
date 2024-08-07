@@ -7,10 +7,10 @@ import PostCardGridPages from '@/components/thoughts/PostCardGridPages';
 const findPostsCachedCached = cache(findPostsCached);
 
 export default async function Page() {
+  const POSTS_PER_PAGE = 4;
+
   const posts = await findPostsCachedCached();
   if (!posts || posts.length === 0) return <h1>No Posts</h1>;
 
-  const postsPerPage = 4;
-
-  return <PostCardGridPages posts={posts} postsPerPage={postsPerPage} />;
+  return <PostCardGridPages posts={posts} postsPerPage={POSTS_PER_PAGE} />;
 }

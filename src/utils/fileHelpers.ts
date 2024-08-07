@@ -1,14 +1,14 @@
 import type { CustomFile } from '@/lib/definitions';
 
-export function converBase64ToText(content: string): string {
-  return atob(content.split(',')[1]);
-}
-
 export function convertBase64ToBuffer(content: string): Buffer {
   return Buffer.from(content.split(',')[1], 'base64');
 }
 
-export function readFiles(fileList: FileList, append?: any) {
+export function readFiles(
+  fileList: FileList,
+  callback?: any,
+  readAs: 'text' | 'dataURL' = 'dataURL',
+): CustomFile[] {
   const files = Array.from(fileList);
   const handledFiles: CustomFile[] = [];
 
@@ -22,7 +22,7 @@ export function readFiles(fileList: FileList, append?: any) {
           content: r.target.result.toString(),
         };
 
-        if (append) append(handledFile);
+        if (callback) callback(handledFile);
       }
     };
 
@@ -30,7 +30,11 @@ export function readFiles(fileList: FileList, append?: any) {
       console.error('Failed to load file');
     };
 
-    reader.readAsDataURL(file);
+    if (readAs === 'text') {
+      reader.readAsText(file);
+    } else {
+      reader.readAsDataURL(file);
+    }
   }
 
   return handledFiles;

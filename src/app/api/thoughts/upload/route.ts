@@ -13,7 +13,7 @@ import {
   ThoughtsPostUploadForm,
 } from '@/lib/definitions';
 
-import { converBase64ToText, convertBase64ToBuffer } from '@/utils/fileHelpers';
+import { convertBase64ToBuffer } from '@/utils/fileHelpers';
 import { generateblurDataURL } from '@/utils/imageHelpers';
 
 import { createPost } from '@/services/db/thoughts';
@@ -28,18 +28,19 @@ export async function POST(request: NextRequest) {
     }
 
     for (const [index, value] of posts.entries()) {
-      const markdownWithFrontMatter = converBase64ToText(value.content);
-      const { data, content } = matter(markdownWithFrontMatter);
+      const { data: postMetaData, content: postContent } = matter(
+        value.content,
+      );
 
       const {
         title,
         abstract,
         date: dateString,
         categories: rawCategories,
-      } = data as ThoughtsPostMetadata;
+      } = postMetaData as ThoughtsPostMetadata;
 
       // create post slug based on its title
-      const slug = data.title.replace(/ /g, '-').toLowerCase().trim();
+      const slug = postMetaData.title.replace(/ /g, '-').toLowerCase().trim();
 
       // parse date
       const date = new Date(dateString);
@@ -65,7 +66,6 @@ export async function POST(request: NextRequest) {
       const coverImageFileType = coverImages[index].fileType;
 
       // get post buffer, remote dir, and file type
-      const postBuffer = convertBase64ToBuffer(content);
       const postRemoteDir = generateRemoteDirForPrefix(
         THOUGHTS_REMOTE_PREFIX,
         'posts',
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
 
       // upload cover image and post to remote
       const [url, coverImageURL] = await Promise.all([
-        uploadToRemote(postBuffer, postRemoteDir, postFileType),
+        uploadToRemote(postContent, postRemoteDir, postFileType),
         uploadToRemote(
           coverImageBuffer,
           coverImageRemoteDir,

@@ -46,7 +46,7 @@ export default function PostUploadForm() {
   const handleAddPosts = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || event.target.files.length === 0) return;
 
-    readFiles(event.target.files, postsAppend);
+    readFiles(event.target.files, postsAppend, 'text');
   };
 
   return (

@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     const countrySlug = country.replace(/ /g, '-');
     const areaSlug = area.replace(/ /g, '-');
-    const slug = title.replace(/ /g, '-').toLowerCase();
+    const slug = title.replace(/ /g, '-').toLowerCase().trim();
 
     const remoteDir = generateRemoteDirForPrefix(
       GALLERY_REMOTE_PREFIX,

@@ -5,7 +5,7 @@ const config: Config = {
   darkMode: ['class'],
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/dist/components/(breadcrumbs|button|card|checkbox|dropdown|image|input|link|modal|navbar|pagination|progress|scroll-shadow|skeleton|tabs|ripple|spinner|menu|divider|popover).js',
+    './node_modules/@nextui-org/theme/dist/components/(breadcrumbs|button|card|checkbox|chip|dropdown|image|input|link|modal|navbar|pagination|progress|scroll-shadow|skeleton|tabs|ripple|spinner|menu|divider|popover).js',
   ],
   theme: {
     extend: {

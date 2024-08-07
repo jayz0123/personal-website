@@ -53,14 +53,10 @@ export default async function Page({
   params: { postSlug: string };
 }) {
   const posts = await findPostsCachedCached();
-  if (!posts) {
-    return <div>No Posts</div>;
-  }
+  if (!posts || posts.length === 0) return <h1>No Posts</h1>;
 
   const post = posts.find((post) => post.slug === postSlug);
-  if (!post) {
-    return <div>No Post</div>;
-  }
+  if (!post) return <h1>{`Post ${postSlug} Not Found`}</h1>;
 
   const res = await fetch(post.url);
   const markdownWithFrontMatter = await res.text();

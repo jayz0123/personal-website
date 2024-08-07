@@ -7,14 +7,11 @@ import { findPhotosCached } from '@/services/db/gallery';
 import { PhotoCardGrid } from '@/components/gallery';
 import { Glowing } from '@/components/ui/';
 
-type GenerateStaticParams = () => Promise<{ countrySlug: string }[]>;
-
-export const dynamicParams = false;
-
-export let generateStaticParams: GenerateStaticParams;
-
 const findPhotosCachedCached = cache(findPhotosCached);
 
+type GenerateStaticParams = () => Promise<{ countrySlug: string }[]>;
+export const dynamicParams = false;
+export let generateStaticParams: GenerateStaticParams;
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 if (IS_PRODUCTION) {
   generateStaticParams = async () => {
@@ -38,11 +35,11 @@ export default async function Layout({
   params: { countrySlug: string };
 }) {
   const photos = await findPhotosCachedCached();
-  if (!photos) return <div>No photos found</div>;
+  if (!photos || photos.length === 0) return <h1>No Photos</h1>;
 
-  const countryPhotos = photos.filter((photo) => {
-    return countrySlug === photo.countrySlug;
-  });
+  const countryPhotos = photos.filter(
+    (photo) => countrySlug === photo.countrySlug,
+  );
 
   return (
     <section className="flex flex-col items-center min-w-full grow">

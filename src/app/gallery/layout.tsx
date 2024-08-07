@@ -27,7 +27,7 @@ export default async function Layout({
   const session = await authCached();
   const photos = await findPhotosCachedCached();
 
-  if (!photos) return <div>No photos fonund</div>;
+  if (!photos || photos.length === 0) return <h1>No Photos</h1>;
 
   const countries = photos.map(({ countrySlug }) => countrySlug);
   const uniqueCountrySlugs = [...new Set(countries)];

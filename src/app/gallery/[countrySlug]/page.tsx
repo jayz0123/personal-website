@@ -22,7 +22,7 @@ export async function generateMetadata({
   const { area: areaQuerySlug, photo: photoQuerySlug } = searchParams;
 
   const photos = await findPhotosCachedCached();
-  if (!photos) return;
+  if (!photos || photos.length === 0) return;
 
   const photo = photos.find((photo) => {
     if (photoQuerySlug) {
@@ -58,11 +58,9 @@ export default async function Page({
 }) {
   const { photo: photoQuerySlug } = searchParams;
   const photos = await findPhotosCachedCached();
-  if (!photos) return <div>No photos found</div>;
+  if (!photos || photos.length === 0) return <h1>No Photos</h1>;
 
-  const photo = photos.find((photo) => {
-    return photoQuerySlug === photo.slug;
-  });
+  const photo = photos.find((photo) => photoQuerySlug === photo.slug);
 
   return (
     photoQuerySlug &&

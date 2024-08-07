@@ -7,6 +7,7 @@ import {
   uploadToRemote,
 } from '@/services';
 import matter from 'gray-matter';
+import getReadingTime from 'reading-time';
 
 import {
   ThoughtsPostMetadata,
@@ -31,6 +32,8 @@ export async function POST(request: NextRequest) {
       const { data: postMetaData, content: postContent } = matter(
         value.content,
       );
+      const { minutes: readingTime, words: wordCount } =
+        getReadingTime(postContent);
 
       const {
         title,
@@ -40,16 +43,16 @@ export async function POST(request: NextRequest) {
       } = postMetaData as ThoughtsPostMetadata;
 
       // create post slug based on its title
-      const slug = postMetaData.title.replace(/ /g, '-').toLowerCase().trim();
+      const slug = title.replace(/ /g, '-').toLowerCase().trim();
 
       // parse date
       const date = new Date(dateString);
 
       // create post categories array
-      const categories = rawCategories.split(', ').map((category) => {
+      const categories = rawCategories.split(', ').map((rawCategory) => {
         return {
-          slug: category.replace(/ /g, '-').toLowerCase().trim(),
-          name: category.trim(),
+          slug: rawCategory.replace(/ /g, '-').toLowerCase().trim(),
+          name: rawCategory,
         };
       });
 
@@ -97,6 +100,8 @@ export async function POST(request: NextRequest) {
           title,
           abstract,
           date,
+          wordCount,
+          readingTime,
           published,
         },
         categories,

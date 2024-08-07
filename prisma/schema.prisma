@@ -35,6 +35,8 @@ model Post {
   title                 String
   abstract              String
   date                  DateTime   @default(now())
+  wordCount             Int
+  readingTime           Int
   categories            Category[]
   published             Boolean    @default(true)
 

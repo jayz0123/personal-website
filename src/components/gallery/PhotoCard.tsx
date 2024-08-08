@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Card, CardFooter, CardHeader } from '@nextui-org/card';
 

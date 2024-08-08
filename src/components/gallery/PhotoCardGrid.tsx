@@ -2,29 +2,25 @@
 
 import { useMemo } from 'react';
 
-import { useSearchParams } from 'next/navigation';
-
 import { GalleryPhoto } from '@/lib/definitions';
+
+import { useQueryString } from '@/utils/hooks';
 
 import { PhotoCard } from './PhotoCard';
 
-export async function PhotoCardGrid({
-  countryPhotos,
-}: {
-  countryPhotos: GalleryPhoto[];
-}) {
-  const searchParams = useSearchParams();
-  const areaQuerySlug = searchParams.get('area');
+export function PhotoCardGrid({ photos }: { photos: GalleryPhoto[] }) {
+  const getQueryString = useQueryString('get');
+  const areaQuerySlug = getQueryString('area');
 
   const filteredPhotos = useMemo(() => {
-    return countryPhotos.filter((photo) => {
+    return photos.filter((photo) => {
       if (areaQuerySlug) {
         return photo.areaSlug === areaQuerySlug;
       } else {
         return photo.isCover;
       }
     });
-  }, [countryPhotos, areaQuerySlug]);
+  }, [photos, areaQuerySlug]);
 
   return (
     <div className="min-w-full gap-4 grid grid-cols-12 p-4">

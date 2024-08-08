@@ -1,39 +1,51 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { use, useEffect, useState } from 'react';
 
-import { useParams, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Tab, Tabs } from '@nextui-org/tabs';
 
 export function CountryTabs({
   children,
-  countries,
+  countrySlugs,
+  currentCountrySlug,
 }: {
   children: React.ReactNode;
-  countries: { id: string; label: string; href: string }[];
+  countrySlugs: string[];
+  currentCountrySlug: string;
 }) {
   const router = useRouter();
-  const selectedCountry = useParams<{ countrySlug: string }>().countrySlug;
+  const pathname = usePathname();
+
+  const countryItems = countrySlugs.map((slug) => ({
+    slug,
+    label: slug.replace(/-/g, ' '),
+    href: slug,
+  }));
 
   useEffect(() => {
-    for (const country of countries) router.prefetch(country.href);
-  }, [countries, router]);
+    for (const countrySlug of countrySlugs) router.prefetch(countrySlug);
+  }, [countrySlugs, pathname, router]);
 
   return (
     <div className="flex flex-col justify-center items-center">
       <Tabs
-        items={countries}
-        selectedKey={selectedCountry}
+        items={countryItems}
+        selectedKey={currentCountrySlug}
         variant="underlined"
         size="lg"
-        className="font-bold font-serif "
+        className="font-bold font-serif"
         classNames={{
           panel: 'w-full',
         }}
       >
-        {(country) => (
-          <Tab key={country.id} title={country.label} href={country.href}>
+        {(countryItem) => (
+          <Tab
+            key={countryItem.slug}
+            title={countryItem.label}
+            href={countryItem.href}
+          >
             {children}
           </Tab>
         )}

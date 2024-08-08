@@ -1,8 +1,8 @@
 'use client';
 
-import { Suspense, useCallback, useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import {
   Modal,
@@ -12,27 +12,25 @@ import {
 } from '@nextui-org/modal';
 import clsx from 'clsx';
 
-import { NavProgress } from '../ui';
+import { useQueryString } from '@/utils/hooks';
+
+import { NavProgress } from '../../ui';
 
 export function PhotoModal({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const deleteQueryString = useQueryString('delete');
   const pathname = usePathname();
 
-  const deleteQuery = useCallback(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete('photo');
-    return params.toString();
-  }, [searchParams]);
+  const queryString = deleteQueryString('photo');
 
   useEffect(() => {
-    router.prefetch(pathname + '?' + deleteQuery());
-  }, [deleteQuery, pathname, router]);
+    router.prefetch(pathname + '?' + queryString);
+  }, [pathname, queryString, router]);
 
   const { isOpen, onOpenChange } = useDisclosure({
     defaultOpen: true,
     onClose() {
-      router.push(pathname + '?' + deleteQuery(), {
+      router.push(pathname + '?' + queryString, {
         scroll: false,
       });
     },

@@ -1,12 +1,10 @@
-import { Suspense, cache } from 'react';
+import { cache } from 'react';
 
 import { Metadata } from 'next';
 
 import { findPhotosCached } from '@/services/db/gallery';
 
-import { PhotoModalPage } from '@/components/gallery';
-import { PhotoModal } from '@/components/gallery/PhotoModal';
-import { NavProgress } from '@/components/ui';
+import PhotoModalPage from '@/components/gallery/modal/PhotoModalPage';
 
 const findPhotosCachedCached = cache(findPhotosCached);
 
@@ -60,16 +58,9 @@ export default async function Page({
   const photos = await findPhotosCachedCached();
   if (!photos || photos.length === 0) return <h1>No Photos</h1>;
 
-  const photo = photos.find((photo) => photoQuerySlug === photo.slug);
-
   return (
-    photoQuerySlug &&
-    photo && (
-      <Suspense fallback={<NavProgress />}>
-        <PhotoModal>
-          <PhotoModalPage photo={photo} />
-        </PhotoModal>
-      </Suspense>
+    photoQuerySlug && (
+      <PhotoModalPage photos={photos} currentPhotoQuerySlug={photoQuerySlug} />
     )
   );
 }

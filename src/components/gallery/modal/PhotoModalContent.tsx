@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import { GalleryPhoto } from '@/lib/definitions';
 
-export async function PhotoModalPage({ photo }: { photo: GalleryPhoto }) {
+export function PhotoModalContent({ photo }: { photo: GalleryPhoto }) {
   const isPortrait = photo.orientation === 'left-bottom';
   const sizes = isPortrait ? '90vh auto' : '90vw auto';
 

@@ -2,7 +2,7 @@
 
 import { memo, useEffect } from 'react';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Pagination, PaginationProps } from '@nextui-org/pagination';
 
@@ -23,7 +23,6 @@ export const PostPagination = memo(function PostPagination({
   const setQueryString = useQueryString('set');
 
   useEffect(() => {
-    // prefetch next page
     router.prefetch(pathname + '?' + setQueryString('page', currentPage + 1));
   }, [currentPage, pathname, router, setQueryString]);
 

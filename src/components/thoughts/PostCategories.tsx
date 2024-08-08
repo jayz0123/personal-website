@@ -36,6 +36,7 @@ export function PostCategories({
       {categories.map((category, index) => (
         <div key={index} className="flex-grow-0 flex-shrink-0">
           <Button
+            aria-label={category.name}
             size="sm"
             variant="shadow"
             onPress={() => addCategory(category.slug)}

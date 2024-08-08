@@ -31,6 +31,7 @@ export function CountryTabs({
   return (
     <div className="flex flex-col justify-center items-center">
       <Tabs
+        aria-label="Countries"
         items={countryItems}
         selectedKey={currentCountrySlug}
         variant="underlined"
@@ -42,6 +43,7 @@ export function CountryTabs({
       >
         {(countryItem) => (
           <Tab
+            aria-label={countryItem.label}
             key={countryItem.slug}
             title={countryItem.label}
             href={countryItem.href}

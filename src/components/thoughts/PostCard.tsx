@@ -15,7 +15,7 @@ export function PostCard({ post }: { post: ThoughtsPost }) {
         'prose-a:no-underline prose-img:my-4 prose-p:my-4',
       )}
     >
-      <Link href={`/thoughts/${post.slug}`}>
+      <Link href={`/thoughts/${post.slug}`} aria-label={post.title}>
         <PostCoverImage
           src={post.coverImageURL}
           alt={post.title}
@@ -23,7 +23,7 @@ export function PostCard({ post }: { post: ThoughtsPost }) {
         />
       </Link>
 
-      <Link href={`/thoughts/${post.slug}`}>
+      <Link href={`/thoughts/${post.slug}`} aria-label={post.title}>
         <PostTitle title={post.title} />
       </Link>
 

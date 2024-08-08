@@ -27,24 +27,29 @@ export default async function Layout({
   const session = await authCached();
   const photos = await findPhotosCachedCached();
 
-  if (!photos || photos.length === 0) return <h1>No Photos</h1>;
+  const hasNotPhotos = !photos || photos.length === 0;
 
-  const countries = photos.map(({ countrySlug }) => countrySlug);
+  const countries = photos?.map(({ countrySlug }) => countrySlug);
   const uniqueCountrySlugs = [...new Set(countries)];
 
   return (
-    <section className="flex flex-col items-center min-w-full grow">
-      <CountryTabs
-        countries={uniqueCountrySlugs.map((uniqueCountrySlug) => ({
-          id: uniqueCountrySlug,
-          label: uniqueCountrySlug.replace(/-/g, ' '),
-          href: `/gallery/${uniqueCountrySlug}`,
-        }))}
-      >
-        {children}
-      </CountryTabs>
+    <section
+      aria-label="gallery"
+      className="lg:max-w-[calc(130ch+4rem)] m-auto"
+    >
+      {!hasNotPhotos && (
+        <CountryTabs
+          countries={uniqueCountrySlugs.map((uniqueCountrySlug) => ({
+            id: uniqueCountrySlug,
+            label: uniqueCountrySlug.replace(/-/g, ' '),
+            href: `/gallery/${uniqueCountrySlug}`,
+          }))}
+        >
+          {children}
+        </CountryTabs>
+      )}
       {session?.user?.role === 'admin' && (
-        <div className="flex flex-col mt-16 min-w-full gap-y-4">
+        <div className="flex flex-col mt-16 gap-y-4">
           <RevalidateButton tag="photos">Revalidate Photos</RevalidateButton>
           <PhotoUploadForm />
         </div>

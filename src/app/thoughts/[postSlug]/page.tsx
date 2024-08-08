@@ -65,11 +65,11 @@ export default async function Page({
   return (
     <article
       className={clsx(
-        'prose dark:prose-invert',
+        'prose dark:prose-invert m-auto',
         'md:prose-lg lg:prose-xl',
         'prose-img:rounded-lg prose-pre:p-0',
         'prose-headings:text-foreground prose-headings:font-bold',
-        'prose-p:text-foreground',
+        'prose-p:text-foreground prose-li:text-foreground',
         'prose-strong:text-foreground prose-strong:font-semibold',
         'prose-a:relative prose-a:after:content-link prose-pre:rounded-2xl',
       )}

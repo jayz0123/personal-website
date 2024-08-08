@@ -3,13 +3,14 @@ import { Greetings, Timeline } from '@/components/home';
 export default function Home() {
   const textStyles = 'mb-4';
   return (
-    <div className="flex items-center py-8">
-      <div className="flex flex-col xl:max-h-min xl:flex-row-reverse items-center">
+    <article className="my-8 sm:my-0 mx-auto">
+      <div className="flex flex-col justify-center items-center xl:flex-row-reverse xl:gap-16">
         <section
-          className="flex-1 mb-8 xl:mb-0 leading-8"
+          className="flex-1 leading-8 max-w-prose"
           aria-label="greetings"
         >
-          <Greetings className="mb-8" />
+          <Greetings />
+
           <p className={textStyles}>
             I&apos;m Junhao Zhang (张俊豪), but you can call me Jayz because it
             sounds cooler and it&apos;s easier to remember. I&apos;m a Machine
@@ -17,6 +18,7 @@ export default function Home() {
             advanced computing systems. My superpower? Making computers think
             faster and smarter, all while keeping my sanity (mostly) intact.
           </p>
+
           <p className={textStyles}>
             I&apos;ve spent my professional life optimizing performance for some
             of the biggest names in tech, like Huggingface, Alibaba, and
@@ -25,6 +27,7 @@ export default function Home() {
             unicycle&mdash;that&apos;s my daily grind, except the unicycle is my
             standing desk chair and I don&apos;t actually ride it… yet.
           </p>
+
           <p className={textStyles}>
             When I&apos;m not busy making GPUs do my bidding, you can find me
             diving into new tech like Next.js and TypeScript. If that sounds a
@@ -34,12 +37,10 @@ export default function Home() {
           </p>
         </section>
 
-        <div className="divider divider-horizontal" />
-
-        <section className="flex-1" aria-label="timeline">
+        <section className="flex-1 max-w-prose" aria-label="timeline">
           <Timeline />
         </section>
       </div>
-    </div>
+    </article>
   );
 }

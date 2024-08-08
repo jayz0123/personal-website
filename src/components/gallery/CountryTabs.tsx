@@ -21,21 +21,23 @@ export function CountryTabs({
   }, [countries, router]);
 
   return (
-    <Tabs
-      items={countries}
-      selectedKey={selectedCountry}
-      variant="underlined"
-      size="lg"
-      className="font-bold font-serif"
-      classNames={{
-        panel: 'w-full',
-      }}
-    >
-      {(country) => (
-        <Tab key={country.id} title={country.label} href={country.href}>
-          {children}
-        </Tab>
-      )}
-    </Tabs>
+    <div className="flex flex-col justify-center items-center">
+      <Tabs
+        items={countries}
+        selectedKey={selectedCountry}
+        variant="underlined"
+        size="lg"
+        className="font-bold font-serif "
+        classNames={{
+          panel: 'w-full',
+        }}
+      >
+        {(country) => (
+          <Tab key={country.id} title={country.label} href={country.href}>
+            {children}
+          </Tab>
+        )}
+      </Tabs>
+    </div>
   );
 }

@@ -8,11 +8,7 @@ import getLocalTime from '@/utils/getLocalTime';
 
 import { GlowingText } from '../ui/';
 
-export const Greetings = memo(function Greeting({
-  className = '',
-}: {
-  className?: string;
-}) {
+export const Greetings = memo(function Greeting() {
   const getTimePeriod = (date: Date) => {
     const hour = Number(getLocalTime(date).split(':')[0]);
 
@@ -49,16 +45,14 @@ export const Greetings = memo(function Greeting({
 
   return (
     <Suspense key={isMounted ? 'local' : 'UTC'}>
-      <div className={className}>
-        <Skeleton isLoaded={isMounted} className="rounded-lg">
-          <h2 className="text-5xl sm:text-6xl font-extrabold">
-            <GlowingText isActive className="mb-4">
-              {greetings[timePeriod]}
-            </GlowingText>
-            <p className="text-xl font-semibold">{messages[timePeriod]}</p>
-          </h2>
-        </Skeleton>
-      </div>
+      <Skeleton isLoaded={isMounted} className="rounded-lg">
+        <h2 className="text-5xl sm:text-6xl font-extrabold">
+          <GlowingText isActive className="mb-4">
+            {greetings[timePeriod]}
+          </GlowingText>
+          <p className="text-xl font-semibold mb-4">{messages[timePeriod]}</p>
+        </h2>
+      </Skeleton>
     </Suspense>
   );
 });

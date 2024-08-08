@@ -20,10 +20,13 @@ export default async function Layout({
   const session = await authCached();
 
   return (
-    <section className="flex flex-col items-center grow self-start py-8 w-full 2xl:max-w-[60dvw]">
+    <section
+      aria-label="thoughts"
+      className="lg:max-w-[calc(130ch+4rem)] m-auto"
+    >
       {children}
       {session?.user?.role === 'admin' && (
-        <div className="flex flex-col mt-16 min-w-full gap-y-4">
+        <div className="flex flex-col mt-16 gap-y-4">
           <RevalidateButton tag="posts">Revalidate Posts</RevalidateButton>
           <PostUploadForm />
         </div>

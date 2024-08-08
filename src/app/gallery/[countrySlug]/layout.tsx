@@ -42,7 +42,7 @@ export default async function Layout({
   );
 
   return (
-    <section className="flex flex-col items-center min-w-full grow">
+    <div className="flex flex-col items-center">
       <Glowing variant="container" className="min-w-full">
         <ScrollShadow
           hideScrollBar
@@ -53,6 +53,6 @@ export default async function Layout({
         </ScrollShadow>
       </Glowing>
       {children}
-    </section>
+    </div>
   );
 }

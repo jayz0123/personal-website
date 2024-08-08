@@ -32,7 +32,7 @@ export function PostCategories({
   };
 
   return (
-    <div className="flex flex-wrap gap-1 text-sm font-mono">
+    <div className="flex flex-wrap gap-2 text-sm font-mono">
       {categories.map((category, index) => (
         <div key={index} className="flex-grow-0 flex-shrink-0">
           <Button

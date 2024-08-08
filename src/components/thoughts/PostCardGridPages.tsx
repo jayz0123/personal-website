@@ -10,12 +10,13 @@ import { PostCardGrid, PostPagination } from './';
 
 export const PostCardGridPages = memo(function PostCardGridPages({
   posts,
+  currentPage,
   postsPerPage,
 }: {
   posts: ThoughtsPost[];
+  currentPage: number;
   postsPerPage: number;
 }) {
-  const getQueryString = useQueryString('get');
   const getAllQueryString = useQueryString('getAll');
 
   const filteredPosts = useMemo(() => {
@@ -35,17 +36,16 @@ export const PostCardGridPages = memo(function PostCardGridPages({
   }, [getAllQueryString, posts]);
 
   const paginatedPosts = useMemo(() => {
-    const page = parseInt(getQueryString('page') || '1');
-    const startIndex = (page - 1) * postsPerPage;
+    const startIndex = (currentPage - 1) * postsPerPage;
     const endIndex = startIndex + postsPerPage;
 
     return filteredPosts.slice(startIndex, endIndex);
-  }, [getQueryString, postsPerPage, filteredPosts]);
+  }, [currentPage, postsPerPage, filteredPosts]);
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
   return (
-    <PostPagination total={totalPages}>
+    <PostPagination currentPage={currentPage} total={totalPages}>
       <PostCardGrid posts={paginatedPosts} />
     </PostPagination>
   );

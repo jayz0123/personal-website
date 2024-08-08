@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { authCached } from '@/auth';
 
 import RevalidateButton from '@/components/admin/RevalidateButton';
+import { PostPagination } from '@/components/thoughts';
 import PostUploadForm from '@/components/thoughts/admin/PostUploadForm';
 
 export const metadata: Metadata = {

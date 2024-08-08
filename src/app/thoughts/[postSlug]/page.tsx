@@ -78,6 +78,7 @@ export default async function Page({
 
       <div className="flex space-x-4">
         <time dateTime={dateTime.toISOString()}>{post.date}</time>
+        <section>{post.readingTime} min read</section>
       </div>
 
       <PostCoverImage
